@@ -1,0 +1,165 @@
+.HeaderContainer{
+	width:300px;
+	height: 100vh;
+	float:left;
+}
+
+.InsideHeader{
+	width:90%;
+	height: 50px;
+	display: inline-block;
+	margin:10px 10px 10px 10px;
+	text-align: center;
+}
+
+body {
+    font-family: "Lato", sans-serif;
+    width:100%;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+.sidenav{
+	height: 100%;
+	width:12vw;
+	float:left;
+	background-color: #00304C;
+	position: fixed;
+	left:0px;
+	top:0px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	margin-top:50px;
+}
+.innersidenav{
+	display: block;
+	width:50%;
+	position: relative;
+	left:20px;
+	padding-top:20px ;
+	color:white;
+}
+.submenu{
+	width:100%;
+	position: relative;
+	left:20px;
+	padding-top:20px ;
+	display: block;
+	margin:0 0 0 0;
+	padding: 0 0 0 0;
+	color:white;
+}
+.header{
+	position:fixed;
+	top:0px;
+	left:0px;
+	background-color:white;
+	height:50px;
+	width:100%;
+}
+
+.profileDiv{
+	width:100%;
+	height:49px;
+	text-align:center;
+	border-bottom:1px solid #111111
+}
+.activeHere{
+	background-color: #f1f1f1;
+	color:red !important;
+}
+
+.dashboardContainer{
+	width:101.8%;
+	height: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	background-color: #eee;
+	margin-left: -15px;
+}
+
+.innerdashboarddiv{
+	height: 600px;
+	margin:10px 10px 10px 10px;
+	justify-content: center;
+	justify-content: space-between;
+	display: flex;
+	flex-direction: column;
+}
+
+
+.subdashboarddiv{
+	width:100%;
+	height: 290px;
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 1px 1px 2px 2px #d1d1d1;
+}
+
+.dashboard1{
+	width:380px;
+}
+.dashboard2{
+	width:794px;
+	border:1px solid #f1f1f1 ;
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 1px 1px 2px 2px #d1d1d1;
+}
+.subdashboarddiv{
+	border:1px solid #f1f1f1 ;
+}
+
+.openissues{
+	display: inline-block;
+	width:50%;
+	height: 100px;
+	box-sizing: border-box;
+	margin-top: 50px;
+	text-align: center;
+}
+.innerContainer{
+	position:relative;
+	top:30px;
+	font-size:30px;
+	color:rgb(24, 204, 108);
+}
+.innerContainerHeading{
+	color:#888;
+	position:relative;
+	top:30px;
+}
+.marginLeft{
+	margin-left: 20px;
+	margin-top: 20px;
+}
+
+.comments{
+	position: relative;
+	bottom:500px;
+	text-align: center;
+}
+.vehicleDiv{
+	width:100%;
+	height: 50px;
+	border-bottom: 1px solid #f1f1f1;
+}
+
+.VehicleValue{
+	float: right;
+	height: 30px;
+	width: 30px;
+	float: right;
+	position: relative;
+	bottom:30px;
+	right:10px;
+	border-radius: 30%;
+	color:white;
+	text-align: center;
+}
+
+.form-inline .form-control{
+	width:41vw;
+}
