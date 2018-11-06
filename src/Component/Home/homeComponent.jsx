@@ -43,8 +43,8 @@ class HomeComponent extends Component{
 		}
 		return (
 			<div style={{marginTop:'150px'}}>
-					<div style={{width:'100%',height:'50px',marginLeft:'-15px',border:'1px solid #f1f1f1',paddingTop:'50px'}}>
-						<h3 style={{position:'relative',bottom:'40px',left:'20px'}}>Dashboard</h3>
+					<div className="headingDashboardContainer">
+						<h3 className="headingDashboard">Dashboard</h3>
 					</div>
 			 		<div className="dashboardContainer">
 			 			<div className="innerdashboarddiv dashboard1 innerdashboarddivflex">
@@ -249,18 +249,18 @@ class HomeComponent extends Component{
 			 			</div>
 			 			<div className="innerdashboarddiv dashboard2">
 			 				<h1 style={{fontSize:'15px'}} className="marginLeft">Latest Meter Readings</h1>
-			 				<div style={{width:'90%',height:'75px',margin:"0 auto",borderTop:'1px solid #f1f1f1'}}>
-			 					<div style={{textAlign:'center',paddingTop:"20px"}}>
-				 					<div style={{width:'10px',height:'10px',backgroundColor:'lightblue',borderRadius:'50%',display:'inline-block',marginRight:'10px'}}></div>
-				 					<div style={{display:'inline-block',fontSize:'15px',marginRight:'20px'}}>
+			 				<div className="footerMeterContainer">
+			 					<div className="footerMeter" >
+				 					<div className="footerDiv milesDiv" ></div>
+				 					<div className="footerHead" >
 				 						Miles
 				 					</div>
-				 					<div style={{width:'10px',height:'10px',backgroundColor:'yellow',display:'inline-block',marginRight:'10px',transform: 'rotate(45deg)'}}></div>
-				 					<div style={{display:'inline-block',fontSize:'15px',marginRight:'20px'}}>
+				 					<div className="footerDiv kmsDiv"></div>
+				 					<div className="footerHead" >
 				 						KMS
 				 					</div>
-				 					<div style={{width:'10px',height:'10px',backgroundColor:'purple',display:'inline-block',marginRight:'10px'}}></div>
-				 					<div style={{display:'inline-block',fontSize:'15px',marginRight:'20px'}}>
+				 					<div className="footerDiv hoursDiv"></div>
+				 					<div className="footerHead" >
 				 						HOURS
 				 					</div>
 			 					</div>

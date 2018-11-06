@@ -26,19 +26,34 @@ body {
 	background-color: #00304C;
 	position: fixed;
 	left:0px;
-	top:0px;
+	top:60px;
 	display: flex;
 	flex-direction: column;
 	flex-wrap: wrap;
-	margin-top:50px;
+	z-index: 300;
 }
 .innersidenav{
 	display: block;
-	width:50%;
+	width:100%;
 	position: relative;
-	left:20px;
-	padding-top:20px ;
+	color:#C7D1D7;
+	padding-top:15px ;
+	box-sizing: border-box;
+}
+.innersidenav:hover{
 	color:white;
+	background-color:#003a5b;
+	cursor: pointer;
+}
+.menuName{
+	padding-left: 20px;
+	position: relative;
+	bottom: 10px;
+	height: auto;
+}
+.menuActive{
+	background-color: #004873;
+	border-left: 5px solid #0079BF;
 }
 .submenu{
 	width:100%;
@@ -48,6 +63,9 @@ body {
 	display: block;
 	margin:0 0 0 0;
 	padding: 0 0 0 0;
+	color:#C7D1D7;
+}
+.submenu:hover{
 	color:white;
 }
 .header{
@@ -57,8 +75,64 @@ body {
 	background-color:white;
 	height:50px;
 	width:100%;
+	padding-bottom: 60px;
+	z-index:300;
+	border-bottom:1px solid #d1d1d1;
 }
-
+.divContainer{
+	display:inline-block;
+	height:50px;
+	margin-top:10px;
+}
+.logoContainer{
+	width:50px;
+}
+.inputHeader{
+	background-color:#EDF1F2;
+	background-image: url(http://localhost:3000/search.svg);
+	background-position: 7px 7px;
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    padding-left:50px
+}
+.plusHeader{
+	width:40px;
+	height: 40px !important;
+	background-color:#18CC6C;
+	border-radius:50%;
+}
+.plusIconHeader{
+	color:white;
+	margin-top:10px;
+	margin-left:13px;
+}
+.profileHeader{
+	float:right;
+	padding-right:20px;
+}
+.angledownProfile{
+	float:right;
+	position:relative;
+	top:15px;
+}
+.userCircleProfile{
+	font-size:40px;
+	padding-right:10px;
+	float:right;
+}
+.companyHeader{
+	float:right;
+	margin-top:20px;
+	padding-right:50px;
+}
+.nameCompanyHeader{
+	font-size:20px;
+	margin-right:10px;
+}
+.angeldownCompany{
+	position:relative;
+	top:2px;
+}
 .profileDiv{
 	width:100%;
 	height:49px;
@@ -69,7 +143,18 @@ body {
 	background-color: #f1f1f1;
 	color:red !important;
 }
-
+.headingDashboardContainer{
+	width:100%;
+	height:50px;
+	margin-left:-15px;
+	border:1px solid #f1f1f1;
+	padding-top:50px;
+}
+.headingDashboard{
+	position:relative;
+	bottom:40px;
+	left:20px;
+}
 .dashboardContainer{
 	width:101.8%;
 	height: 100%;
@@ -135,7 +220,38 @@ body {
 	margin-left: 20px;
 	margin-top: 20px;
 }
-
+.footerMeterContainer{
+	width:90%;
+	height:75px;
+	margin:0 auto;
+	border-top:1px solid #f1f1f1;
+}
+.footerMeter{
+	text-align:center;
+	padding-top:20px
+}
+.footerDiv{
+	width:10px;
+	height:10px;
+	display:inline-block;
+	margin-right:10px;
+}
+.milesDiv{
+	background-color:lightblue;
+	border-radius:50%,
+}
+.kmsDiv{
+	background-color:yellow;
+	transform: rotate(45deg);
+}
+.hoursDiv{
+	background-color:purple;
+}
+.footerHead{
+	display:inline-block;
+	font-size:15px;
+	margin-right:20px;
+}
 .comments{
 	position: relative;
 	bottom:500px;
@@ -161,5 +277,148 @@ body {
 }
 
 .form-inline .form-control{
-	width:41vw;
+	width:355%;
+}
+
+.profileDrop{
+	width:275px;
+	height: 300px;
+	position: relative;
+	left:85vw;
+	box-sizing: border-box;
+	top:-5px;
+	display: inline-block;
+	background-color: white;
+	box-shadow: 1px 1px 1px 1px #d1d1d1;
+}
+.companyDrop{
+	width:275px;
+	height: 400px;
+	position: absolute;
+	left:80%;
+	top:60px;
+	display: inline-block;
+	background-color: white;
+	box-shadow: 1px 1px 1px 1px #d1d1d1;
+}
+ul{
+	list-style-type: none
+}
+
+.profileDropList{
+	padding-bottom: 14px;
+}
+
+.dividerProfile{
+	height: 1px;
+	border-top:1px solid #f1f1f1;
+	width:80%;
+	padding-bottom: 14px;
+}
+.marginLogo{
+	margin-right: 20px;
+	color:#d1d1d1;
+}
+
+.companyLogo{
+	width:100px;
+	height: 100px;
+	border-radius: 5px;
+	border:1px solid #f1f1f1;
+	position: relative;
+	top:20px;
+	left:50px;
+}
+
+.companyInnerLogo{
+	position: relative;
+	font-size: 40px;
+	color:#f1f1f1;
+	left:25px;
+	top:20px;
+}
+.addLogoHeading{
+	color: #888;
+    position: relative;
+    top: 20px;
+    left: 15px;
+}
+.CompanyNameProfile{
+	position: relative;
+    top: 30px;
+    left: 55px;
+    padding-bottom: 20px;
+}
+
+.dividerCompany{
+	height: 1px;
+	border-top:1px solid #f1f1f1;
+	width:80%;
+	padding-bottom: 14px;
+}
+.companyDropList{
+	padding-bottom: 14px;
+	font-size: 13px;
+}
+.topHeadingContainer{
+	width:88vw;
+	height:50px;
+	border:1px solid #111;
+	background-color:white;
+	margin-top:-4px;
+}
+.headingCreateMachine{
+	position:relative;
+	left:20px;
+	top:5px;
+	display:inline-block;
+}
+.saveButtonHeader{
+	float:right;
+	display:inline-block;
+	margin-left:20px;
+	position:relative;
+	right:50px;
+	top:5px
+}
+.cancelHeading{
+	float:right;
+	display:inline-block;
+	color:blue;
+	position:relative;
+	right:50px;
+	top:8px;
+}
+.formContainer{
+	background-color:#fff;
+	border-radius:5px;
+	box-shadow:1px 1px 1px 1px #666
+}
+.machineForm{
+	padding-top:50px;
+	padding-bottom:50px;
+}
+.footerContainerMachine{
+	height:100px;
+	margin-top:50px;
+	border-top:1px solid #101010;
+}
+.footerMachine{
+	margin-top:30px;
+}
+.cancelFooterMachine{
+	display:inline-block;
+	color:blue;
+}
+.saveButtonFooterMachine{
+	float:right;
+	display:inline-block;
+	margin-left:50px
+}
+.submitAndEditFooterMachine{
+	float:right;\
+	display:inline-block;
+}
+.inputPaddingMachine{
+	padding-bottom: 10px;
 }
