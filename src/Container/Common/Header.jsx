@@ -167,139 +167,140 @@ export class Header extends Component{
 					</div>
 				</div>
 				<div className="sidenav">
-					<div className="box">
-					<div className={`innersidenav ${dashboardClass}`} onClick={()=>history.push('/home')}>
-					<div  className="menuName" >
-						Dashboard
+					<div className="sideInnerScroll">
+
+						<div className={`innersidenav ${dashboardClass}`} onClick={()=>history.push('/home')}>
+						<div  className="menuName" >
+							Dashboard
+						</div>
+						</div>
+						<div className={`innersidenav ${machineClass}`}>
+							<div  className="menuName" onClick={()=>this.showMachine()}>
+							Machine
+							</div>
+							{this.state.machine && <div><div className="submenu">
+							View Machine
+							</div>
+							<div className="submenu" onClick={()=>history.push('/machine/create')}>
+							Create Machine
+							</div></div>}
+						</div>
+						<div className={`innersidenav ${conditionClass}`}>
+							<div  className="menuName" onClick={()=>this.showCondition()}>
+							Condition
+							</div>
+							{this.state.condition && <div><div className="submenu">
+							View Condition
+							</div>
+							<div className="submenu" onClick={()=>history.push('/condition/create')}>
+							Create Condition
+							</div></div>}
+						</div>
+						<div className={`innersidenav ${enginebrandClass}`}>
+							<div  className="menuName" onClick={()=>this.showEnginebrand()}>
+							Engine Brand
+							</div>
+							{this.state.enginebrand && <div><div className="submenu">
+							View Engine Brand
+							</div>
+							<div className="submenu" onClick={()=>history.push('/enginebrand/create')}>
+							Create Engine Brand
+							</div></div>}
+						</div>
+						<div className={`innersidenav ${enginemodelClass}`}>
+							<div  className="menuName" onClick={()=>this.showEnginemodel()}>
+							Engine Model
+							</div>
+							{this.state.enginemodel && <div><div className="submenu">
+							View Engine Model
+							</div>
+							<div className="submenu" onClick={()=>history.push('/enginemodel/create')}>
+							Create Engine Model
+							</div></div>}
+						</div>
+						<div className={`innersidenav ${machinebrandClass}`}>
+							<div  className="menuName" onClick={()=>this.showMachinebrand()}>
+							Machine Brand
+							</div>
+							{this.state.machinebrand && <div><div className="submenu">
+							View Machine Brand
+							</div>
+							<div className="submenu" onClick={()=>history.push('/machinebrand/create')}>
+							Create Machine Brand
+							</div></div>}
+						</div>
+						<div className={`innersidenav ${machinemodelClass}`}>
+							<div  className="menuName" onClick={()=>this.showMachinemodel()}>
+							Machine Model
+							</div>
+							{this.state.machinemodel && <div><div className="submenu">
+							View Machine Model
+							</div>
+							<div className="submenu" onClick={()=>history.push('/machinemodel/create')}>
+							Create Machine Model
+							</div></div>}
+						</div>
+						<div className={`innersidenav ${categoryClass}`}>
+							<div  className="menuName" onClick={()=>this.showCategory()}>
+							Category
+							</div>
+							{this.state.category && <div><div className="submenu">
+							View Category
+							</div>
+							<div className="submenu" onClick={()=>history.push('/category/create')}>
+							Create Category
+							</div></div>}
+						</div>
+						<div className={`innersidenav ${subcategoryClass}`}>
+							<div  className="menuName" onClick={()=>this.showSubcategory()}>
+							Sub Category
+							</div>
+							{this.state.subcategory && <div><div className="submenu">
+							View Sub-Category
+							</div>
+							<div className="submenu" onClick={()=>history.push('/subcategory/create')}>
+							Create Sub-Category
+							</div></div>}
+						</div>
+						<div className={`innersidenav ${statesiteClass}`}>
+							<div  className="menuName" onClick={()=>this.showStatesite()}>
+							State
+							</div>
+							{this.state.statesite && <div><div className="submenu">
+							View State
+							</div>
+							<div className="submenu" onClick={()=>history.push('/statesite/create')}>
+							Create State
+							</div></div>}
+						</div>
+						<div className={`innersidenav ${districtsiteClass}`}>
+							<div  className="menuName" onClick={()=>this.showDistrictsite()}>
+							District
+							</div>
+							{this.state.districtsite && <div><div className="submenu">
+							View District
+							</div>
+							<div className="submenu" onClick={()=>history.push('/districtsite/create')}>
+							Create District
+							</div></div>}
+						</div>
+						<div className={`innersidenav ${siteClass}`}>
+							<div  className="menuName" onClick={()=>this.showSite()}>
+							Site
+							</div>
+							{this.state.site && <div><div className="submenu">
+							View Site
+							</div>
+							<div className="submenu" onClick={()=>history.push('/site/create')}>
+							Create Site
+							</div></div>}
+						</div>
+						<div className="innersidenav">
+							<div className="menuName">
+								MENU4
+							</div>
+						</div>
 					</div>
-					</div>
-					<div className={`innersidenav ${machineClass}`}>
-						<div  className="menuName" onClick={()=>this.showMachine()}>
-						Machine
-						</div>
-						{this.state.machine && <div><div className="submenu">
-						View Machine
-						</div>
-						<div className="submenu" onClick={()=>history.push('/machine/create')}>
-						Create Machine
-						</div></div>}
-					</div>
-					<div className={`innersidenav ${conditionClass}`}>
-						<div  className="menuName" onClick={()=>this.showCondition()}>
-						Condition
-						</div>
-						{this.state.condition && <div><div className="submenu">
-						View Condition
-						</div>
-						<div className="submenu" onClick={()=>history.push('/condition/create')}>
-						Create Condition
-						</div></div>}
-					</div>
-					<div className={`innersidenav ${enginebrandClass}`}>
-						<div  className="menuName" onClick={()=>this.showEnginebrand()}>
-						Engine Brand
-						</div>
-						{this.state.enginebrand && <div><div className="submenu">
-						View Engine Brand
-						</div>
-						<div className="submenu" onClick={()=>history.push('/enginebrand/create')}>
-						Create Engine Brand
-						</div></div>}
-					</div>
-					<div className={`innersidenav ${enginemodelClass}`}>
-						<div  className="menuName" onClick={()=>this.showEnginemodel()}>
-						Engine Model
-						</div>
-						{this.state.enginemodel && <div><div className="submenu">
-						View Engine Model
-						</div>
-						<div className="submenu" onClick={()=>history.push('/enginemodel/create')}>
-						Create Engine Model
-						</div></div>}
-					</div>
-					<div className={`innersidenav ${machinebrandClass}`}>
-						<div  className="menuName" onClick={()=>this.showMachinebrand()}>
-						Machine Brand
-						</div>
-						{this.state.machinebrand && <div><div className="submenu">
-						View Machine Brand
-						</div>
-						<div className="submenu" onClick={()=>history.push('/machinebrand/create')}>
-						Create Machine Brand
-						</div></div>}
-					</div>
-					<div className={`innersidenav ${machinemodelClass}`}>
-						<div  className="menuName" onClick={()=>this.showMachinemodel()}>
-						Machine Model
-						</div>
-						{this.state.machinemodel && <div><div className="submenu">
-						View Machine Model
-						</div>
-						<div className="submenu" onClick={()=>history.push('/machinemodel/create')}>
-						Create Machine Model
-						</div></div>}
-					</div>
-					<div className={`innersidenav ${categoryClass}`}>
-						<div  className="menuName" onClick={()=>this.showCategory()}>
-						Category
-						</div>
-						{this.state.category && <div><div className="submenu">
-						View Category
-						</div>
-						<div className="submenu" onClick={()=>history.push('/category/create')}>
-						Create Category
-						</div></div>}
-					</div>
-					<div className={`innersidenav ${subcategoryClass}`}>
-						<div  className="menuName" onClick={()=>this.showSubcategory()}>
-						Sub Category
-						</div>
-						{this.state.subcategory && <div><div className="submenu">
-						View Sub-Category
-						</div>
-						<div className="submenu" onClick={()=>history.push('/subcategory/create')}>
-						Create Sub-Category
-						</div></div>}
-					</div>
-					<div className={`innersidenav ${statesiteClass}`}>
-						<div  className="menuName" onClick={()=>this.showStatesite()}>
-						State
-						</div>
-						{this.state.statesite && <div><div className="submenu">
-						View State
-						</div>
-						<div className="submenu" onClick={()=>history.push('/statesite/create')}>
-						Create State
-						</div></div>}
-					</div>
-					<div className={`innersidenav ${districtsiteClass}`}>
-						<div  className="menuName" onClick={()=>this.showDistrictsite()}>
-						District
-						</div>
-						{this.state.districtsite && <div><div className="submenu">
-						View District
-						</div>
-						<div className="submenu" onClick={()=>history.push('/districtsite/create')}>
-						Create District
-						</div></div>}
-					</div>
-					<div className={`innersidenav ${siteClass}`}>
-						<div  className="menuName" onClick={()=>this.showSite()}>
-						Site
-						</div>
-						{this.state.site && <div><div className="submenu">
-						View Site
-						</div>
-						<div className="submenu" onClick={()=>history.push('/site/create')}>
-						Create Site
-						</div></div>}
-					</div>
-					<div className="innersidenav">
-						<div className="menuName">
-							MENU4
-						</div>
-					</div>
-				</div>
 				</div>
 			</div>
 			) 

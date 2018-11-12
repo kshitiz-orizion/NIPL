@@ -20,17 +20,29 @@ body {
 }
 
 .sidenav{
-	min-height: 100%;
-	height: auto;
-	width:14vw;
-	background-color: #00304C;
-	position: fixed;
-	left:0px;
-	top:60px;
-	display: flex;
-	flex-direction: column;
-	flex-wrap: wrap;
-	z-index: 300;
+	height: calc(100vh - 60px);
+    width: auto;
+    background-color: #00304C;
+    position: fixed;
+    left: 0px;
+    top: 60px;
+    display: -ms-flexbox;
+    display: block;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    z-index: 300;
+    overflow-x: hidden;
+    overflow-y: visible;
+}
+.sideInnerScroll {
+    height: auto;
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    padding: 0;
+    width: 15vw;
 }
 .innersidenav{
 	display: block;
