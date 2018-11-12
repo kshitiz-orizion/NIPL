@@ -72,10 +72,10 @@ class HomeComponent extends Component{
 			 				</div>
 			 			</div>
 			 			<div className="innerdashboarddiv dashboard2">
-			 				<h1 style={{fontSize:'15px'}} className="marginLeft">Recent Comments</h1>
-			 				<div className="comments">
+			 				<h1 style={{fontSize:'15px'}} className="marginLeft HeadingComments">Recent Comments</h1>
+			 				{/*<div className="comments">
 			 					No Comments to show
-			 				</div>
+			 				</div>*/}
 			 			</div>
 			 			<div className="innerdashboarddiv dashboard1">
 			 				<div className="subdashboarddiv">
@@ -248,7 +248,7 @@ class HomeComponent extends Component{
 			 				</div>
 			 			</div>
 			 			<div className="innerdashboarddiv dashboard2">
-			 				<h1 style={{fontSize:'15px'}} className="marginLeft">Latest Meter Readings</h1>
+			 				<h1 style={{fontSize:'15px'}} className="marginLeft meterHeading">Latest Meter Readings</h1>
 			 				<div className="footerMeterContainer">
 			 					<div className="footerMeter" >
 				 					<div className="footerDiv milesDiv" ></div>

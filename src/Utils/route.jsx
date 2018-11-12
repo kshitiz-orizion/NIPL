@@ -34,8 +34,8 @@ export const PublicRoute = props => {
   return (
     <Route
       {...rest}
-      // render={rprops => (accessToken ? <Redirect to="/students" /> : <Component {...rprops} {...extraProps} />)
-      render={rprops=>(<Redirect to="/home" />)}
+       render={rprops => (accessToken ? <Redirect to="/home" /> : <Component {...rprops} {...extraProps} />)}
+      // render={rprops=>(<Redirect to="/home" />)}
     />
   );
 };

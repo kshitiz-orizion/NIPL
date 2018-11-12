@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
-import { getStudents,deleteStudent} from '../../Store/Actions/student/student.action';
+// import { getStudents,deleteStudent} from '../../Store/Actions/student/student.action';
 import { Link } from 'react-router-dom';
 import ListStudent from '../../Component/Machine/machines';
 import {Header} from '../Common/Header';
@@ -31,12 +31,12 @@ class MachineContainer extends Component{
 
 const mapStateToProps = state => {
   return {
-    students: state.student.list,
+    // students: state.student.list,
   };
 };
 const mapDispatchToProps = {
-   getStudents,
-   deleteStudent,
+   // getStudents,
+   // deleteStudent,
 };
 
 export default connect(

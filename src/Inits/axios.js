@@ -4,7 +4,7 @@ import { get } from 'lodash';
 import { getLocalStorage } from '../Utils/web-storage';
 //import { removeUser } from '../store/actions/auth/auth.action';
 
-const serverUrl = process.env.REACT_APP_FLAT_WEB_URL;
+const serverUrl = process.env.REACT_APP_NIPL_URL;
 const instance = axios.create({
   baseURL: serverUrl,
 });

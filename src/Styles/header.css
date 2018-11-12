@@ -20,9 +20,9 @@ body {
 }
 
 .sidenav{
-	height: 100%;
-	width:12vw;
-	float:left;
+	min-height: 100%;
+	height: auto;
+	width:14vw;
 	background-color: #00304C;
 	position: fixed;
 	left:0px;
@@ -37,8 +37,7 @@ body {
 	width:100%;
 	position: relative;
 	color:#C7D1D7;
-	padding-top:15px ;
-	box-sizing: border-box;
+	padding-top:15px;
 }
 .innersidenav:hover{
 	color:white;
@@ -56,7 +55,7 @@ body {
 	border-left: 5px solid #0079BF;
 }
 .submenu{
-	width:100%;
+	width:12vw;
 	position: relative;
 	left:20px;
 	padding-top:20px ;
@@ -64,6 +63,9 @@ body {
 	margin:0 0 0 0;
 	padding: 0 0 0 0;
 	color:#C7D1D7;
+	white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .submenu:hover{
 	color:white;
@@ -81,7 +83,7 @@ body {
 }
 .divContainer{
 	display:inline-block;
-	height:50px;
+	height:auto;
 	margin-top:10px;
 }
 .logoContainer{
@@ -146,30 +148,31 @@ body {
 .headingDashboardContainer{
 	width:100%;
 	height:50px;
-	margin-left:-15px;
+	margin-left:-5px;
 	border:1px solid #f1f1f1;
 	padding-top:50px;
 }
 .headingDashboard{
 	position:relative;
 	bottom:40px;
-	left:20px;
+	left:30px;
 }
 .dashboardContainer{
 	width:101.8%;
 	height: 100%;
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
+	justify-content: space-around;
 	background-color: #eee;
-	margin-left: -15px;
+	margin-left: 5px;
 }
+
 
 .innerdashboarddiv{
 	height: 600px;
 	margin:10px 10px 10px 10px;
 	justify-content: center;
-	justify-content: space-between;
+	justify-content: space-around;
 	display: flex;
 	flex-direction: column;
 }
@@ -184,14 +187,26 @@ body {
 }
 
 .dashboard1{
-	width:380px;
+	width:23%;
+	padding-left: 0;
+	padding-right: 0;
 }
 .dashboard2{
-	width:794px;
+	width:46%;
+	padding-left: 0;
+	padding-right: 0;
 	border:1px solid #f1f1f1 ;
 	background-color: white;
 	border-radius: 5px;
 	box-shadow: 1px 1px 2px 2px #d1d1d1;
+}
+.HeadingComments{
+	position: relative;
+	bottom: 270px;
+}
+.meterHeading{
+	position: relative;
+	bottom: 100px;
 }
 .subdashboarddiv{
 	border:1px solid #f1f1f1 ;
@@ -276,17 +291,13 @@ body {
 	text-align: center;
 }
 
-.form-inline .form-control{
-	width:355%;
-}
-
 .profileDrop{
 	width:275px;
 	height: 300px;
 	position: relative;
-	left:85vw;
+	top:50px;
+	left:60px;
 	box-sizing: border-box;
-	top:-5px;
 	display: inline-block;
 	background-color: white;
 	box-shadow: 1px 1px 1px 1px #d1d1d1;
@@ -294,12 +305,15 @@ body {
 .companyDrop{
 	width:275px;
 	height: 400px;
-	position: absolute;
-	left:80%;
-	top:60px;
+	position: relative;
+	top:40px;
 	display: inline-block;
 	background-color: white;
 	box-shadow: 1px 1px 1px 1px #d1d1d1;
+}
+.innerCompanyHeader{
+	position: fixed;
+	right:138px;	
 }
 ul{
 	list-style-type: none
@@ -363,13 +377,13 @@ ul{
 .topHeadingContainer{
 	width:88vw;
 	height:50px;
-	border:1px solid #111;
+	border-bottom:1px solid #111;
 	background-color:white;
 	margin-top:-4px;
 }
 .headingCreateMachine{
 	position:relative;
-	left:20px;
+	left:50px;
 	top:5px;
 	display:inline-block;
 }
@@ -416,9 +430,45 @@ ul{
 	margin-left:50px
 }
 .submitAndEditFooterMachine{
-	float:right;\
+	float:right;
 	display:inline-block;
 }
 .inputPaddingMachine{
 	padding-bottom: 10px;
 }
+/* react-bootstrap-typeahead css start*/
+.close{
+	font-size: 1.2em;
+}
+.rbt-token-removeable {
+    cursor: pointer;
+    padding-right: 21px;
+}
+
+.rbt-token {
+    background-color: #e7f4ff;
+    border: 0;
+    border-radius: 2px;
+    color: #1f8dd6;
+    display: inline-block;
+    line-height: 1em;
+    margin: 0 3px 3px 0;
+    padding: 4px 10px;
+    position: relative;
+}
+
+.rbt-input-multi .rbt-input-hint-container {
+    display: inline-block;
+}
+
+.rbt-input-multi {
+    cursor: text;
+    overflow: hidden;
+    position: relative;
+    height: auto;
+   /* width:317% !important;*/
+}
+.form-inline .form-control{
+	width:100.5% !important;
+}
+/* react-bootstrap-typeahead-end*/
