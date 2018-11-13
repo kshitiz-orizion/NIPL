@@ -3,7 +3,7 @@ import {reduxForm } from 'redux-form';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
-import {Typeahead} from 'react-bootstrap-typeahead';
+import {Menu,MenuItem,AsyncTypeahead,Typeahead} from 'react-bootstrap-typeahead';
 class CreateMachine extends Component{
 	componentWillMount(){
 		if(this.props.mode==='EDIT'){
@@ -28,7 +28,7 @@ class CreateMachine extends Component{
 				code:'',
 				serial_no:'',
 				brand_id:'',
-				model_id:''
+				model_id:'',
 			})
 		}
 	}
@@ -41,6 +41,36 @@ class CreateMachine extends Component{
   			return
   		}
   		this.props.onCreate(this.state);
+  	}
+  	setCategory=(value)=>{
+  		document.getElementsByClassName("rbt-menu")[0].style.display="none";
+  	}
+  	setSubCategory=(value)=>{
+  		document.getElementsByClassName("rbt-menu")[0].style.display="none";
+  	}
+  	setMachineMake=(value)=>{
+  		document.getElementsByClassName("rbt-menu")[0].style.display="none";
+  	}
+  	setMachineModel=(value)=>{
+  		document.getElementsByClassName("rbt-menu")[0].style.display="none";
+  	}
+  	setEngineMake=(value)=>{
+  		document.getElementsByClassName("rbt-menu")[0].style.display="none";
+  	}
+  	setEngineModel=(value)=>{
+  		document.getElementsByClassName("rbt-menu")[0].style.display="none";
+  	}
+  	setCondition=(value)=>{
+  		document.getElementsByClassName("rbt-menu")[0].style.display="none";
+  	}
+  	setnewState=(value)=>{
+  		document.getElementsByClassName("rbt-menu")[0].style.display="none";
+  	}
+  	setDistrict=(value)=>{
+  		document.getElementsByClassName("rbt-menu")[0].style.display="none";
+  	}
+  	setSite=(value)=>{
+  		document.getElementsByClassName("rbt-menu")[0].style.display="none";
   	}
 	render(){
 		const options=[ {id: 1, name: 'John'},
@@ -71,15 +101,38 @@ class CreateMachine extends Component{
 											    <label className="col-md-3">Category</label>
 											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
 											    <Typeahead
-													  onChange={(selected) => {
+											          options={options}
+											          labelKey="name"
+											          onChange={(selected) => {
 													  	if(selected[0]!==undefined){
 													    this.setState({category_id:selected[0].id});
 														}
 													  }}
-													  options={options}
-													  labelKey="name"
-													  selected={this.state.selected}
-													/>
+													  onInputChange={(name,value)=>{													  		
+													  		var element=document.getElementsByClassName("rbt-menu");
+													  		if(element[0]){
+													  			element[0].style.display="block";
+													  			var p=element[0].getElementsByTagName("p");
+													  			for(var i=0;i<p.length;i++){
+													  				p[i].parentNode.removeChild(p[i]);
+													  			}
+													  			if(name!==''){
+													  			var para = document.createElement("p");
+													  	 		para.classList.add("dropdown-item");
+																var node = document.createTextNode(name);
+																var btn=document.createElement("button");
+																btn.className="btn-sm btn btn-danger";
+																var btnname=document.createTextNode("+");
+																btn.appendChild(btnname);
+																btn.style.marginLeft="20px";
+																para.appendChild(node);
+																para.appendChild(btn);
+																btn.onclick=()=>{this.setCategory(name)};
+													  			element[0].appendChild(para);
+													  			}
+													  		}													  	 	
+													  }}
+											        />
 												</div>
 										  	</div>
 										</div>
@@ -95,7 +148,30 @@ class CreateMachine extends Component{
 													  }}
 													  options={options}
 													  labelKey="name"
-													  selected={this.state.selected}
+													  onInputChange={(name,value)=>{
+													  		var element=document.getElementsByClassName("rbt-menu");
+													  		if(element[0]){
+													  			element[0].style.display="block";
+													  			var p=element[0].getElementsByTagName("p");
+													  			for(var i=0;i<p.length;i++){
+													  				p[i].parentNode.removeChild(p[i]);
+													  			}
+													  			if(name!==''){
+													  			var para = document.createElement("p");
+													  	 		para.classList.add("dropdown-item");
+																var node = document.createTextNode(name);
+																var btn=document.createElement("button");
+																btn.className="btn-sm btn btn-danger";
+																var btnname=document.createTextNode("+");
+																btn.appendChild(btnname);
+																btn.style.marginLeft="20px";
+																para.appendChild(node);
+																para.appendChild(btn);
+																btn.onclick=()=>{this.setSubCategory(name)};
+													  			element[0].appendChild(para);
+													  			}
+													  		}													  	 	
+													  }}
 													/>
 												</div>
 										  	</div>
@@ -117,6 +193,30 @@ class CreateMachine extends Component{
 													  options={options}
 													  labelKey="name"
 													  selected={this.state.selected}
+													  onInputChange={(name,value)=>{
+													  		var element=document.getElementsByClassName("rbt-menu");
+													  		if(element[0]){
+													  			element[0].style.display="block";
+													  			var p=element[0].getElementsByTagName("p");
+													  			for(var i=0;i<p.length;i++){
+													  				p[i].parentNode.removeChild(p[i]);
+													  			}
+													  			if(name!==''){
+													  			var para = document.createElement("p");
+													  	 		para.classList.add("dropdown-item");
+																var node = document.createTextNode(name);
+																var btn=document.createElement("button");
+																btn.className="btn-sm btn btn-danger";
+																var btnname=document.createTextNode("+");
+																btn.appendChild(btnname);
+																btn.style.marginLeft="20px";
+																para.appendChild(node);
+																para.appendChild(btn);
+																btn.onclick=()=>{this.setMachineMake(name)};
+													  			element[0].appendChild(para);
+													  			}
+													  		}													  	 	
+													  }}
 													/>
 												</div>
 										  	</div>
@@ -138,6 +238,30 @@ class CreateMachine extends Component{
 													  options={options}
 													  labelKey="name"
 													  selected={this.state.selected}
+													  onInputChange={(name,value)=>{
+													  		var element=document.getElementsByClassName("rbt-menu");
+													  		if(element[0]){
+													  			element[0].style.display="block";
+													  			var p=element[0].getElementsByTagName("p");
+													  			for(var i=0;i<p.length;i++){
+													  				p[i].parentNode.removeChild(p[i]);
+													  			}
+													  			if(name!==''){
+													  			var para = document.createElement("p");
+													  	 		para.classList.add("dropdown-item");
+																var node = document.createTextNode(name);
+																var btn=document.createElement("button");
+																btn.className="btn-sm btn btn-danger";
+																var btnname=document.createTextNode("+");
+																btn.appendChild(btnname);
+																btn.style.marginLeft="20px";
+																para.appendChild(node);
+																para.appendChild(btn);
+																btn.onclick=()=>{this.MachineModel(name)};
+													  			element[0].appendChild(para);
+													  			}
+													  		}													  	 	
+													  }}
 													/>
 												</div>
 										  	</div>
@@ -159,6 +283,30 @@ class CreateMachine extends Component{
 													  options={options}
 													  labelKey="name"
 													  selected={this.state.selected}
+													  onInputChange={(name,value)=>{
+													  		var element=document.getElementsByClassName("rbt-menu");
+													  		if(element[0]){
+													  			element[0].style.display="block";
+													  			var p=element[0].getElementsByTagName("p");
+													  			for(var i=0;i<p.length;i++){
+													  				p[i].parentNode.removeChild(p[i]);
+													  			}
+													  			if(name!==''){
+													  			var para = document.createElement("p");
+													  	 		para.classList.add("dropdown-item");
+																var node = document.createTextNode(name);
+																var btn=document.createElement("button");
+																btn.className="btn-sm btn btn-danger";
+																var btnname=document.createTextNode("+");
+																btn.appendChild(btnname);
+																btn.style.marginLeft="20px";
+																para.appendChild(node);
+																para.appendChild(btn);
+																btn.onclick=()=>{this.setEngineMake(name)};
+													  			element[0].appendChild(para);
+													  			}
+													  		}													  	 	
+													  }}
 													/>
 												</div>
 										  	</div>
@@ -176,6 +324,30 @@ class CreateMachine extends Component{
 													  options={options}
 													  labelKey="name"
 													  selected={this.state.selected}
+													  onInputChange={(name,value)=>{
+													  		var element=document.getElementsByClassName("rbt-menu");
+													  		if(element[0]){
+													  			element[0].style.display="block";
+													  			var p=element[0].getElementsByTagName("p");
+													  			for(var i=0;i<p.length;i++){
+													  				p[i].parentNode.removeChild(p[i]);
+													  			}
+													  			if(name!==''){
+													  			var para = document.createElement("p");
+													  	 		para.classList.add("dropdown-item");
+																var node = document.createTextNode(name);
+																var btn=document.createElement("button");
+																btn.className="btn-sm btn btn-danger";
+																var btnname=document.createTextNode("+");
+																btn.appendChild(btnname);
+																btn.style.marginLeft="20px";
+																para.appendChild(node);
+																para.appendChild(btn);
+																btn.onclick=()=>{this.setEngineModel(name)};
+													  			element[0].appendChild(para);
+													  			}
+													  		}													  	 	
+													  }}
 													/>
 												</div>
 										  	</div>
@@ -205,6 +377,30 @@ class CreateMachine extends Component{
 													  options={options}
 													  labelKey="name"
 													  selected={this.state.selected}
+													  onInputChange={(name,value)=>{
+													  		var element=document.getElementsByClassName("rbt-menu");
+													  		if(element[0]){
+													  			element[0].style.display="block";
+													  			var p=element[0].getElementsByTagName("p");
+													  			for(var i=0;i<p.length;i++){
+													  				p[i].parentNode.removeChild(p[i]);
+													  			}
+													  			if(name!==''){
+													  			var para = document.createElement("p");
+													  	 		para.classList.add("dropdown-item");
+																var node = document.createTextNode(name);
+																var btn=document.createElement("button");
+																btn.className="btn-sm btn btn-danger";
+																var btnname=document.createTextNode("+");
+																btn.appendChild(btnname);
+																btn.style.marginLeft="20px";
+																para.appendChild(node);
+																para.appendChild(btn);
+																btn.onclick=()=>{this.setCondition(name)};
+													  			element[0].appendChild(para);
+													  			}
+													  		}													  	 	
+													  }}
 													/>
 												</div>
 										  	</div>
@@ -231,6 +427,30 @@ class CreateMachine extends Component{
 													  options={options}
 													  labelKey="name"
 													  selected={this.state.selected}
+													  onInputChange={(name,value)=>{
+													  		var element=document.getElementsByClassName("rbt-menu");
+													  		if(element[0]){
+													  			element[0].style.display="block";
+													  			var p=element[0].getElementsByTagName("p");
+													  			for(var i=0;i<p.length;i++){
+													  				p[i].parentNode.removeChild(p[i]);
+													  			}
+													  			if(name!==''){
+													  			var para = document.createElement("p");
+													  	 		para.classList.add("dropdown-item");
+																var node = document.createTextNode(name);
+																var btn=document.createElement("button");
+																btn.className="btn-sm btn btn-danger";
+																var btnname=document.createTextNode("+");
+																btn.appendChild(btnname);
+																btn.style.marginLeft="20px";
+																para.appendChild(node);
+																para.appendChild(btn);
+																btn.onclick=()=>{this.setnewState(name)};
+													  			element[0].appendChild(para);
+													  			}
+													  		}													  	 	
+													  }}
 													/>
 												</div>
 										  	</div>
@@ -249,6 +469,30 @@ class CreateMachine extends Component{
 													  options={options}
 													  labelKey="name"
 													  selected={this.state.selected}
+													  onInputChange={(name,value)=>{
+													  		var element=document.getElementsByClassName("rbt-menu");
+													  		if(element[0]){
+													  			element[0].style.display="block";
+													  			var p=element[0].getElementsByTagName("p");
+													  			for(var i=0;i<p.length;i++){
+													  				p[i].parentNode.removeChild(p[i]);
+													  			}
+													  			if(name!==''){
+													  			var para = document.createElement("p");
+													  	 		para.classList.add("dropdown-item");
+																var node = document.createTextNode(name);
+																var btn=document.createElement("button");
+																btn.className="btn-sm btn btn-danger";
+																var btnname=document.createTextNode("+");
+																btn.appendChild(btnname);
+																btn.style.marginLeft="20px";
+																para.appendChild(node);
+																para.appendChild(btn);
+																btn.onclick=()=>{this.setDistrict(name)};
+													  			element[0].appendChild(para);
+													  			}
+													  		}													  	 	
+													  }}
 													/>
 												</div>
 										  	</div>
@@ -266,6 +510,30 @@ class CreateMachine extends Component{
 													  options={options}
 													  labelKey="name"
 													  selected={this.state.selected}
+													  onInputChange={(name,value)=>{
+													  		var element=document.getElementsByClassName("rbt-menu");
+													  		if(element[0]){
+													  			element[0].style.display="block";
+													  			var p=element[0].getElementsByTagName("p");
+													  			for(var i=0;i<p.length;i++){
+													  				p[i].parentNode.removeChild(p[i]);
+													  			}
+													  			if(name!==''){
+													  			var para = document.createElement("p");
+													  	 		para.classList.add("dropdown-item");
+																var node = document.createTextNode(name);
+																var btn=document.createElement("button");
+																btn.className="btn-sm btn btn-danger";
+																var btnname=document.createTextNode("+");
+																btn.appendChild(btnname);
+																btn.style.marginLeft="20px";
+																para.appendChild(node);
+																para.appendChild(btn);
+																btn.onclick=()=>{this.setSite(name)};
+													  			element[0].appendChild(para);
+													  			}
+													  		}													  	 	
+													  }}
 													/>
 												</div>
 										  	</div>

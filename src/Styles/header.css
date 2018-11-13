@@ -484,3 +484,22 @@ ul{
 	width:100.5% !important;
 }
 /* react-bootstrap-typeahead-end*/
+
+.downicon{
+	float: right;
+	margin-right: 10px;
+}
+
+.machineContainerFlex{
+	width:100%;
+	height: calc(100vh-200px);
+	display: flex;
+	flex-wrap: wrap;
+	background-color: #EEEEEE;
+}
+.eachMachineContainer{
+	width:100%;
+	height: auto;
+	margin:5px 5px 5px 5px;
+	background-color: white;
+}

@@ -176,7 +176,7 @@ export class Header extends Component{
 						</div>
 						<div className={`innersidenav ${machineClass}`}>
 							<div  className="menuName" onClick={()=>this.showMachine()}>
-							Machine
+							Machine{this.state.machine?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
 							</div>
 							{this.state.machine && <div><div className="submenu">
 							View Machine
@@ -187,7 +187,7 @@ export class Header extends Component{
 						</div>
 						<div className={`innersidenav ${conditionClass}`}>
 							<div  className="menuName" onClick={()=>this.showCondition()}>
-							Condition
+							Condition{this.state.condition?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
 							</div>
 							{this.state.condition && <div><div className="submenu">
 							View Condition
@@ -198,7 +198,7 @@ export class Header extends Component{
 						</div>
 						<div className={`innersidenav ${enginebrandClass}`}>
 							<div  className="menuName" onClick={()=>this.showEnginebrand()}>
-							Engine Brand
+							Engine Brand{this.state.enginebrand?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
 							</div>
 							{this.state.enginebrand && <div><div className="submenu">
 							View Engine Brand
@@ -209,7 +209,7 @@ export class Header extends Component{
 						</div>
 						<div className={`innersidenav ${enginemodelClass}`}>
 							<div  className="menuName" onClick={()=>this.showEnginemodel()}>
-							Engine Model
+							Engine Model{this.state.enginemodel?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
 							</div>
 							{this.state.enginemodel && <div><div className="submenu">
 							View Engine Model
@@ -220,7 +220,7 @@ export class Header extends Component{
 						</div>
 						<div className={`innersidenav ${machinebrandClass}`}>
 							<div  className="menuName" onClick={()=>this.showMachinebrand()}>
-							Machine Brand
+							Machine Brand{this.state.machinebrand?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
 							</div>
 							{this.state.machinebrand && <div><div className="submenu">
 							View Machine Brand
@@ -231,7 +231,7 @@ export class Header extends Component{
 						</div>
 						<div className={`innersidenav ${machinemodelClass}`}>
 							<div  className="menuName" onClick={()=>this.showMachinemodel()}>
-							Machine Model
+							Machine Model{this.state.machinemodel?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
 							</div>
 							{this.state.machinemodel && <div><div className="submenu">
 							View Machine Model
@@ -242,7 +242,7 @@ export class Header extends Component{
 						</div>
 						<div className={`innersidenav ${categoryClass}`}>
 							<div  className="menuName" onClick={()=>this.showCategory()}>
-							Category
+							Category{this.state.category?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
 							</div>
 							{this.state.category && <div><div className="submenu">
 							View Category
@@ -253,7 +253,7 @@ export class Header extends Component{
 						</div>
 						<div className={`innersidenav ${subcategoryClass}`}>
 							<div  className="menuName" onClick={()=>this.showSubcategory()}>
-							Sub Category
+							Sub Category{this.state.subcategory?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
 							</div>
 							{this.state.subcategory && <div><div className="submenu">
 							View Sub-Category
@@ -264,7 +264,7 @@ export class Header extends Component{
 						</div>
 						<div className={`innersidenav ${statesiteClass}`}>
 							<div  className="menuName" onClick={()=>this.showStatesite()}>
-							State
+							State{this.state.statesite?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
 							</div>
 							{this.state.statesite && <div><div className="submenu">
 							View State
@@ -275,7 +275,7 @@ export class Header extends Component{
 						</div>
 						<div className={`innersidenav ${districtsiteClass}`}>
 							<div  className="menuName" onClick={()=>this.showDistrictsite()}>
-							District
+							District{this.state.districtsite?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
 							</div>
 							{this.state.districtsite && <div><div className="submenu">
 							View District
@@ -286,7 +286,7 @@ export class Header extends Component{
 						</div>
 						<div className={`innersidenav ${siteClass}`}>
 							<div  className="menuName" onClick={()=>this.showSite()}>
-							Site
+							Site{this.state.site?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
 							</div>
 							{this.state.site && <div><div className="submenu">
 							View Site
