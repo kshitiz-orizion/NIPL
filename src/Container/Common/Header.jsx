@@ -95,18 +95,17 @@ export class Header extends Component{
 	}
 
 	render(){
-		const dashboardClass=window.location.pathname==='/home'? "menuActive" :"";
-		const machineClass=window.location.pathname==='/machine/create'? "menuActive" :"";
-		const conditionClass=window.location.pathname==='/condition/create'? "menuActive" :"";
-		const enginebrandClass=window.location.pathname==='/enginebrand/create'? "menuActive" :"";
-		const enginemodelClass=window.location.pathname==='/enginemodel/create'? "menuActive" :"";
-		const machinebrandClass=window.location.pathname==='/machinebrand/create'?"menuActive":"";
-		const machinemodelClass=window.location.pathname==='/machinemodel/create'?"menuActive":"";
-		const categoryClass=window.location.pathname==='/category/create'?"menuActive":"";
-		const subcategoryClass=window.location.pathname==='/subcategory/create'?"menuActive":"";
-		const statesiteClass=window.location.pathname==='/statesite/create'?"menuActive":"";
-		const districtsiteClass=window.location.pathname==='/districtsite/create'?"menuActive":"";
-		const siteClass=window.location.pathname==='/site/create'?"menuActive":"";
+		const dashboardClass=window.location.pathname.slice(0,5)==='/home'? "menuActive" :"";
+		const machineClass=window.location.pathname.slice(0,8)==='/machine'? "menuActive" :"";
+		const engineClass=window.location.pathname.slice(0,7)==='/engine'? "menuActive" :"";
+		const locationClass=(
+				(window.location.pathname.slice(0,10)==='/statesite')
+				||(window.location.pathname.slice(0,13)==='/districtsite')
+				||(window.location.pathname.slice(0,5)==='/site')
+				)? "menuActive" :"";
+		const conditionClass=window.location.pathname.slice(0,10)==='/condition'? "menuActive" :"";
+		const categoryClass=window.location.pathname.slice(0,9)==='/category'?"menuActive":"";
+		const subcategoryClass=window.location.pathname.slice(0,12)==='/subcategory'?"menuActive":"";
 		return(
 			<div>
 				<div className="header" >
@@ -178,73 +177,65 @@ export class Header extends Component{
 							<div  className="menuName" onClick={()=>this.showMachine()}>
 							Machine{this.state.machine?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
 							</div>
-							{this.state.machine && <div><div className="submenu">
-							View Machine
-							</div>
-							<div className="submenu" onClick={()=>history.push('/machine/create')}>
-							Create Machine
-							</div></div>}
+							{this.state.machine && 
+								<div>
+									<div className="submenu" onClick={()=>history.push('/machines')}>
+										Machines
+									</div>
+									<div className="submenu" onClick={()=>history.push('/machine/create')}>
+										Create Machine
+									</div>
+									<div className="submenu" onClick={()=>history.push('/machinebrands')}>
+										Machine Brands
+									</div>
+									<div className="submenu" onClick={()=>history.push('/machinebrand/create')}>
+										Create Machine Brand
+									</div>
+									<div className="submenu" onClick={()=>history.push('/machinemodels')}>
+										Machine Models
+									</div>
+									<div className="submenu" onClick={()=>history.push('/machinemodel/create')}>
+										Create Machine Model
+									</div>
+								</div>
+							}
 						</div>
 						<div className={`innersidenav ${conditionClass}`}>
 							<div  className="menuName" onClick={()=>this.showCondition()}>
 							Condition{this.state.condition?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
 							</div>
-							{this.state.condition && <div><div className="submenu">
+							{this.state.condition && <div><div className="submenu" onClick={()=>history.push('/conditions')}>
 							View Condition
 							</div>
 							<div className="submenu" onClick={()=>history.push('/condition/create')}>
 							Create Condition
 							</div></div>}
 						</div>
-						<div className={`innersidenav ${enginebrandClass}`}>
+						<div className={`innersidenav ${engineClass}`}>
 							<div  className="menuName" onClick={()=>this.showEnginebrand()}>
-							Engine Brand{this.state.enginebrand?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
+							Engine {this.state.enginebrand?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
 							</div>
-							{this.state.enginebrand && <div><div className="submenu">
-							View Engine Brand
-							</div>
-							<div className="submenu" onClick={()=>history.push('/enginebrand/create')}>
-							Create Engine Brand
-							</div></div>}
-						</div>
-						<div className={`innersidenav ${enginemodelClass}`}>
-							<div  className="menuName" onClick={()=>this.showEnginemodel()}>
-							Engine Model{this.state.enginemodel?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
-							</div>
-							{this.state.enginemodel && <div><div className="submenu">
-							View Engine Model
-							</div>
-							<div className="submenu" onClick={()=>history.push('/enginemodel/create')}>
-							Create Engine Model
-							</div></div>}
-						</div>
-						<div className={`innersidenav ${machinebrandClass}`}>
-							<div  className="menuName" onClick={()=>this.showMachinebrand()}>
-							Machine Brand{this.state.machinebrand?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
-							</div>
-							{this.state.machinebrand && <div><div className="submenu">
-							View Machine Brand
-							</div>
-							<div className="submenu" onClick={()=>history.push('/machinebrand/create')}>
-							Create Machine Brand
-							</div></div>}
-						</div>
-						<div className={`innersidenav ${machinemodelClass}`}>
-							<div  className="menuName" onClick={()=>this.showMachinemodel()}>
-							Machine Model{this.state.machinemodel?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
-							</div>
-							{this.state.machinemodel && <div><div className="submenu">
-							View Machine Model
-							</div>
-							<div className="submenu" onClick={()=>history.push('/machinemodel/create')}>
-							Create Machine Model
-							</div></div>}
+							{this.state.enginebrand && 
+								<div>
+									<div className="submenu" onClick={()=>history.push('/enginebrands')}>
+										Engine Brands
+									</div>
+									<div className="submenu" onClick={()=>history.push('/enginebrand/create')}>
+										Create Engine Brand
+									</div>
+									<div className="submenu" onClick={()=>history.push('/enginemodels')}>
+										Engine Models
+									</div>
+									<div className="submenu" onClick={()=>history.push('/enginemodel/create')}>
+										Create Engine Model
+									</div>
+								</div>}
 						</div>
 						<div className={`innersidenav ${categoryClass}`}>
 							<div  className="menuName" onClick={()=>this.showCategory()}>
 							Category{this.state.category?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
 							</div>
-							{this.state.category && <div><div className="submenu">
+							{this.state.category && <div><div className="submenu" onClick={()=>history.push('/categorys')}>
 							View Category
 							</div>
 							<div className="submenu" onClick={()=>history.push('/category/create')}>
@@ -255,50 +246,38 @@ export class Header extends Component{
 							<div  className="menuName" onClick={()=>this.showSubcategory()}>
 							Sub Category{this.state.subcategory?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
 							</div>
-							{this.state.subcategory && <div><div className="submenu">
+							{this.state.subcategory && <div><div className="submenu" onClick={()=>history.push('/subcategorys')}>
 							View Sub-Category
 							</div>
 							<div className="submenu" onClick={()=>history.push('/subcategory/create')}>
 							Create Sub-Category
 							</div></div>}
 						</div>
-						<div className={`innersidenav ${statesiteClass}`}>
+						<div className={`innersidenav ${locationClass}`}>
 							<div  className="menuName" onClick={()=>this.showStatesite()}>
-							State{this.state.statesite?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
+							Location{this.state.statesite?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
 							</div>
-							{this.state.statesite && <div><div className="submenu">
-							View State
-							</div>
-							<div className="submenu" onClick={()=>history.push('/statesite/create')}>
-							Create State
-							</div></div>}
-						</div>
-						<div className={`innersidenav ${districtsiteClass}`}>
-							<div  className="menuName" onClick={()=>this.showDistrictsite()}>
-							District{this.state.districtsite?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
-							</div>
-							{this.state.districtsite && <div><div className="submenu">
-							View District
-							</div>
-							<div className="submenu" onClick={()=>history.push('/districtsite/create')}>
-							Create District
-							</div></div>}
-						</div>
-						<div className={`innersidenav ${siteClass}`}>
-							<div  className="menuName" onClick={()=>this.showSite()}>
-							Site{this.state.site?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
-							</div>
-							{this.state.site && <div><div className="submenu">
-							View Site
-							</div>
-							<div className="submenu" onClick={()=>history.push('/site/create')}>
-							Create Site
-							</div></div>}
-						</div>
-						<div className="innersidenav">
-							<div className="menuName">
-								MENU4
-							</div>
+							{this.state.statesite && 
+								<div>
+									<div className="submenu" onClick={()=>history.push('/statesites')}>
+										View State
+									</div>
+									<div className="submenu" onClick={()=>history.push('/statesite/create')}>
+										Create State
+									</div>
+									<div className="submenu" onClick={()=>history.push('/districtsites')}>
+										View District
+									</div>
+									<div className="submenu" onClick={()=>history.push('/districtsite/create')}>
+										Create District
+									</div>
+									<div className="submenu" onClick={()=>history.push('/sites')}>
+										View Site
+									</div>
+									<div className="submenu" onClick={()=>history.push('/site/create')}>
+										Create Site
+									</div>
+								</div>}
 						</div>
 					</div>
 				</div>

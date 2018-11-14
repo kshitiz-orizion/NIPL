@@ -22,7 +22,7 @@ import { getError } from '../../../Utils/common.util';
 export const getMachines = () => async dispatch => {
   try {
     dispatch({ type: GET_MACHINES_START });
-    const machines=await axiosService.get('/machine')
+    const machines=await axiosService.get('/machines');
     dispatch({ type: GET_MACHINES_SUCCESS, payload: machines });
   } catch (error) {
     toast.error(error.message || 'something went wrong.');
@@ -44,14 +44,7 @@ export const getMachineByID = machineId => async dispatch => {
 export const createMachine = machines => async dispatch => {
   try{
     dispatch({type: CREATE_MACHINE_START});
-    let machine=new FormData();
-    machine.append('name',machines.name);
-    machine.append('roll',machines.roll);
-    machine.append('photo',machines.image);
-    machine.append('std',machines.std);
-    machine.append('email',machines.email);
-    machine.append('dob',machines.dob.format('YYYY-MM-DD'));
-    const createdMachine=await axiosService.post('/machine',machine,{'Content-type':'multipart/form-data'});
+    const createdMachine=await axiosService.post('/machine',machines);
     toast.success('Successfully created.');
     dispatch({ type: CREATE_MACHINE_SUCCESS, payload: createdMachine });
     history.push('/machine');
@@ -65,16 +58,7 @@ export const createMachine = machines => async dispatch => {
 export const editMachine = machines => async dispatch => {
   try {
     dispatch({ type: EDIT_MACHINE_START });
-    let machine=new FormData();
-    machine.append('name',machines.name);
-    machine.append('roll',machines.roll);
-    if(typeof(machines.image)===Object){
-    machine.append('photo',machines.image); 
-    }
-    machine.append('std',machines.std);
-    machine.append('email',machines.email);
-    machine.append('dob',machines.dob.format('YYYY-MM-DD'));
-    const machineEdit=await axiosService.put('/machine/'+machines.id,machine,{'Content-type':'multipart/form-data'});
+    const machineEdit=await axiosService.put('/machine/'+machines.id,machines);
     toast.success('Successfully saved.');
     dispatch({ type: EDIT_MACHINE_SUCCESS, payload: machineEdit });
     history.push('/machine');

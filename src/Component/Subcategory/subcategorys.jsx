@@ -1,10 +1,10 @@
 import React,{Component} from 'react';
 import history from '../../Inits/history';
-class ListMachine extends Component{
+class ListSubcategory extends Component{
 	componentWillMount(){
-		this.getMachines();
+		this.getSubcategorys();
 		this.setState({
-			machines:[
+			subcategorys:[
 		{
 			  "warranty": 4,
 			  "engine_serial_no": "1231414",
@@ -18,7 +18,7 @@ class ListMachine extends Component{
 			  "category_id": "hatchbag",
 			  "condition_id": "good",
 			  "description": "Testing purpose",
-			  "name": "Machine1",
+			  "name": "Subcategory1",
 			  "purchase_year": 2016,
 			  "site_id": "JNU",
 			  "engine_model_id": "Diesel",
@@ -40,7 +40,7 @@ class ListMachine extends Component{
 			  "category_id": "SUV",
 			  "condition_id": "good",
 			  "description": "Testing purpose",
-			  "name": "Machine2",
+			  "name": "Subcategory2",
 			  "purchase_year": 2016,
 			  "site_id": "JNU",
 			  "engine_model_id": "Diesel",
@@ -51,17 +51,17 @@ class ListMachine extends Component{
 		}]
 	})
 	}
-	getMachines=async()=>{
-		// await this.props.machineInfo.getMachines();
+	getSubcategorys=async()=>{
+		// await this.props.subcategoryInfo.getSubcategorys();
 	}
-	AddStudent=()=>{
-		history.push('/machine/create');
+	AddSubcategory=()=>{
+		history.push('/subcategory/create');
 	}
-	editStudent=(machine)=>{
-		history.push('/machines/'+machine.id);
+	editSubcategory=(subcategory)=>{
+		history.push('/subcategorys/'+subcategory.id);
 	}
-	deleteStudent=(machine)=>{
-		 this.props.machineInfo.deleteStudent(machine);
+	deleteSubcategory=(subcategory)=>{
+		 this.props.subcategoryInfo.deleteSubcategory(subcategory);
 	}
 	render(){
 		return (
@@ -69,28 +69,28 @@ class ListMachine extends Component{
 				
 				<div className="container">
 				<div style={{float:'right',display:'inline-block'}}>
-					<button type="button" className="btn btn-success"  onClick={this.AddStudent}><i className="fa fa-plus" aria-hidden="true"></i>Add</button>
+					<button type="button" className="btn btn-success"  onClick={this.AddSubcategory}><i className="fa fa-plus" aria-hidden="true"></i>Add</button>
 				</div>
 					<table className="table table-hover table-bordered">
 					    <thead>
 					      <tr>
 					        <th>Sl no</th>
-					        <th>Machine Name</th>
-					        <th>Machine Brand</th>
-					        <th>Machine Model</th>
+					        <th>Subcategory Name</th>
+					        <th>Subcategory Brand</th>
+					        <th>Subcategory Model</th>
 					        <th>Actions</th>
 					      </tr>
 					    </thead>
 					    <tbody>
-					    {this.state.machines.map((machine,i)=>(
+					    {this.state.subcategorys.map((subcategory,i)=>(
 						<tr key={i}>
-							<td>{machine.serial_no}</td>
-							<td>{machine.name}</td>
-							<td>{machine.brand_id}</td>
-							<td>{machine.model_id}</td>
+							<td>{subcategory.serial_no}</td>
+							<td>{subcategory.name}</td>
+							<td>{subcategory.brand_id}</td>
+							<td>{subcategory.model_id}</td>
 							<td>
-								<button className="btn btn-default btn-sm" onClick={()=>this.editStudent(machine)}><i className="fa fa-pencil" aria-hidden="true"></i>Edit</button>
-								<button className="btn btn-danger btn-sm" onClick={()=>this.deleteStudent(machine)}><i className="fa fa-trash" aria-hidden="true"></i>Delete</button>
+								<button className="btn btn-default btn-sm" onClick={()=>this.editSubcategory(subcategory)}><i className="fa fa-pencil" aria-hidden="true"></i>Edit</button>
+								<button className="btn btn-danger btn-sm" onClick={()=>this.deleteSubcategory(subcategory)}><i className="fa fa-trash" aria-hidden="true"></i>Delete</button>
 							</td>
 						</tr>
 					))}
@@ -102,4 +102,4 @@ class ListMachine extends Component{
 	}
 }
 
-export default ListMachine;
+export default ListSubcategory;

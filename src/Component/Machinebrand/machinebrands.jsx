@@ -1,10 +1,10 @@
 import React,{Component} from 'react';
 import history from '../../Inits/history';
-class ListMachine extends Component{
+class ListMachinebrand extends Component{
 	componentWillMount(){
-		this.getMachines();
+		this.getMachinebrands();
 		this.setState({
-			machines:[
+			machinebrands:[
 		{
 			  "warranty": 4,
 			  "engine_serial_no": "1231414",
@@ -18,7 +18,7 @@ class ListMachine extends Component{
 			  "category_id": "hatchbag",
 			  "condition_id": "good",
 			  "description": "Testing purpose",
-			  "name": "Machine1",
+			  "name": "Machinebrand1",
 			  "purchase_year": 2016,
 			  "site_id": "JNU",
 			  "engine_model_id": "Diesel",
@@ -40,7 +40,7 @@ class ListMachine extends Component{
 			  "category_id": "SUV",
 			  "condition_id": "good",
 			  "description": "Testing purpose",
-			  "name": "Machine2",
+			  "name": "Machinebrand2",
 			  "purchase_year": 2016,
 			  "site_id": "JNU",
 			  "engine_model_id": "Diesel",
@@ -51,17 +51,17 @@ class ListMachine extends Component{
 		}]
 	})
 	}
-	getMachines=async()=>{
-		// await this.props.machineInfo.getMachines();
+	getMachinebrands=async()=>{
+		// await this.props.machinebrandInfo.getMachinebrands();
 	}
-	AddStudent=()=>{
-		history.push('/machine/create');
+	AddMachinebrand=()=>{
+		history.push('/machinebrand/create');
 	}
-	editStudent=(machine)=>{
-		history.push('/machines/'+machine.id);
+	editMachinebrand=(machinebrand)=>{
+		history.push('/machinebrands/'+machinebrand.id);
 	}
-	deleteStudent=(machine)=>{
-		 this.props.machineInfo.deleteStudent(machine);
+	deleteMachinebrand=(machinebrand)=>{
+		 this.props.machinebrandInfo.deleteMachinebrand(machinebrand);
 	}
 	render(){
 		return (
@@ -69,28 +69,28 @@ class ListMachine extends Component{
 				
 				<div className="container">
 				<div style={{float:'right',display:'inline-block'}}>
-					<button type="button" className="btn btn-success"  onClick={this.AddStudent}><i className="fa fa-plus" aria-hidden="true"></i>Add</button>
+					<button type="button" className="btn btn-success"  onClick={this.AddMachinebrand}><i className="fa fa-plus" aria-hidden="true"></i>Add</button>
 				</div>
 					<table className="table table-hover table-bordered">
 					    <thead>
 					      <tr>
 					        <th>Sl no</th>
-					        <th>Machine Name</th>
-					        <th>Machine Brand</th>
-					        <th>Machine Model</th>
+					        <th>Machinebrand Name</th>
+					        <th>Machinebrand Brand</th>
+					        <th>Machinebrand Model</th>
 					        <th>Actions</th>
 					      </tr>
 					    </thead>
 					    <tbody>
-					    {this.state.machines.map((machine,i)=>(
+					    {this.state.machinebrands.map((machinebrand,i)=>(
 						<tr key={i}>
-							<td>{machine.serial_no}</td>
-							<td>{machine.name}</td>
-							<td>{machine.brand_id}</td>
-							<td>{machine.model_id}</td>
+							<td>{machinebrand.serial_no}</td>
+							<td>{machinebrand.name}</td>
+							<td>{machinebrand.brand_id}</td>
+							<td>{machinebrand.model_id}</td>
 							<td>
-								<button className="btn btn-default btn-sm" onClick={()=>this.editStudent(machine)}><i className="fa fa-pencil" aria-hidden="true"></i>Edit</button>
-								<button className="btn btn-danger btn-sm" onClick={()=>this.deleteStudent(machine)}><i className="fa fa-trash" aria-hidden="true"></i>Delete</button>
+								<button className="btn btn-default btn-sm" onClick={()=>this.editMachinebrand(machinebrand)}><i className="fa fa-pencil" aria-hidden="true"></i>Edit</button>
+								<button className="btn btn-danger btn-sm" onClick={()=>this.deleteMachinebrand(machinebrand)}><i className="fa fa-trash" aria-hidden="true"></i>Delete</button>
 							</td>
 						</tr>
 					))}
@@ -102,4 +102,4 @@ class ListMachine extends Component{
 	}
 }
 
-export default ListMachine;
+export default ListMachinebrand;
