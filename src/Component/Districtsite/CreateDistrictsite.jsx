@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import {reduxForm } from 'redux-form';
-import DatePicker from 'react-datepicker';
-import moment from 'moment';
-import 'react-datepicker/dist/react-datepicker.css';
 import {Typeahead} from 'react-bootstrap-typeahead';
 class CreateDistrictsite extends Component{
 	componentWillMount(){

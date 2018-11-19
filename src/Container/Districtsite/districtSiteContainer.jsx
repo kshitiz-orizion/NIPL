@@ -1,9 +1,7 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import { getDistrictsites,deleteDistrictsite} from '../../Store/Actions/district-site/district-site.action';
-import { Link } from 'react-router-dom';
 import ListDistrictSite from '../../Component/Districtsite/districtsites';
-import {Header} from '../Common/Header';
 class DistrictSiteContainer extends Component{
 	componentWillMount(){
 	}
@@ -12,7 +10,6 @@ class DistrictSiteContainer extends Component{
 	const districtsiteInfo = {districtsites,deleteDistrictSite,getDistrictSites};
 	return (
 		<div>
-		<Header/>
 			<section className="container-fluid" style={{marginTop:'-100px'}}>
 				<ListDistrictSite districtsiteInfo={districtsiteInfo} />
 			</section>

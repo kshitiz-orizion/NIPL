@@ -1,7 +1,6 @@
 import { toast } from 'react-toastify';
 import history from '../../../Inits/history';
 import axiosService from '../../../Inits/axios';
-import axios from 'axios';
 import {
   GET_MACHINEBRANDS_START,
   GET_MACHINEBRANDS_SUCCESS,
@@ -17,23 +16,24 @@ import {
   DELETE_MACHINEBRAND_ERROR,
 } from './machine-brand.actiontype';
 
-import { getError } from '../../../Utils/common.util';
-
 export const getMachinebrands = () => async dispatch => {
   try {
     dispatch({ type: GET_MACHINEBRANDS_START });
-    const machines=await axiosService.get('/machine-brands');
-    dispatch({ type: GET_MACHINEBRANDS_SUCCESS, payload: machines });
+    const machinebrands=await axiosService.get('/machine-brands');
+    dispatch({ type: GET_MACHINEBRANDS_SUCCESS, payload: machinebrands });
   } catch (error) {
     toast.error(error.message || 'something went wrong.');
     dispatch({ type: GET_MACHINEBRANDS_ERROR });
   }
 };
 
-export const getMachinebrandByID = machineId => async dispatch => {
+export const getMachinebrandByID = machinebrandId => async dispatch => {
   try {
-    const record = await axiosService.get('/machine/'+machineId);
-    return Promise.resolve(record);
+    var machinebrand={name:'',id:''};
+    if(machinebrandId!==null){
+    machinebrand = await axiosService.get('/machine-brands/'+machinebrandId);
+    }
+    return Promise.resolve(machinebrand);
   } catch (error) {
     toast.error(error.message || 'something went wrong.');
     return Promise.reject(error);
@@ -87,8 +87,8 @@ export const editMachinebrand = machines => async dispatch => {
 export const deleteMachinebrand= machine =>async dispatch=>{
   try{
     dispatch({type:DELETE_MACHINEBRAND_START});
-    const deletedMachinebrand=await axiosService.delete('/machine/'+machine.id);
-    dispatch({type:DELETE_MACHINEBRAND_SUCCESS,payload:machine});
+    const machinebrand=await axiosService.delete('/machine/'+machine.id);
+    dispatch({type:DELETE_MACHINEBRAND_SUCCESS,payload:machinebrand});
     toast.success('Successfully Deleted');
   }
   catch(error){

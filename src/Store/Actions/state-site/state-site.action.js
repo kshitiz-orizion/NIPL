@@ -1,7 +1,6 @@
 import { toast } from 'react-toastify';
 import history from '../../../Inits/history';
 import axiosService from '../../../Inits/axios';
-import axios from 'axios';
 import {
   GET_STATESITES_START,
   GET_STATESITES_SUCCESS,
@@ -17,23 +16,24 @@ import {
   DELETE_STATESITE_ERROR,
 } from './state-site.actiontype';
 
-import { getError } from '../../../Utils/common.util';
-
 export const getStatesites = () => async dispatch => {
   try {
     dispatch({ type: GET_STATESITES_START });
-    const machines=await axiosService.get('/machine')
-    dispatch({ type: GET_STATESITES_SUCCESS, payload: machines });
+    const states=await axiosService.get('/states');
+    dispatch({ type: GET_STATESITES_SUCCESS, payload: states });
   } catch (error) {
     toast.error(error.message || 'something went wrong.');
     dispatch({ type: GET_STATESITES_ERROR });
   }
 };
 
-export const getStatesiteByID = machineId => async dispatch => {
+export const getStatesiteByID = stateId => async dispatch => {
   try {
-    const record = await axiosService.get('/machine/'+machineId);
-    return Promise.resolve(record);
+    var state={name:'',id:''};
+    if(stateId!==null){
+    state = await axiosService.get('/states/'+stateId);
+    }
+    return Promise.resolve(state);
   } catch (error) {
     toast.error(error.message || 'something went wrong.');
     return Promise.reject(error);
@@ -87,8 +87,8 @@ export const editStatesite = machines => async dispatch => {
 export const deleteStatesite= machine =>async dispatch=>{
   try{
     dispatch({type:DELETE_STATESITE_START});
-    const deletedStatesite=await axiosService.delete('/machine/'+machine.id);
-    dispatch({type:DELETE_STATESITE_SUCCESS,payload:machine});
+    const statesite=await axiosService.delete('/machine/'+machine.id);
+    dispatch({type:DELETE_STATESITE_SUCCESS,payload:statesite});
     toast.success('Successfully Deleted');
   }
   catch(error){

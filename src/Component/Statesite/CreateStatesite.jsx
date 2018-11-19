@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 import {reduxForm } from 'redux-form';
-import DatePicker from 'react-datepicker';
-import moment from 'moment';
-import 'react-datepicker/dist/react-datepicker.css';
-import {Typeahead} from 'react-bootstrap-typeahead';
 class CreateStatesite extends Component{
 	componentWillMount(){
 		if(this.props.mode==='EDIT'){
@@ -28,10 +24,6 @@ class CreateStatesite extends Component{
   		this.props.onCreate(this.state);
   	}
 	render(){
-		const options=[ {id: 1, name: 'John'},
-					    {id: 2, name: 'Miles'},
-						{id: 3, name: 'Charles'},
-						{id: 4, name: 'Herbie'}]
 		return (
 			<div>
 				<div className="topHeadingContainer">

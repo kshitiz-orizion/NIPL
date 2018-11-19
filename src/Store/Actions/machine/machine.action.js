@@ -1,7 +1,6 @@
 import { toast } from 'react-toastify';
 import history from '../../../Inits/history';
 import axiosService from '../../../Inits/axios';
-import axios from 'axios';
 import {
   GET_MACHINES_START,
   GET_MACHINES_SUCCESS,
@@ -17,7 +16,51 @@ import {
   DELETE_MACHINE_ERROR,
 } from './machine.actiontype';
 
-import { getError } from '../../../Utils/common.util';
+// const machines=[
+//     {
+//         "warranty": 4,
+//         "engine_serial_no": "1231414",
+//         "code": "Code-2",
+//         "chassis_no": "CH 1200",
+//         "serial_no": "SR100",
+//         "brand_id": 123,
+//         "price": "100.00",
+//         "reg_no": "123141",
+//         "id": "a1283eea-831d-4637-bed4-86241f9768bc",
+//         "category_id": 123,
+//         "condition_id": 123,
+//         "description": "Testing purpose",
+//         "name": "Machine1",
+//         "purchase_year": 2016,
+//         "site_id": 123,
+//         "engine_model_id": 123,
+//         "sub_category_id": 123,
+//         "model_id": 123,
+//         "engine_brand_id":123,
+//         "remark": "very nice vehicle"
+//     },
+//     {
+//         "warranty": 4,
+//         "engine_serial_no": "1231414",
+//         "code": "Code-3",
+//         "chassis_no": "CH 1200",
+//         "serial_no": "SR100",
+//         "brand_id": 213,
+//         "price": "100.00",
+//         "reg_no": "123141",
+//         "id": "a1283eea-831d-4637-bed4-86241f9768bx",
+//         "category_id": 213,
+//         "condition_id": 213,
+//         "description": "Testing purpose",
+//         "name": "Machine2",
+//         "purchase_year": 2016,
+//         "site_id": 213,
+//         "engine_model_id": 213,
+//         "sub_category_id": 213,
+//         "model_id": 213,
+//         "engine_brand_id": 213,
+//         "remark": "very nice vehicle"
+//     }]
 
 export const getMachines = () => async dispatch => {
   try {
@@ -32,8 +75,8 @@ export const getMachines = () => async dispatch => {
 
 export const getMachineByID = machineId => async dispatch => {
   try {
-    const record = await axiosService.get('/machine/'+machineId);
-    return Promise.resolve(record);
+    const machines = await axiosService.get('/machines/'+machineId);
+    return Promise.resolve(machines);
   } catch (error) {
     toast.error(error.message || 'something went wrong.');
     return Promise.reject(error);
@@ -58,9 +101,9 @@ export const createMachine = machines => async dispatch => {
 export const editMachine = machines => async dispatch => {
   try {
     dispatch({ type: EDIT_MACHINE_START });
-    const machineEdit=await axiosService.put('/machine/'+machines.id,machines);
+    // const machineEdit=await axiosService.put('/machine/'+machines.id,machines);
     toast.success('Successfully saved.');
-    dispatch({ type: EDIT_MACHINE_SUCCESS, payload: machineEdit });
+    dispatch({ type: EDIT_MACHINE_SUCCESS, payload: "null" });
     history.push('/machine');
   } catch (error) {
     toast.error(error.message);
@@ -72,7 +115,7 @@ export const deleteMachine= machine =>async dispatch=>{
   try{
     dispatch({type:DELETE_MACHINE_START});
     const deletedMachine=await axiosService.delete('/machine/'+machine.id);
-    dispatch({type:DELETE_MACHINE_SUCCESS,payload:machine});
+    dispatch({type:DELETE_MACHINE_SUCCESS,payload:deletedMachine});
     toast.success('Successfully Deleted');
   }
   catch(error){

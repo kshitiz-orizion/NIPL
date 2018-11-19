@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import history from '../../Inits/history';
 import { createSite, getSiteByID, editSite} from '../../Store/Actions/site/site.action';
 import CreateSite from '../../Component/Site/CreateSite';
@@ -38,7 +37,7 @@ class CreateSiteContainer extends Component {
     if(this.props.isCreating){
       return <h1>Creating...</h1>
     }
-    const { createStudent, editStudent } = this.props;
+    const { createSite, editSite } = this.props;
     return (
       <div style={{marginTop:'-40px',backgroundColor:'#eee',width:'100%',height:'auto'}}>
       <section>

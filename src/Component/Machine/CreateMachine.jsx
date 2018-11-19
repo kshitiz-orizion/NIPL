@@ -1,15 +1,25 @@
 import React, { Component } from 'react';
 import {reduxForm } from 'redux-form';
-import DatePicker from 'react-datepicker';
-import moment from 'moment';
-import 'react-datepicker/dist/react-datepicker.css';
-import {Menu,MenuItem,AsyncTypeahead,Typeahead} from 'react-bootstrap-typeahead';
+import {Typeahead} from 'react-bootstrap-typeahead';
 class CreateMachine extends Component{
 	componentWillMount(){
 		if(this.props.mode==='EDIT'){
+			const {category,subcategory,enginemodel,enginebrand,machinemodel,machinebrand,condition,site}=this.props.initialValues;
+			console.log(this.props.initialValues);
+			debugger;
 			this.setState({
-				 ...this.props.initialValues
+				 ...this.props.initialValues,
+				 category:[category],
+				 subcategory:[subcategory],
+				 enginemodel:[enginemodel],
+				 enginebrand:[enginebrand],
+				 machinemodel:[machinemodel],
+				 machinebrand:[machinebrand],
+				 condition:[condition],
+				 site:[site]
 			});
+			console.log(this.state);
+			debugger;
 		}
 		else{
 			this.setState({
@@ -29,13 +39,30 @@ class CreateMachine extends Component{
 				serial_no:'',
 				brand_id:'',
 				model_id:'',
+				category_id:'',
+				engine_brand_id:''
 			})
 		}
 	}
 	onChangeSetToState = stateKey => e => {
+			if(stateKey==='warranty'){
+				const pattern=/^$|^[0-9]+$/;
+				const result=pattern.test(e.target.value);
+				if(result===true){
+					this.setState({
+						warrantyerror:false,
+						[stateKey]:e.target.value
+					})
+				}else{
+					this.setState({
+						warrantyerror:true
+					})
+				}
+			}
 			this.setState({ [stateKey]: e.target.value });
   	};
   	submitUser=()=>{
+  		debugger;
   		if(this.props.mode==='EDIT'){
   			this.props.onEdit(this.state);
   			return
@@ -73,15 +100,13 @@ class CreateMachine extends Component{
   		document.getElementsByClassName("rbt-menu")[0].style.display="none";
   	}
 	render(){
-		const options=[ {id: 1, name: 'John'},
-					    {id: 2, name: 'Miles'},
-						{id: 3, name: 'Charles'},
-						{id: 4, name: 'Herbie'}]
+		console.log(this.props.paramvalue);
+		debugger;
 		return (
 			<div>
 				<div className="topHeadingContainer">
 					<div className="headingCreateMachine">
-						<h3>Machine/Create Machine</h3>
+						<h3>Machine/{this.props.mode==='EDIT'?'Edit':'Create'} Machine</h3>
 					</div>
 					<div className="saveButtonHeader" >
 						<button className="btn btn-sm btn-primary">Save Machine</button>
@@ -101,13 +126,12 @@ class CreateMachine extends Component{
 											    <label className="col-md-3">Category</label>
 											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
 											    <Typeahead
-											          options={options}
+											          options={this.props.paramvalue.category}
 											          labelKey="name"
 											          onChange={(selected) => {
-													  	if(selected[0]!==undefined){
-													    this.setState({category_id:selected[0].id});
-														}
+													    this.setState({category:selected});
 													  }}
+													  selected={this.state.category}
 													  onInputChange={(name,value)=>{													  		
 													  		var element=document.getElementsByClassName("rbt-menu");
 													  		if(element[0]){
@@ -122,6 +146,7 @@ class CreateMachine extends Component{
 																var node = document.createTextNode(name);
 																var btn=document.createElement("button");
 																btn.className="btn-sm btn btn-danger";
+																btn.setAttribute("type", "button");
 																var btnname=document.createTextNode("+");
 																btn.appendChild(btnname);
 																btn.style.marginLeft="20px";
@@ -142,12 +167,11 @@ class CreateMachine extends Component{
 											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
 											    <Typeahead
 													  onChange={(selected) => {
-													  	if(selected[0]!==undefined){
-													    this.setState({sub_category_id:selected[0].id});
-														}
+													    this.setState({subcategory:selected});
 													  }}
-													  options={options}
+													  options={this.props.paramvalue.subcategory}
 													  labelKey="name"
+													  selected={this.state.subcategory}
 													  onInputChange={(name,value)=>{
 													  		var element=document.getElementsByClassName("rbt-menu");
 													  		if(element[0]){
@@ -162,6 +186,7 @@ class CreateMachine extends Component{
 																var node = document.createTextNode(name);
 																var btn=document.createElement("button");
 																btn.className="btn-sm btn btn-danger";
+																btn.setAttribute("type", "button");
 																var btnname=document.createTextNode("+");
 																btn.appendChild(btnname);
 																btn.style.marginLeft="20px";
@@ -178,7 +203,7 @@ class CreateMachine extends Component{
 										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine">
 										    <label  className="col-md-3">Code</label>
-										    <input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('code')}/>
+										    <input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('code')} value={this.state.code}/>
 										  </div>
 										  <div className=" col-md-12 inputPaddingMachine">
 										    <div className="row">
@@ -186,13 +211,11 @@ class CreateMachine extends Component{
 											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
 											    <Typeahead
 													  onChange={(selected) => {
-													  	if(selected[0]!==undefined){
-													    this.setState({brand_id:selected[0].id});
-														}
+													    this.setState({machinebrand:selected});
 													  }}
-													  options={options}
+													  options={this.props.paramvalue.machinebrand}
 													  labelKey="name"
-													  selected={this.state.selected}
+													  selected={this.state.machinebrand}
 													  onInputChange={(name,value)=>{
 													  		var element=document.getElementsByClassName("rbt-menu");
 													  		if(element[0]){
@@ -207,6 +230,7 @@ class CreateMachine extends Component{
 																var node = document.createTextNode(name);
 																var btn=document.createElement("button");
 																btn.className="btn-sm btn btn-danger";
+																btn.setAttribute("type", "button");
 																var btnname=document.createTextNode("+");
 																btn.appendChild(btnname);
 																btn.style.marginLeft="20px";
@@ -223,7 +247,7 @@ class CreateMachine extends Component{
 										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine">
 										    <label  className="col-md-3">Year of Purchase</label>
-										    <input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('purchase_year')}/>
+										    <input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('purchase_year')} value={this.state.purchase_year}/>
 										  </div>
 										  <div className=" col-md-12 inputPaddingMachine">
 										    <div className="row">
@@ -231,13 +255,11 @@ class CreateMachine extends Component{
 											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
 											    <Typeahead
 													  onChange={(selected) => {
-													  	if(selected[0]!==undefined){
-													    this.setState({model_id:selected[0].id});
-														}
+													    this.setState({machinemodel:selected});
 													  }}
-													  options={options}
+													  options={this.props.paramvalue.machinemodel}
 													  labelKey="name"
-													  selected={this.state.selected}
+													  selected={this.state.machinemodel}
 													  onInputChange={(name,value)=>{
 													  		var element=document.getElementsByClassName("rbt-menu");
 													  		if(element[0]){
@@ -252,6 +274,7 @@ class CreateMachine extends Component{
 																var node = document.createTextNode(name);
 																var btn=document.createElement("button");
 																btn.className="btn-sm btn btn-danger";
+																btn.setAttribute("type", "button");
 																var btnname=document.createTextNode("+");
 																btn.appendChild(btnname);
 																btn.style.marginLeft="20px";
@@ -268,7 +291,7 @@ class CreateMachine extends Component{
 										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine">
 										    <label  className="col-md-3">Serial Number</label>
-										    <input type="text" className="form-control col-md-9"  onChange={this.onChangeSetToState('serial_no')}/>
+										    <input type="text" className="form-control col-md-9"  onChange={this.onChangeSetToState('serial_no')} value={this.state.serial_no}/>
 										  </div>
 										  <div className=" col-md-12 inputPaddingMachine">
 										    <div className="row">
@@ -276,13 +299,11 @@ class CreateMachine extends Component{
 											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
 											    <Typeahead
 													  onChange={(selected) => {
-													  	if(selected[0]!==undefined){
-													    this.setState({engine_brand_id:selected[0].id});
-														}
+													    this.setState({enginebrand:selected});
 													  }}
-													  options={options}
+													  options={this.props.paramvalue.enginebrand}
 													  labelKey="name"
-													  selected={this.state.selected}
+													  selected={this.state.enginebrand}
 													  onInputChange={(name,value)=>{
 													  		var element=document.getElementsByClassName("rbt-menu");
 													  		if(element[0]){
@@ -297,6 +318,7 @@ class CreateMachine extends Component{
 																var node = document.createTextNode(name);
 																var btn=document.createElement("button");
 																btn.className="btn-sm btn btn-danger";
+																btn.setAttribute("type", "button");
 																var btnname=document.createTextNode("+");
 																btn.appendChild(btnname);
 																btn.style.marginLeft="20px";
@@ -317,13 +339,11 @@ class CreateMachine extends Component{
 											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
 											    <Typeahead
 													  onChange={(selected) => {
-													  	if(selected[0]!==undefined){
-													    this.setState({engine_model_id:selected[0].id});
-														}
+													    this.setState({enginemodel:selected});
 													  }}
-													  options={options}
+													  options={this.props.paramvalue.enginemodel}
 													  labelKey="name"
-													  selected={this.state.selected}
+													  selected={this.state.enginemodel}
 													  onInputChange={(name,value)=>{
 													  		var element=document.getElementsByClassName("rbt-menu");
 													  		if(element[0]){
@@ -338,6 +358,7 @@ class CreateMachine extends Component{
 																var node = document.createTextNode(name);
 																var btn=document.createElement("button");
 																btn.className="btn-sm btn btn-danger";
+																btn.setAttribute("type", "button");
 																var btnname=document.createTextNode("+");
 																btn.appendChild(btnname);
 																btn.style.marginLeft="20px";
@@ -354,15 +375,15 @@ class CreateMachine extends Component{
 										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine" >
 										    <label  className="col-md-3">Engine Serial Number</label>
-										    <input type="text" className="form-control col-md-9"  />
+										    <input type="text" className="form-control col-md-9"   onChange={this.onChangeSetToState('serial_no')} value={this.state.engine_serial_no}/>
 										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine">
 										    <label  className="col-md-3">Chassis Number</label>
-										    <input type="text" className="form-control col-md-9"  />
+										    <input type="text" className="form-control col-md-9"   onChange={this.onChangeSetToState('chassis_no')} value={this.state.chassis_no}/>
 										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine">
 										    <label  className="col-md-3">Registration Number</label>
-										    <input type="text" className="form-control col-md-9" />
+										    <input type="text" className="form-control col-md-9"  onChange={this.onChangeSetToState('reg_no')} value={this.state.reg_no}/>
 										  </div>
 										  <div className=" col-md-12 inputPaddingMachine">
 										    <div className="row">
@@ -370,13 +391,11 @@ class CreateMachine extends Component{
 											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
 											    <Typeahead
 													  onChange={(selected) => {
-													  	if(selected[0]!==undefined){
-													    this.setState({condition_id:selected[0].id});
-														}
+													    this.setState({condition:selected});
 													  }}
-													  options={options}
+													  options={this.props.paramvalue.condition}
 													  labelKey="name"
-													  selected={this.state.selected}
+													  selected={this.state.condition}
 													  onInputChange={(name,value)=>{
 													  		var element=document.getElementsByClassName("rbt-menu");
 													  		if(element[0]){
@@ -391,6 +410,7 @@ class CreateMachine extends Component{
 																var node = document.createTextNode(name);
 																var btn=document.createElement("button");
 																btn.className="btn-sm btn btn-danger";
+																btn.setAttribute("type", "button");
 																var btnname=document.createTextNode("+");
 																btn.appendChild(btnname);
 																btn.style.marginLeft="20px";
@@ -407,26 +427,24 @@ class CreateMachine extends Component{
 										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine">
 										    <label  className="col-md-3">Unit Price</label>
-										    <input type="text" className="form-control col-md-9" />
+										    <input type="text" className="form-control col-md-9"   onChange={this.onChangeSetToState('price')} value={this.state.price}/>
 										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine" >
 										    <label  className="col-md-3">Remarks</label>
-										    <input type="text" className="form-control col-md-9" />
+										    <input type="text" className="form-control col-md-9"  onChange={this.onChangeSetToState('remark')} value={this.state.remark}/>
 										  </div>
 										  <div className=" col-md-12 inputPaddingMachine">
 										    <div className="row">
 											    <label htmlFor="email" className="col-md-3">State</label>
 											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
-											    <Typeahead
+											    {/*<Typeahead
 													  onChange={(selected) => {
-													  	if(selected[0]!==undefined){
-													    this.setState({state:selected[0].id});
+													    this.setState({state:selected});
 													    //call api for district
-														}
 													  }}
-													  options={options}
+													  options={this.props.paramvalue.state}
 													  labelKey="name"
-													  selected={this.state.selected}
+													  selected={this.state.state?this.state.state:''}
 													  onInputChange={(name,value)=>{
 													  		var element=document.getElementsByClassName("rbt-menu");
 													  		if(element[0]){
@@ -441,6 +459,7 @@ class CreateMachine extends Component{
 																var node = document.createTextNode(name);
 																var btn=document.createElement("button");
 																btn.className="btn-sm btn btn-danger";
+																btn.setAttribute("type", "button");
 																var btnname=document.createTextNode("+");
 																btn.appendChild(btnname);
 																btn.style.marginLeft="20px";
@@ -451,7 +470,7 @@ class CreateMachine extends Component{
 													  			}
 													  		}													  	 	
 													  }}
-													/>
+													/>*/}
 												</div>
 										  	</div>
 										  </div>
@@ -459,16 +478,14 @@ class CreateMachine extends Component{
 										    <div className="row">
 											    <label htmlFor="email" className="col-md-3">District</label>
 											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
-											    <Typeahead
+											    {/*<Typeahead
 													  onChange={(selected) => {
-													  	if(selected[0]!==undefined){
 													    this.setState({district:selected[0].id});
 													    //call api for site
-														}
 													  }}
-													  options={options}
+													  options={this.props.paramvalue.state}
 													  labelKey="name"
-													  selected={this.state.selected}
+													  selected={this.state.state}
 													  onInputChange={(name,value)=>{
 													  		var element=document.getElementsByClassName("rbt-menu");
 													  		if(element[0]){
@@ -483,6 +500,7 @@ class CreateMachine extends Component{
 																var node = document.createTextNode(name);
 																var btn=document.createElement("button");
 																btn.className="btn-sm btn btn-danger";
+																btn.setAttribute("type", "button");
 																var btnname=document.createTextNode("+");
 																btn.appendChild(btnname);
 																btn.style.marginLeft="20px";
@@ -493,7 +511,7 @@ class CreateMachine extends Component{
 													  			}
 													  		}													  	 	
 													  }}
-													/>
+													/>*/}
 												</div>
 										  	</div>
 										  </div>
@@ -503,13 +521,11 @@ class CreateMachine extends Component{
 											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
 											    <Typeahead
 													  onChange={(selected) => {
-													  	if(selected[0]!==undefined){
-													    this.setState({site_id:selected[0].id});
-														}
+													    this.setState({site:selected});
 													  }}
-													  options={options}
+													  options={this.props.paramvalue.site}
 													  labelKey="name"
-													  selected={this.state.selected}
+													  selected={this.state.site}
 													  onInputChange={(name,value)=>{
 													  		var element=document.getElementsByClassName("rbt-menu");
 													  		if(element[0]){
@@ -524,6 +540,7 @@ class CreateMachine extends Component{
 																var node = document.createTextNode(name);
 																var btn=document.createElement("button");
 																btn.className="btn-sm btn btn-danger";
+																btn.setAttribute("type", "button");
 																var btnname=document.createTextNode("+");
 																btn.appendChild(btnname);
 																btn.style.marginLeft="20px";
@@ -539,12 +556,14 @@ class CreateMachine extends Component{
 										  	</div>
 										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine" >
-										    <label  className="col-md-3">Operating System</label>
-										    <input type="text" className="form-control col-md-9" />
+										    <label  className="col-md-3">Operating Condition</label>
+										    <input type="text" className="form-control col-md-9"  onChange={this.onChangeSetToState('operating_condition')} value={this.state.operating_condition}/>
 										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine" >
 										    <label  className="col-md-3">Warranty</label>
-										    <input type="text" className="form-control col-md-9" />
+										    <input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('warranty')} value={this.state.warranty}/>
+										    <span className="col-md-3"></span>
+										    {this.state.warrantyerror && <span className="text-danger col-md-9">not a valid number</span>}
 										  </div>
 									</form>
 								</div>

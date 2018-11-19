@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import history from '../../Inits/history';
 import { createEnginemodel, getEnginemodelByID, editEnginemodel} from '../../Store/Actions/engine-model/engine-model.action';
+import { getEnginebrands} from '../../Store/Actions/engine-brand/engine-brand.action';
 import CreateEnginemodel from '../../Component/Enginemodel/CreateEnginemodel';
 class CreateEnginemodelsContainer extends Component {
   state = {
@@ -10,6 +10,7 @@ class CreateEnginemodelsContainer extends Component {
     conditionToBeEdit: null,
   };
   componentWillMount() {
+    this.getEngineBrands();
     const { params } = this.props.match;
     this.setState({
       mode: params && params.id ? 'EDIT' : 'CREATE',
@@ -17,6 +18,9 @@ class CreateEnginemodelsContainer extends Component {
     if(params.id){
       this.getEnginemodel(params.id);
     }
+  }
+  getEngineBrands=async()=>{
+    await this.props.getEnginebrands();
   }
   getEnginemodel = async (conditionID) => {
     try {
@@ -38,7 +42,8 @@ class CreateEnginemodelsContainer extends Component {
     if(this.props.isCreating){
       return <h1>Creating...</h1>
     }
-    const { createStudent, editStudent } = this.props;
+    const { createEnginemodel, editEnginemodel,enginebrand } = this.props;
+    const enginebrandInfo={enginebrand}
     return (
       <div style={{marginTop:'-40px',backgroundColor:'#eee',width:'100%',height:'auto'}}>
       <section>
@@ -47,6 +52,7 @@ class CreateEnginemodelsContainer extends Component {
           onEdit={editEnginemodel}
           initialValues={this.state.conditionToBeEdit}
           mode={this.state.mode}
+          enginebrandInfo={enginebrandInfo}
         />
       </section>
       </div>
@@ -57,12 +63,14 @@ class CreateEnginemodelsContainer extends Component {
 const mapStateToProps = state => {
   return {
     isCreating: state.condition.isCreating,
+    enginebrand:state.enginebrand.list
   };
 };
 const mapDispatchToProps = {
   createEnginemodel, 
   getEnginemodelByID, 
   editEnginemodel,
+  getEnginebrands
 };
 
 export default connect(

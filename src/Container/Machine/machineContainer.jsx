@@ -1,18 +1,16 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import { getMachines,deleteMachine} from '../../Store/Actions/machine/machine.action';
-import { Link } from 'react-router-dom';
 import ListMachine from '../../Component/Machine/machines';
-import {Header} from '../Common/Header';
 class MachineContainer extends Component{
 	componentWillMount(){
+		this.props.getMachines();
 	}
 	render(){
 	const {machines,deleteMachine,getMachines}=this.props;
 	const machineInfo = {machines,deleteMachine,getMachines};
 	return (
 		<div>
-		<Header/>
 			<section className="container-fluid" style={{marginTop:'-100px'}}>
 				<ListMachine machineInfo={machineInfo} />
 			</section>

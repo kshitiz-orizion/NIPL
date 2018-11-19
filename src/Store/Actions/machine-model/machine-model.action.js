@@ -1,7 +1,6 @@
 import { toast } from 'react-toastify';
 import history from '../../../Inits/history';
 import axiosService from '../../../Inits/axios';
-import axios from 'axios';
 import {
   GET_MACHINEMODELS_START,
   GET_MACHINEMODELS_SUCCESS,
@@ -17,23 +16,25 @@ import {
   DELETE_MACHINEMODEL_ERROR,
 } from './machine-model.actiontype';
 
-import { getError } from '../../../Utils/common.util';
-
 export const getMachinemodels = () => async dispatch => {
+
   try {
     dispatch({ type: GET_MACHINEMODELS_START });
-    const machines=await axiosService.get('/machine-models');
-    dispatch({ type: GET_MACHINEMODELS_SUCCESS, payload: machines });
+    const machinemodels=await axiosService.get('/machine-models');
+    dispatch({ type: GET_MACHINEMODELS_SUCCESS, payload: machinemodels });
   } catch (error) {
     toast.error(error.message || 'something went wrong.');
     dispatch({ type: GET_MACHINEMODELS_ERROR });
   }
 };
 
-export const getMachinemodelByID = machineId => async dispatch => {
+export const getMachinemodelByID = machinemodelId => async dispatch => {
   try {
-    const record = await axiosService.get('/machine/'+machineId);
-    return Promise.resolve(record);
+    var machinemodel ={name:'',id:''};
+    if(machinemodelId!==null){
+    machinemodel = await axiosService.get('/machine-models/'+machinemodelId);
+    }
+    return Promise.resolve(machinemodel);
   } catch (error) {
     toast.error(error.message || 'something went wrong.');
     return Promise.reject(error);
@@ -87,8 +88,8 @@ export const editMachinemodel = machines => async dispatch => {
 export const deleteMachinemodel= machine =>async dispatch=>{
   try{
     dispatch({type:DELETE_MACHINEMODEL_START});
-    const deletedMachinemodel=await axiosService.delete('/machine/'+machine.id);
-    dispatch({type:DELETE_MACHINEMODEL_SUCCESS,payload:machine});
+    const machinemodel=await axiosService.delete('/machine/'+machine.id);
+    dispatch({type:DELETE_MACHINEMODEL_SUCCESS,payload:machinemodel});
     toast.success('Successfully Deleted');
   }
   catch(error){

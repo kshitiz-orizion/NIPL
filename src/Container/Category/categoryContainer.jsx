@@ -1,7 +1,6 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import { getCategorys,deleteCategory} from '../../Store/Actions/category/category.action';
-import { Link } from 'react-router-dom';
 import ListCategory from '../../Component/Category/categorys';
 import {Header} from '../Common/Header';
 class CategoryContainer extends Component{

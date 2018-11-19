@@ -1,5 +1,4 @@
 import React, {Component } from 'react';
-import { Link } from 'react-router-dom';
 import '../../Styles/header.css';
 import {removeUser,getCurrentUser} from '../../Store/Actions/auth/auth.action';
 import { connect } from 'react-redux';
@@ -19,7 +18,8 @@ export class Header extends Component{
 			subcategory:false,
 			statesite:false,
 			districtsite:false,
-			site:false
+			site:false,
+			vehicle:false
 		})
 	}
 	showMenu=()=>{
@@ -90,6 +90,11 @@ export class Header extends Component{
 			site:!this.state.site
 		})
 	}
+	showVehicle=()=>{
+		this.setState({
+			vehicle:!this.state.vehicle
+		})
+	}
 	logout=()=>{
 	    this.props.removeUser();
 	}
@@ -106,13 +111,14 @@ export class Header extends Component{
 		const conditionClass=window.location.pathname.slice(0,10)==='/condition'? "menuActive" :"";
 		const categoryClass=window.location.pathname.slice(0,9)==='/category'?"menuActive":"";
 		const subcategoryClass=window.location.pathname.slice(0,12)==='/subcategory'?"menuActive":"";
+		const vehicleClass=window.location.pathname.slice(0,8)==='/vehicle'?"menuActive":"";
 		return(
 			<div>
 				<div className="header" >
 					<div className="divContainer logoContainer" >
-						<img src={process.env.PUBLIC_URL + '/car.svg'}/>
+						<img src={process.env.PUBLIC_URL + '/car.svg'} alt="/car"/>
 					</div>
-					<div className="divContainer col-md-4">
+					<div className="divContainer col-md-4 col-sm-4">
 						<input type="text" className="form-control inputHeader" style={{backgroundImage: `url(${process.env.PUBLIC_URL+'/search.svg'})`}} placeholder="Search..."  />
 					</div>
 					<div className="divContainer plusHeader">
@@ -196,6 +202,21 @@ export class Header extends Component{
 									</div>
 									<div className="submenu" onClick={()=>history.push('/machinemodel/create')}>
 										Create Machine Model
+									</div>
+								</div>
+							}
+						</div>
+						<div className={`innersidenav ${vehicleClass}`}>
+							<div  className="menuName" onClick={()=>this.showVehicle()}>
+							Vehicle{this.state.vehicle?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
+							</div>
+							{this.state.vehicle && 
+								<div>
+									<div className="submenu" onClick={()=>history.push('/vehicles')}>
+										Vehicles
+									</div>
+									<div className="submenu" onClick={()=>history.push('/vehicle/create')}>
+										Create Vehicle
 									</div>
 								</div>
 							}

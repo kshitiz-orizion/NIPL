@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import history from '../../Inits/history';
 import { createMachinebrand, getMachinebrandByID, editMachinebrand} from '../../Store/Actions/machine-brand/machine-brand.action';
 import CreateMachinebrand from '../../Component/Machinebrand/CreateMachinebrand';
@@ -38,7 +37,7 @@ class CreateMachinebrandsContainer extends Component {
     if(this.props.isCreating){
       return <h1>Creating...</h1>
     }
-    const { createStudent, editStudent } = this.props;
+    const { createMachinebrand, editMachinebrand } = this.props;
     return (
       <div style={{marginTop:'-40px',backgroundColor:'#eee',width:'100%',height:'auto'}}>
       <section>

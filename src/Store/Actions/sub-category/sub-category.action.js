@@ -1,7 +1,6 @@
 import { toast } from 'react-toastify';
 import history from '../../../Inits/history';
 import axiosService from '../../../Inits/axios';
-import axios from 'axios';
 import {
   GET_SUBCATEGORYS_START,
   GET_SUBCATEGORYS_SUCCESS,
@@ -17,23 +16,25 @@ import {
   DELETE_SUBCATEGORY_ERROR,
 } from './sub-category.actiontype';
 
-import { getError } from '../../../Utils/common.util';
-
 export const getSubcategorys = () => async dispatch => {
   try {
     dispatch({ type: GET_SUBCATEGORYS_START });
-    const categorys=await axiosService.get('/sub-categories')
-    dispatch({ type: GET_SUBCATEGORYS_SUCCESS, payload: categorys });
+    const subcategorys=await axiosService.get('/sub-categories');
+    dispatch({ type: GET_SUBCATEGORYS_SUCCESS, payload: subcategorys });
   } catch (error) {
     toast.error(error.message || 'something went wrong.');
     dispatch({ type: GET_SUBCATEGORYS_ERROR });
   }
 };
 
-export const getSubcategoryByID = categoryId => async dispatch => {
+export const getSubcategoryByID = subcategoryId => async dispatch => {
   try {
-    const record = await axiosService.get('/category/'+categoryId);
-    return Promise.resolve(record);
+    var subcategory={name:'',id:''};
+    if(subcategoryId!==null){
+    subcategory = await axiosService.get('/sub-categories/'+subcategoryId);
+    }
+    console.log(subcategory);
+    return Promise.resolve(subcategory);
   } catch (error) {
     toast.error(error.message || 'something went wrong.');
     return Promise.reject(error);
@@ -87,8 +88,8 @@ export const editSubcategory = categorys => async dispatch => {
 export const deleteSubcategory= category =>async dispatch=>{
   try{
     dispatch({type:DELETE_SUBCATEGORY_START});
-    const deletedSubcategory=await axiosService.delete('/category/'+category.id);
-    dispatch({type:DELETE_SUBCATEGORY_SUCCESS,payload:category});
+    const subcategory=await axiosService.delete('/category/'+category.id);
+    dispatch({type:DELETE_SUBCATEGORY_SUCCESS,payload:subcategory});
     toast.success('Successfully Deleted');
   }
   catch(error){

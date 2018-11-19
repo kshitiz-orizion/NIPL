@@ -37,6 +37,7 @@ import CreateDistrictsiteContainer from './Container/Districtsite/CreateDistrict
 import DistrictsiteContainer from './Container/Districtsite/districtSiteContainer';
 import CreateSiteContainer from './Container/Site/CreateSiteContainer';
 import SiteContainer from './Container/Site/siteContainer';
+import CreateVehicleContainer from './Container/Vehicle/CreateVehicleContainer';
 import './App.css';
 axiosInterceptor(store);
 class App extends Component {
@@ -72,6 +73,7 @@ class App extends Component {
                 <PrivateRoute exact={true} path="/districtsites" component={DistrictsiteContainer} />
                 <PrivateRoute exact={true} path="/site/create" component={CreateSiteContainer} />
                 <PrivateRoute exact={true} path="/sites" component={SiteContainer} />
+                <PrivateRoute exact={true} path="/vehicle/create" component={CreateVehicleContainer} />
                 <Route path="/" render={ ( props ) => ( props.location.pathname !== "/") && <Header /> }/>
              </div>
            </div>

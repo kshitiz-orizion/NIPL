@@ -1,7 +1,6 @@
 import { toast } from 'react-toastify';
 import history from '../../../Inits/history';
 import axiosService from '../../../Inits/axios';
-import axios from 'axios';
 import {
   GET_ENGINEBRANDS_START,
   GET_ENGINEBRANDS_SUCCESS,
@@ -17,23 +16,24 @@ import {
   DELETE_ENGINEBRAND_ERROR,
 } from './engine-brand.actiontype';
 
-import { getError } from '../../../Utils/common.util';
-
 export const getEnginebrands = () => async dispatch => {
   try {
     dispatch({ type: GET_ENGINEBRANDS_START });
-    const categorys=await axiosService.get('/engine-brands');
-    dispatch({ type: GET_ENGINEBRANDS_SUCCESS, payload: categorys });
+    const enginebrands=await axiosService.get('/engine-brands');
+    dispatch({ type: GET_ENGINEBRANDS_SUCCESS, payload: enginebrands });
   } catch (error) {
     toast.error(error.message || 'something went wrong.');
     dispatch({ type: GET_ENGINEBRANDS_ERROR });
   }
 };
 
-export const getEnginebrandByID = categoryId => async dispatch => {
+export const getEnginebrandByID = engineBrandId => async dispatch => {
   try {
-    const record = await axiosService.get('/category/'+categoryId);
-    return Promise.resolve(record);
+    var enginebrand={name:'',id:''};
+    if(engineBrandId!==null){
+    enginebrand = await axiosService.get('/engine-brands/'+engineBrandId);
+    }
+    return Promise.resolve(enginebrand);
   } catch (error) {
     toast.error(error.message || 'something went wrong.');
     return Promise.reject(error);
@@ -87,8 +87,8 @@ export const editEnginebrand = categorys => async dispatch => {
 export const deleteEnginebrand= category =>async dispatch=>{
   try{
     dispatch({type:DELETE_ENGINEBRAND_START});
-    const deletedEnginebrand=await axiosService.delete('/category/'+category.id);
-    dispatch({type:DELETE_ENGINEBRAND_SUCCESS,payload:category});
+    const enginebrand=await axiosService.delete('/category/'+category.id);
+    dispatch({type:DELETE_ENGINEBRAND_SUCCESS,payload:enginebrand});
     toast.success('Successfully Deleted');
   }
   catch(error){

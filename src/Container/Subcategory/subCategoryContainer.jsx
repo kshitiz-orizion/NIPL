@@ -1,9 +1,7 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import { getSubcategorys,deleteSubcategory} from '../../Store/Actions/sub-category/sub-category.action';
-import { Link } from 'react-router-dom';
 import Listsubcategory from '../../Component/Subcategory/subcategorys';
-import {Header} from '../Common/Header';
 class subcategoryContainer extends Component{
 	componentWillMount(){
 	}
@@ -12,7 +10,6 @@ class subcategoryContainer extends Component{
 	const subcategoryInfo = {subcategorys,deletesubcategory,getsubcategorys};
 	return (
 		<div>
-		<Header/>
 			<section className="container-fluid" style={{marginTop:'-100px'}}>
 				<Listsubcategory subcategoryInfo={subcategoryInfo} />
 			</section>

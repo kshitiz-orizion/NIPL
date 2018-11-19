@@ -1,9 +1,7 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import { getSites,deleteSite} from '../../Store/Actions/site/site.action';
-import { Link } from 'react-router-dom';
 import ListSite from '../../Component/Site/sites';
-import {Header} from '../Common/Header';
 class SiteContainer extends Component{
 	componentWillMount(){
 	}
@@ -12,7 +10,6 @@ class SiteContainer extends Component{
 	const machineInfo = {sites,deleteSite,getSites};
 	return (
 		<div>
-		<Header/>
 			<section className="container-fluid" style={{marginTop:'-100px'}}>
 				<ListSite machineInfo={machineInfo} />
 			</section>

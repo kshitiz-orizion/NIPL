@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import history from '../../Inits/history';
-import { createDistrictsite, getDistrictsiteByID, editDistrictsite} from '../../Store/Actions/district-site/district-site.action';
-import CreateDistrictsite from '../../Component/Districtsite/CreateDistrictsite';
-class CreateDistrictsiteContainer extends Component {
+//import { createVehicle, getVehicleByID, editVehicle} from '../../Store/Actions/sub-category/sub-category.action';
+import CreateVehicle from '../../Component/Vehicle/CreateVehicle';
+class CreateVehicleContainer extends Component {
   state = {
     mode:'CREATE',
     conditionToBeEdit: null,
@@ -14,12 +14,12 @@ class CreateDistrictsiteContainer extends Component {
       mode: params && params.id ? 'EDIT' : 'CREATE',
     });
     if(params.id){
-      this.getDistrictsite(params.id);
+      this.getVehicle(params.id);
     }
   }
-  getDistrictsite = async (conditionID) => {
+  getVehicle = async (conditionID) => {
     try {
-      const conditionToBeEdit =await this.props.getDistrictsiteByID(conditionID);
+      const conditionToBeEdit =await this.props.getVehicleByID(conditionID);
       this.setState(prevState => {
         return {
           ...prevState,
@@ -37,13 +37,13 @@ class CreateDistrictsiteContainer extends Component {
     if(this.props.isCreating){
       return <h1>Creating...</h1>
     }
-    const { createDistrictsite, editDistrictsite } = this.props;
+    const { createVehicle, editVehicle } = this.props;
     return (
       <div style={{marginTop:'-40px',backgroundColor:'#eee',width:'100%',height:'auto'}}>
       <section>
-        <CreateDistrictsite
-          onCreate={createDistrictsite}
-          onEdit={editDistrictsite}
+        <CreateVehicle
+          onCreate={createVehicle}
+          onEdit={editVehicle}
           initialValues={this.state.conditionToBeEdit}
           mode={this.state.mode}
         />
@@ -55,16 +55,16 @@ class CreateDistrictsiteContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    isCreating: state.condition.isCreating,
+    // isCreating: state.categorys.isCreating,
   };
 };
 const mapDispatchToProps = {
-  createDistrictsite, 
-  getDistrictsiteByID, 
-  editDistrictsite,
+  // createVehicle, 
+  // getVehicleByID, 
+  // editVehicle,
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CreateDistrictsiteContainer);
+)(CreateVehicleContainer);

@@ -1,9 +1,7 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import { getStatesites,deleteStatesite} from '../../Store/Actions/state-site/state-site.action';
-import { Link } from 'react-router-dom';
 import ListstateSite from '../../Component/Statesite/statesites';
-import {Header} from '../Common/Header';
 class stateSiteContainer extends Component{
 	componentWillMount(){
 	}
@@ -12,7 +10,6 @@ class stateSiteContainer extends Component{
 	const statesiteInfo = {statesites,deletestateSite,getstateSites};
 	return (
 		<div>
-		<Header/>
 			<section className="container-fluid" style={{marginTop:'-100px'}}>
 				<ListstateSite statesiteInfo={statesiteInfo} />
 			</section>

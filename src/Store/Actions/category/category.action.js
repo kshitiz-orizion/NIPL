@@ -1,7 +1,6 @@
 import { toast } from 'react-toastify';
 import history from '../../../Inits/history';
 import axiosService from '../../../Inits/axios';
-import axios from 'axios';
 import {
   GET_CATEGORYS_START,
   GET_CATEGORYS_SUCCESS,
@@ -17,8 +16,6 @@ import {
   DELETE_CATEGORY_ERROR,
 } from './category.actiontype';
 
-import { getError } from '../../../Utils/common.util';
-
 export const getCategorys = () => async dispatch => {
   try {
     dispatch({ type: GET_CATEGORYS_START });
@@ -32,8 +29,11 @@ export const getCategorys = () => async dispatch => {
 
 export const getCategoryByID = categoryId => async dispatch => {
   try {
-    const record = await axiosService.get('/category/'+categoryId);
-    return Promise.resolve(record);
+    var category={name:'',id:''}
+    if(categoryId!==null){
+    category = await axiosService.get('/category/'+categoryId);
+    }
+    return Promise.resolve(category);
   } catch (error) {
     toast.error(error.message || 'something went wrong.');
     return Promise.reject(error);
@@ -44,14 +44,7 @@ export const getCategoryByID = categoryId => async dispatch => {
 export const createCategory = categorys => async dispatch => {
   try{
     dispatch({type: CREATE_CATEGORY_START});
-    let category=new FormData();
-    category.append('name',categorys.name);
-    category.append('roll',categorys.roll);
-    category.append('photo',categorys.image);
-    category.append('std',categorys.std);
-    category.append('email',categorys.email);
-    category.append('dob',categorys.dob.format('YYYY-MM-DD'));
-    const createdCategory=await axiosService.post('/category',category,{'Content-type':'multipart/form-data'});
+    const createdCategory=await axiosService.post('/category',categorys);
     toast.success('Successfully created.');
     dispatch({ type: CREATE_CATEGORY_SUCCESS, payload: createdCategory });
     history.push('/category');
@@ -87,8 +80,8 @@ export const editCategory = categorys => async dispatch => {
 export const deleteCategory= category =>async dispatch=>{
   try{
     dispatch({type:DELETE_CATEGORY_START});
-    const deletedCategory=await axiosService.delete('/category/'+category.id);
-    dispatch({type:DELETE_CATEGORY_SUCCESS,payload:category});
+    const deletedcategory=await axiosService.delete('/category/'+category.id);
+    dispatch({type:DELETE_CATEGORY_SUCCESS,payload:deletedcategory});
     toast.success('Successfully Deleted');
   }
   catch(error){

@@ -503,3 +503,60 @@ ul{
 	margin:5px 5px 5px 5px;
 	background-color: white;
 }
+
+/*vehicle-page*/
+
+.flexFormContainer{
+	min-height: 1000px;
+	display: flex;
+    justify-content:flex-end;
+    position: relative;
+    left:3vw;
+    flex-wrap: wrap;
+}
+
+.navbarContainer{
+	margin-top: 10px;
+	width:20%;
+	background-color: white;
+	height: 300px;
+	border-radius: 5px 5px 5px 5px;
+	box-shadow: 1px 1px 1px 1px black;
+	display: flex;
+	flex-wrap: wrap;
+}
+.navbarField{
+	width:100%;
+	border-bottom: 1px solid #f1f1f1;
+	height: 50px;
+}
+.navicon{
+	width:20%;
+	display: inline-block;
+	position: relative;
+	left:20px;
+	top:10px;
+	color:#818181;
+}
+.navfield{
+	width:80%;
+	display: inline-block;
+	float: right;
+	position: relative;
+	top:10px;
+}
+.activenavbar{
+	background-color: lightblue;
+}
+.allFormContainer{
+	width:70%;
+	margin-top: 10px;
+	background-color: white;
+	border-radius: 5px 5px 5px 5px;
+	box-shadow: 1px 1px 1px 1px black;
+}
+.footerVehicle{
+	width:70%;
+	position: relative;
+    right: 4vw;
+}

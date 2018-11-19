@@ -1,17 +1,12 @@
 import React,{Component} from 'react';
-import history from '../../Inits/history';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import moment from 'moment';
-import { toast } from 'react-toastify';
+// import history from '../../Inits/history';
+// import DatePicker from 'react-datepicker';
+// import 'react-datepicker/dist/react-datepicker.css';
+// import moment from 'moment';
+// import { toast } from 'react-toastify';
 import Chart from "react-google-charts";
 class HomeComponent extends Component{
 	componentWillMount(){
-    	this.setState({
-			std:'',
-			dob:moment(new Date()),
-			studentAbsent:[]
-		});
 	}
 	render(){
 		const data = [

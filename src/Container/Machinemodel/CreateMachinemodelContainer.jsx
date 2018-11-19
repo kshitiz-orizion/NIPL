@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import history from '../../Inits/history';
 import { createMachinemodel, getMachinemodelByID, editMachinemodel} from '../../Store/Actions/machine-model/machine-model.action';
+import { getMachinebrands} from '../../Store/Actions/machine-brand/machine-brand.action';
 import CreateMachinemodel from '../../Component/Machinemodel/CreateMachinemodel';
 class CreateMachinemodelContainer extends Component {
   state = {
@@ -10,6 +10,7 @@ class CreateMachinemodelContainer extends Component {
     conditionToBeEdit: null,
   };
   componentWillMount() {
+    this.getMachineBrands();
     const { params } = this.props.match;
     this.setState({
       mode: params && params.id ? 'EDIT' : 'CREATE',
@@ -17,6 +18,9 @@ class CreateMachinemodelContainer extends Component {
     if(params.id){
       this.getMachinemodel(params.id);
     }
+  }
+  getMachineBrands=async()=>{
+    await this.props.getMachinebrands();
   }
   getMachinemodel = async (conditionID) => {
     try {
@@ -38,7 +42,8 @@ class CreateMachinemodelContainer extends Component {
     if(this.props.isCreating){
       return <h1>Creating...</h1>
     }
-    const { createStudent, editStudent } = this.props;
+    const { createMachinemodel, editMachinemodel,machinebrand } = this.props;
+    const machinebrandInfo={machinebrand};
     return (
       <div style={{marginTop:'-40px',backgroundColor:'#eee',width:'100%',height:'auto'}}>
       <section>
@@ -47,6 +52,7 @@ class CreateMachinemodelContainer extends Component {
           onEdit={editMachinemodel}
           initialValues={this.state.conditionToBeEdit}
           mode={this.state.mode}
+          machinebrandInfo={machinebrandInfo}
         />
       </section>
       </div>
@@ -57,12 +63,14 @@ class CreateMachinemodelContainer extends Component {
 const mapStateToProps = state => {
   return {
     isCreating: state.condition.isCreating,
+    machinebrand:state.machinebrand.list
   };
 };
 const mapDispatchToProps = {
   createMachinemodel, 
   getMachinemodelByID, 
   editMachinemodel,
+  getMachinebrands
 };
 
 export default connect(
