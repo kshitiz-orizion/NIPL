@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import history from '../../Inits/history';
 import { createMachinebrand, getMachinebrandByID, editMachinebrand} from '../../Store/Actions/machine-brand/machine-brand.action';
 import CreateMachinebrand from '../../Component/Machinebrand/CreateMachinebrand';
+import PageLoader from '../Common/pageloader';
 class CreateMachinebrandsContainer extends Component {
   state = {
     mode:'CREATE',
@@ -32,10 +33,10 @@ class CreateMachinebrandsContainer extends Component {
   };
   render() {
     if (this.state.mode === 'EDIT' && !this.state.conditionToBeEdit) {
-      return <h1>Loading...</h1>
+      return <PageLoader/>
     }
     if(this.props.isCreating){
-      return <h1>Creating...</h1>
+      return <PageLoader/>
     }
     const { createMachinebrand, editMachinebrand } = this.props;
     return (
@@ -55,7 +56,7 @@ class CreateMachinebrandsContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    isCreating: state.condition.isCreating,
+    isCreating: state.machinebrand.isCreating,
   };
 };
 const mapDispatchToProps = {

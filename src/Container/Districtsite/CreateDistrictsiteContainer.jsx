@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import history from '../../Inits/history';
 import { createDistrictsite, getDistrictsiteByID, editDistrictsite} from '../../Store/Actions/district-site/district-site.action';
 import CreateDistrictsite from '../../Component/Districtsite/CreateDistrictsite';
+import PageLoader from '../Common/pageloader';
 class CreateDistrictsiteContainer extends Component {
   state = {
     mode:'CREATE',
@@ -32,10 +33,10 @@ class CreateDistrictsiteContainer extends Component {
   };
   render() {
     if (this.state.mode === 'EDIT' && !this.state.conditionToBeEdit) {
-      return <h1>Loading...</h1>
+      return <PageLoader/>
     }
     if(this.props.isCreating){
-      return <h1>Creating...</h1>
+      return <PageLoader/>
     }
     const { createDistrictsite, editDistrictsite } = this.props;
     return (

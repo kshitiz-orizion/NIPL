@@ -41,20 +41,13 @@ export const getConditionByID = conditionId => async dispatch => {
 };
 
 
-export const createCondition = machines => async dispatch => {
+export const createCondition = condition => async dispatch => {
   try{
     dispatch({type: CREATE_CONDITION_START});
-    let machine=new FormData();
-    machine.append('name',machines.name);
-    machine.append('roll',machines.roll);
-    machine.append('photo',machines.image);
-    machine.append('std',machines.std);
-    machine.append('email',machines.email);
-    machine.append('dob',machines.dob.format('YYYY-MM-DD'));
-    const createdCondition=await axiosService.post('/machine',machine,{'Content-type':'multipart/form-data'});
+    const createdCondition=await axiosService.post('/conditions',condition,{'Content-type':'application/json'});
     toast.success('Successfully created.');
     dispatch({ type: CREATE_CONDITION_SUCCESS, payload: createdCondition });
-    history.push('/machine');
+    history.push('/conditions');
   }
   catch(error){
      toast.error(error.message);
@@ -62,33 +55,24 @@ export const createCondition = machines => async dispatch => {
   }
 };
 
-export const editCondition = machines => async dispatch => {
+export const editCondition = condition => async dispatch => {
   try {
     dispatch({ type: EDIT_CONDITION_START });
-    let machine=new FormData();
-    machine.append('name',machines.name);
-    machine.append('roll',machines.roll);
-    if(typeof(machines.image)===Object){
-    machine.append('photo',machines.image); 
-    }
-    machine.append('std',machines.std);
-    machine.append('email',machines.email);
-    machine.append('dob',machines.dob.format('YYYY-MM-DD'));
-    const machineEdit=await axiosService.put('/machine/'+machines.id,machine,{'Content-type':'multipart/form-data'});
+    const conditionEdit=await axiosService.put('/conditions/'+condition.id,condition,{'Content-type':'application/json'});
     toast.success('Successfully saved.');
-    dispatch({ type: EDIT_CONDITION_SUCCESS, payload: machineEdit });
-    history.push('/machine');
+    dispatch({ type: EDIT_CONDITION_SUCCESS, payload: conditionEdit });
+    history.push('/conditions');
   } catch (error) {
     toast.error(error.message);
     dispatch({ type: EDIT_CONDITION_ERROR });
   }
 };
 
-export const deleteCondition= machine =>async dispatch=>{
+export const deleteCondition= condition =>async dispatch=>{
   try{
     dispatch({type:DELETE_CONDITION_START});
-    const condition=await axiosService.delete('/machine/'+machine.id);
-    dispatch({type:DELETE_CONDITION_SUCCESS,payload:condition});
+    const deleteCondition=await axiosService.delete('/conditions/'+condition.id);
+    dispatch({type:DELETE_CONDITION_SUCCESS,payload:deleteCondition});
     toast.success('Successfully Deleted');
   }
   catch(error){

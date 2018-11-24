@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import history from '../../Inits/history';
 import { createStatesite, getStatesiteByID, editStatesite} from '../../Store/Actions/state-site/state-site.action';
 import CreateStatesite from '../../Component/Statesite/CreateStatesite';
+import PageLoader from '../Common/pageloader';
 class CreateStatesiteContainer extends Component {
   state = {
     mode:'CREATE',
@@ -32,10 +33,10 @@ class CreateStatesiteContainer extends Component {
   };
   render() {
     if (this.state.mode === 'EDIT' && !this.state.conditionToBeEdit) {
-      return <h1>Loading...</h1>
+      return <PageLoader/>
     }
     if(this.props.isCreating){
-      return <h1>Creating...</h1>
+      return <PageLoader/>
     }
     const { createStatesite, editStatesite } = this.props;
     return (

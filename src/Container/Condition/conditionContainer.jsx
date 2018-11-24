@@ -2,13 +2,18 @@ import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import { getConditions,deleteCondition} from '../../Store/Actions/condition/condition.action';
 import ListCondition from '../../Component/Condition/conditions';
+import PageLoader from '../Common/pageloader';
 import {Header} from '../Common/Header';
 class ConditionContainer extends Component{
 	componentWillMount(){
+		this.props.getConditions();
 	}
 	render(){
-	const {conditions,deleteCondition,getConditions}=this.props;
+	const {conditions,deleteCondition,getConditions,isFetching}=this.props;
 	const conditionInfo = {conditions,deleteCondition,getConditions};
+	if(isFetching){
+		return <PageLoader/>
+	}
 	return (
 		<div>
 		<Header/>
@@ -22,7 +27,8 @@ class ConditionContainer extends Component{
 
 const mapStateToProps = state => {
   return {
-    conditions:state.condition.list
+    conditions:state.condition.list,
+    isFetching:state.condition.isFetching
   };
 };
 const mapDispatchToProps = {

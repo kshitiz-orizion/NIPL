@@ -2,12 +2,20 @@ import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import { getSubcategorys,deleteSubcategory} from '../../Store/Actions/sub-category/sub-category.action';
 import Listsubcategory from '../../Component/Subcategory/subcategorys';
+import PageLoader from '../Common/pageloader';
 class subcategoryContainer extends Component{
 	componentWillMount(){
+		this.getsubcategorys();
+	}
+	getsubcategorys=async()=>{
+		await this.props.getSubcategorys();
 	}
 	render(){
-	const {subcategorys,deletesubcategory,getsubcategorys}=this.props;
-	const subcategoryInfo = {subcategorys,deletesubcategory,getsubcategorys};
+	const {subcategorys,deleteSubcategory,getSubcategorys,isFetching}=this.props;
+	const subcategoryInfo = {subcategorys,deleteSubcategory,getSubcategorys};
+	if(isFetching){
+		return <PageLoader/>
+	}
 	return (
 		<div>
 			<section className="container-fluid" style={{marginTop:'-100px'}}>
@@ -20,7 +28,8 @@ class subcategoryContainer extends Component{
 
 const mapStateToProps = state => {
   return {
-    subcategorys:state.subcategory.list
+    subcategorys:state.subcategory.list,
+    isFetching:state.subcategory.isFetching
   };
 };
 const mapDispatchToProps = {

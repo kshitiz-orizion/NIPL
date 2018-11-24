@@ -41,54 +41,41 @@ export const getEnginemodelByID = enginemodelId => async dispatch => {
 };
 
 
-export const createEnginemodel = categorys => async dispatch => {
+export const createEnginemodel = enginemodel => async dispatch => {
   try{
     dispatch({type: CREATE_ENGINEMODEL_START});
-    let category=new FormData();
-    category.append('name',categorys.name);
-    category.append('roll',categorys.roll);
-    category.append('photo',categorys.image);
-    category.append('std',categorys.std);
-    category.append('email',categorys.email);
-    category.append('dob',categorys.dob.format('YYYY-MM-DD'));
-    const createdEnginemodel=await axiosService.post('/category',category,{'Content-type':'multipart/form-data'});
+    const createdEnginemodel=await axiosService.post('/engine-models',enginemodel,{'Content-type':'application/json'});
     toast.success('Successfully created.');
     dispatch({ type: CREATE_ENGINEMODEL_SUCCESS, payload: createdEnginemodel });
-    history.push('/category');
+    history.push('/enginemodels');
   }
   catch(error){
-     toast.error(error.message);
-    dispatch({ type: CREATE_ENGINEMODEL_ERROR });
+    console.log(error);
+    dispatch({ type: CREATE_ENGINEMODEL_ERROR});
   }
 };
 
-export const editEnginemodel = categorys => async dispatch => {
+export const editEnginemodel = enginemodel => async dispatch => {
   try {
+    enginemodel.brand_id=enginemodel.enginebrand[0].id;
+    const {brand_id,id,name}=enginemodel;
+    const newEngineModel={brand_id,id,name};
     dispatch({ type: EDIT_ENGINEMODEL_START });
-    let category=new FormData();
-    category.append('name',categorys.name);
-    category.append('roll',categorys.roll);
-    if(typeof(categorys.image)===Object){
-    category.append('photo',categorys.image); 
-    }
-    category.append('std',categorys.std);
-    category.append('email',categorys.email);
-    category.append('dob',categorys.dob.format('YYYY-MM-DD'));
-    const categoryEdit=await axiosService.put('/category/'+categorys.id,category,{'Content-type':'multipart/form-data'});
+    const enginemodelEdit=await axiosService.put('/engine-models/'+enginemodel.id,newEngineModel,{'Content-type':'application/json'});
     toast.success('Successfully saved.');
-    dispatch({ type: EDIT_ENGINEMODEL_SUCCESS, payload: categoryEdit });
-    history.push('/category');
+    dispatch({ type: EDIT_ENGINEMODEL_SUCCESS, payload: enginemodelEdit });
+    history.push('/enginemodels');
   } catch (error) {
     toast.error(error.message);
     dispatch({ type: EDIT_ENGINEMODEL_ERROR });
   }
 };
 
-export const deleteEnginemodel= category =>async dispatch=>{
+export const deleteEnginemodel= enginemodel =>async dispatch=>{
   try{
     dispatch({type:DELETE_ENGINEMODEL_START});
-    const enginemodel=await axiosService.delete('/category/'+category.id);
-    dispatch({type:DELETE_ENGINEMODEL_SUCCESS,payload:enginemodel});
+    const deletedenginemodel=await axiosService.delete('/engine-models/'+enginemodel.id);
+    dispatch({type:DELETE_ENGINEMODEL_SUCCESS,payload:deletedenginemodel});
     toast.success('Successfully Deleted');
   }
   catch(error){

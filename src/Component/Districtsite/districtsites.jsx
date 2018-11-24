@@ -2,57 +2,6 @@ import React,{Component} from 'react';
 import history from '../../Inits/history';
 class ListDistrict extends Component{
 	componentWillMount(){
-		this.getDistricts();
-		this.setState({
-			districts:[
-		{
-			  "warranty": 4,
-			  "engine_serial_no": "1231414",
-			  "code": "Code-2",
-			  "chassis_no": "CH 1200",
-			  "serial_no": "SR100",
-			  "brand_id": "Hyundai",
-			  "price": "100.00",
-			  "reg_no": "123141",
-			  "id": "a1283eea-831d-4637-bed4-86241f9768bc",
-			  "category_id": "hatchbag",
-			  "condition_id": "good",
-			  "description": "Testing purpose",
-			  "name": "District1",
-			  "purchase_year": 2016,
-			  "site_id": "JNU",
-			  "engine_model_id": "Diesel",
-			  "sub_category_id": "small hatchbag",
-			  "model_id": "i10",
-			  "engine_brand_id": "Spark Ignited Engine",
-			  "remark": "very nice vehicle"
-		},
-		{
-			  "warranty": 4,
-			  "engine_serial_no": "1231414",
-			  "code": "Code-3",
-			  "chassis_no": "CH 1200",
-			  "serial_no": "SR100",
-			  "brand_id": "Maruti Suzuki",
-			  "price": "100.00",
-			  "reg_no": "123141",
-			  "id": "a1283eea-831d-4637-bed4-86241f9768bc",
-			  "category_id": "SUV",
-			  "condition_id": "good",
-			  "description": "Testing purpose",
-			  "name": "District2",
-			  "purchase_year": 2016,
-			  "site_id": "JNU",
-			  "engine_model_id": "Diesel",
-			  "sub_category_id": "MUV",
-			  "model_id": "Brezza",
-			  "engine_brand_id": "Spark Ignited Engine",
-			  "remark": "very nice vehicle"
-		}]
-	})
-	}
-	getDistricts=async()=>{
-		// await this.props.districtInfo.getDistricts();
 	}
 	AddDistrict=()=>{
 		history.push('/districtsite/create');

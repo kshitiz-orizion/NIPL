@@ -10,7 +10,7 @@ class ListMachine extends Component{
 		history.push('/machines/'+machine.id);
 	}
 	deleteStudent=(machine)=>{
-		 this.props.machineInfo.deleteStudent(machine);
+		 this.props.machineInfo.deleteMachine(machine);
 	}
 	render(){
 		return (
@@ -35,8 +35,8 @@ class ListMachine extends Component{
 						<tr key={i}>
 							<td>{machine.serial_no}</td>
 							<td>{machine.name}</td>
-							<td>{machine.brand_id}</td>
-							<td>{machine.model_id}</td>
+							<td>{machine.machinebrandname}</td>
+							<td>{machine.machinemodelname}</td>
 							<td>
 								<button className="btn btn-default btn-sm" onClick={()=>this.editStudent(machine)}><i className="fa fa-pencil" aria-hidden="true"></i>Edit</button>
 								<button className="btn btn-danger btn-sm" onClick={()=>this.deleteStudent(machine)}><i className="fa fa-trash" aria-hidden="true"></i>Delete</button>

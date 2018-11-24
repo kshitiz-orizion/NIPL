@@ -4,8 +4,11 @@ import {Typeahead} from 'react-bootstrap-typeahead';
 class CreateEnginemodel extends Component{
 	componentWillMount(){
 		if(this.props.mode==='EDIT'){
+			const {name,enginebrand,id}=this.props.initialValues
 			this.setState({
-				 ...this.props.initialValues
+				 name,
+				 id,
+				 enginebrand:[enginebrand]
 			});
 		}
 		else{
@@ -50,20 +53,23 @@ class CreateEnginemodel extends Component{
 											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
 											    <Typeahead
 													  onChange={(selected) => {
-													  	if(selected[0]!==undefined){
-													    this.setState({brand_id:selected[0].id});
-														}
+													    this.setState({enginebrand:selected});
+													    if(selected[0]!==undefined){
+													    	this.setState({
+													    		brand_id:selected[0].id
+													    	})
+													    }
 													  }}
 													  options={this.props.enginebrandInfo.enginebrand}
 													  labelKey="name"
-													  selected={this.state.selected}
+													  selected={this.state.enginebrand}
 													/>
 												</div>
 										  	</div>
 										</div>
 										  <div className="form-group col-md-12 inputPaddingMachine">
 										    <label  className="col-md-3">Name</label>
-										    <input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('code')}/>
+										    <input type="text" className="form-control col-md-9" value={this.state.name} onChange={this.onChangeSetToState('name')}/>
 										  </div>
 									</form>
 								</div>
@@ -72,7 +78,7 @@ class CreateEnginemodel extends Component{
 										<div className="cancelFooterMachine">
 										Cancel
 										</div>
-										<button type="submit" className="btn btn-primary btn-sm saveButtonFooterMachine" >Submit</button>
+										<button type="submit" className="btn btn-primary btn-sm saveButtonFooterMachine" onClick={this.props.handleSubmit(this.submitUser)}>Submit</button>
 										<button type="submit" className="btn btn-default btn-sm submitAndEditFooterMachine" >Save & Continue Editing</button>
 									</div>
 								</div>	

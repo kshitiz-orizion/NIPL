@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import history from '../../Inits/history';
 import { createEnginebrand, getEnginebrandByID, editEnginebrand} from '../../Store/Actions/engine-brand/engine-brand.action';
 import CreateEnginebrand from '../../Component/Enginebrand/CreateEnginebrand';
+import PageLoader from '../Common/pageloader';
 class CreateEnginebrandsContainer extends Component {
   state = {
     mode:'CREATE',
@@ -19,11 +20,11 @@ class CreateEnginebrandsContainer extends Component {
   }
   getEnginebrand = async (conditionID) => {
     try {
-      const conditionToBeEdit =await this.props.getEnginebrandByID(conditionID);
+      const enginebrandToBeEdit =await this.props.getEnginebrandByID(conditionID);
       this.setState(prevState => {
         return {
           ...prevState,
-          conditionToBeEdit,
+          enginebrandToBeEdit,
         };
       });
     } catch (error) {
@@ -31,20 +32,20 @@ class CreateEnginebrandsContainer extends Component {
     }
   };
   render() {
-    if (this.state.mode === 'EDIT' && !this.state.conditionToBeEdit) {
-      return <h1>Loading...</h1>
+    if (this.state.mode === 'EDIT' && !this.state.enginebrandToBeEdit) {
+      return <PageLoader/>
     }
     if(this.props.isCreating){
-      return <h1>Creating...</h1>
+      return <PageLoader/>
     }
-    const { createEnginebrand, editEnginebrand } = this.props;
+    const { createEnginebrand, editEnginebrand} = this.props;
     return (
       <div style={{marginTop:'-40px',backgroundColor:'#eee',width:'100%',height:'auto'}}>
       <section>
         <CreateEnginebrand
           onCreate={createEnginebrand}
           onEdit={editEnginebrand}
-          initialValues={this.state.conditionToBeEdit}
+          initialValues={this.state.enginebrandToBeEdit}
           mode={this.state.mode}
         />
       </section>
@@ -55,7 +56,7 @@ class CreateEnginebrandsContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    isCreating: state.condition.isCreating,
+    isCreating: state.enginebrand.isCreating,
   };
 };
 const mapDispatchToProps = {

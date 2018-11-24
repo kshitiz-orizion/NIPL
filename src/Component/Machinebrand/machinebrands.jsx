@@ -2,10 +2,6 @@ import React,{Component} from 'react';
 import history from '../../Inits/history';
 class ListMachinebrand extends Component{
 	componentWillMount(){
-		this.getMachinebrands();
-	}
-	getMachinebrands=async()=>{
-		await this.props.machinebrandInfo.getMachinebrands();
 	}
 	AddMachinebrand=()=>{
 		history.push('/machinebrand/create');
@@ -35,7 +31,7 @@ class ListMachinebrand extends Component{
 					    <tbody>
 					    {this.props.machinebrandInfo.machinebrands.map((machinebrand,i)=>(
 						<tr key={i}>
-							<td>{i}</td>
+							<td>{i+1}</td>
 							<td>{machinebrand.name}</td>
 							<td>
 								<button className="btn btn-default btn-sm" onClick={()=>this.editMachinebrand(machinebrand)}><i className="fa fa-pencil" aria-hidden="true"></i>Edit</button>

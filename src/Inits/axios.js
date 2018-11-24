@@ -14,7 +14,7 @@ export const axiosInterceptor = store => {
     async function(config) {
       const accessToken = getLocalStorage('accessToken');
       if (accessToken) {
-        config.headers['Authorization'] = `Bearer ${accessToken}`;
+        // config.headers['Authorization'] = `Bearer ${accessToken}`;
       }
       return config;
     },
@@ -24,7 +24,14 @@ export const axiosInterceptor = store => {
   );
 
   instance.interceptors.response.use(
-    response => response.data,
+    response => {
+      if(response.status===200 || response.status===201){
+        return response.data;
+      }else{
+        response.data.errorStatus=response.status;
+        return response.data;
+      }
+    },
     errorResponse => {
       // if (get(errorResponse, 'response.status') === 401) {
       //   store.dispatch(removeUser());
@@ -59,7 +66,7 @@ const axiosService = {
     if (!(endPoint || !data)) {
       throw Error('endPoint and data are required params');
     }
-    return instance.put(endPoint, data);
+    return instance.put(endPoint, data,{ headers });
   },
   delete: (endPoint, data, headers = {}) => {
     const config = {};

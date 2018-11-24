@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import history from '../../Inits/history';
 import { createCondition, getConditionByID, editCondition} from '../../Store/Actions/condition/condition.action';
 import CreateCondition from '../../Component/Condition/CreateCondition';
+import PageLoader from '../Common/pageloader';
 class CreateConditionsContainer extends Component {
   state = {
     mode:'CREATE',
@@ -32,10 +33,10 @@ class CreateConditionsContainer extends Component {
   };
   render() {
     if (this.state.mode === 'EDIT' && !this.state.conditionToBeEdit) {
-      return <h1>Loading...</h1>
+      return <PageLoader/>
     }
     if(this.props.isCreating){
-      return <h1>Creating...</h1>
+      return <PageLoader/>
     }
     const { createCondition, editCondition } = this.props;
     return (

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import history from '../../Inits/history';
 import { createCategory, getCategoryByID, editCategory} from '../../Store/Actions/category/category.action';
 import CreateCategory from '../../Component/Category/CreateCategory';
+import PageLoader from '../Common/pageloader';
 class CreateCategoryContainer extends Component {
   state = {
     mode:'CREATE',
@@ -32,10 +33,10 @@ class CreateCategoryContainer extends Component {
   };
   render() {
     if (this.state.mode === 'EDIT' && !this.state.conditionToBeEdit) {
-      return <h1>Loading...</h1>
+      return <PageLoader/>
     }
     if(this.props.isCreating){
-      return <h1>Creating...</h1>
+      return <PageLoader/>
     }
     const { createCategory, editCategory } = this.props;
     return (

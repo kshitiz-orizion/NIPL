@@ -42,10 +42,10 @@ class CreateCondition extends Component{
 								<h5>{this.props.mode==='EDIT'?'Edit Condition':'Create Condition'}</h5>
 								</div>
 								<div className="container formContainer" >
-									<form className="form-inline machineForm" onSubmit={this.props.handleSubmit(this.submitUser)}>
+									<form className="form-inline machineForm" >
 										  <div className="form-group col-md-12 inputPaddingMachine">
 										    <label  className="col-md-3">Name</label>
-										    <input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('code')}/>
+										    <input type="text" className="form-control col-md-9" value={this.state.name} onChange={this.onChangeSetToState('name')}/>
 										  </div>
 									</form>
 								</div>
@@ -54,7 +54,7 @@ class CreateCondition extends Component{
 										<div className="cancelFooterMachine">
 										Cancel
 										</div>
-										<button type="submit" className="btn btn-primary btn-sm saveButtonFooterMachine" >Submit</button>
+										<button type="submit" className="btn btn-primary btn-sm saveButtonFooterMachine" onClick={this.props.handleSubmit(this.submitUser)} >Submit</button>
 										<button type="submit" className="btn btn-default btn-sm submitAndEditFooterMachine" >Save & Continue Editing</button>
 									</div>
 								</div>	

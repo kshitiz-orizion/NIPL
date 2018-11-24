@@ -33,7 +33,6 @@ export const getSubcategoryByID = subcategoryId => async dispatch => {
     if(subcategoryId!==null){
     subcategory = await axiosService.get('/sub-categories/'+subcategoryId);
     }
-    console.log(subcategory);
     return Promise.resolve(subcategory);
   } catch (error) {
     toast.error(error.message || 'something went wrong.');
@@ -42,20 +41,13 @@ export const getSubcategoryByID = subcategoryId => async dispatch => {
 };
 
 
-export const createSubcategory = categorys => async dispatch => {
+export const createSubcategory = subcategorys => async dispatch => {
   try{
     dispatch({type: CREATE_SUBCATEGORY_START});
-    let category=new FormData();
-    category.append('name',categorys.name);
-    category.append('roll',categorys.roll);
-    category.append('photo',categorys.image);
-    category.append('std',categorys.std);
-    category.append('email',categorys.email);
-    category.append('dob',categorys.dob.format('YYYY-MM-DD'));
-    const createdSubcategory=await axiosService.post('/category',category,{'Content-type':'multipart/form-data'});
+    const createdSubcategory=await axiosService.post('/sub-categories',subcategorys,{'Content-type':'application/json'});
     toast.success('Successfully created.');
     dispatch({ type: CREATE_SUBCATEGORY_SUCCESS, payload: createdSubcategory });
-    history.push('/category');
+    history.push('/subcategorys');
   }
   catch(error){
      toast.error(error.message);
@@ -63,33 +55,24 @@ export const createSubcategory = categorys => async dispatch => {
   }
 };
 
-export const editSubcategory = categorys => async dispatch => {
+export const editSubcategory = subcategorys => async dispatch => {
   try {
     dispatch({ type: EDIT_SUBCATEGORY_START });
-    let category=new FormData();
-    category.append('name',categorys.name);
-    category.append('roll',categorys.roll);
-    if(typeof(categorys.image)===Object){
-    category.append('photo',categorys.image); 
-    }
-    category.append('std',categorys.std);
-    category.append('email',categorys.email);
-    category.append('dob',categorys.dob.format('YYYY-MM-DD'));
-    const categoryEdit=await axiosService.put('/category/'+categorys.id,category,{'Content-type':'multipart/form-data'});
+    const subcategoryEdit=await axiosService.put('/sub-categories/'+subcategorys.id,subcategorys,{'Content-Type':'application/json'});
     toast.success('Successfully saved.');
-    dispatch({ type: EDIT_SUBCATEGORY_SUCCESS, payload: categoryEdit });
-    history.push('/category');
+    dispatch({ type: EDIT_SUBCATEGORY_SUCCESS, payload: subcategoryEdit });
+    history.push('/subcategorys');
   } catch (error) {
     toast.error(error.message);
     dispatch({ type: EDIT_SUBCATEGORY_ERROR });
   }
 };
 
-export const deleteSubcategory= category =>async dispatch=>{
+export const deleteSubcategory= subcategory =>async dispatch=>{
   try{
     dispatch({type:DELETE_SUBCATEGORY_START});
-    const subcategory=await axiosService.delete('/category/'+category.id);
-    dispatch({type:DELETE_SUBCATEGORY_SUCCESS,payload:subcategory});
+    const deleteSubcategory=await axiosService.delete('/sub-categories/'+subcategory.id);
+    dispatch({type:DELETE_SUBCATEGORY_SUCCESS,payload:deleteSubcategory});
     toast.success('Successfully Deleted');
   }
   catch(error){

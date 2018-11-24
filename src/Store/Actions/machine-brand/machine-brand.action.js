@@ -41,20 +41,13 @@ export const getMachinebrandByID = machinebrandId => async dispatch => {
 };
 
 
-export const createMachinebrand = machines => async dispatch => {
+export const createMachinebrand = machinebrand => async dispatch => {
   try{
     dispatch({type: CREATE_MACHINEBRAND_START});
-    let machine=new FormData();
-    machine.append('name',machines.name);
-    machine.append('roll',machines.roll);
-    machine.append('photo',machines.image);
-    machine.append('std',machines.std);
-    machine.append('email',machines.email);
-    machine.append('dob',machines.dob.format('YYYY-MM-DD'));
-    const createdMachinebrand=await axiosService.post('/machine',machine,{'Content-type':'multipart/form-data'});
+    const createdMachinebrand=await axiosService.post('/machine-brands',machinebrand,{'Content-Type':'application/json'});
     toast.success('Successfully created.');
     dispatch({ type: CREATE_MACHINEBRAND_SUCCESS, payload: createdMachinebrand });
-    history.push('/machine');
+    history.push('/machinebrands');
   }
   catch(error){
      toast.error(error.message);
@@ -62,33 +55,24 @@ export const createMachinebrand = machines => async dispatch => {
   }
 };
 
-export const editMachinebrand = machines => async dispatch => {
+export const editMachinebrand = machinebrand => async dispatch => {
   try {
     dispatch({ type: EDIT_MACHINEBRAND_START });
-    let machine=new FormData();
-    machine.append('name',machines.name);
-    machine.append('roll',machines.roll);
-    if(typeof(machines.image)===Object){
-    machine.append('photo',machines.image); 
-    }
-    machine.append('std',machines.std);
-    machine.append('email',machines.email);
-    machine.append('dob',machines.dob.format('YYYY-MM-DD'));
-    const machineEdit=await axiosService.put('/machine/'+machines.id,machine,{'Content-type':'multipart/form-data'});
+    const machineEdit=await axiosService.put('/machine-brands/'+machinebrand.id,machinebrand,{'Content-Type':'application/json'});
     toast.success('Successfully saved.');
     dispatch({ type: EDIT_MACHINEBRAND_SUCCESS, payload: machineEdit });
-    history.push('/machine');
+    history.push('/machinebrands');
   } catch (error) {
     toast.error(error.message);
     dispatch({ type: EDIT_MACHINEBRAND_ERROR });
   }
 };
 
-export const deleteMachinebrand= machine =>async dispatch=>{
+export const deleteMachinebrand= machinebrand =>async dispatch=>{
   try{
     dispatch({type:DELETE_MACHINEBRAND_START});
-    const machinebrand=await axiosService.delete('/machine/'+machine.id);
-    dispatch({type:DELETE_MACHINEBRAND_SUCCESS,payload:machinebrand});
+    const deletedMachinebrand=await axiosService.delete('/machine-brands/'+machinebrand.id);
+    dispatch({type:DELETE_MACHINEBRAND_SUCCESS,payload:deletedMachinebrand});
     toast.success('Successfully Deleted');
   }
   catch(error){

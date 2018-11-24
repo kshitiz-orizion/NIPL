@@ -41,20 +41,13 @@ export const getEnginebrandByID = engineBrandId => async dispatch => {
 };
 
 
-export const createEnginebrand = categorys => async dispatch => {
+export const createEnginebrand = enginebrand => async dispatch => {
   try{
     dispatch({type: CREATE_ENGINEBRAND_START});
-    let category=new FormData();
-    category.append('name',categorys.name);
-    category.append('roll',categorys.roll);
-    category.append('photo',categorys.image);
-    category.append('std',categorys.std);
-    category.append('email',categorys.email);
-    category.append('dob',categorys.dob.format('YYYY-MM-DD'));
-    const createdEnginebrand=await axiosService.post('/category',category,{'Content-type':'multipart/form-data'});
+    const createdEnginebrand=await axiosService.post('/engine-brands',enginebrand,{'Content-type':'application/json'});
     toast.success('Successfully created.');
     dispatch({ type: CREATE_ENGINEBRAND_SUCCESS, payload: createdEnginebrand });
-    history.push('/category');
+    history.push('/enginebrands');
   }
   catch(error){
      toast.error(error.message);
@@ -62,22 +55,13 @@ export const createEnginebrand = categorys => async dispatch => {
   }
 };
 
-export const editEnginebrand = categorys => async dispatch => {
+export const editEnginebrand = enginebrand => async dispatch => {
   try {
     dispatch({ type: EDIT_ENGINEBRAND_START });
-    let category=new FormData();
-    category.append('name',categorys.name);
-    category.append('roll',categorys.roll);
-    if(typeof(categorys.image)===Object){
-    category.append('photo',categorys.image); 
-    }
-    category.append('std',categorys.std);
-    category.append('email',categorys.email);
-    category.append('dob',categorys.dob.format('YYYY-MM-DD'));
-    const categoryEdit=await axiosService.put('/category/'+categorys.id,category,{'Content-type':'multipart/form-data'});
+    const enginebrandEdit=await axiosService.put('/engine-brands/'+enginebrand.id,enginebrand,{'Content-type':'application/json'});
     toast.success('Successfully saved.');
-    dispatch({ type: EDIT_ENGINEBRAND_SUCCESS, payload: categoryEdit });
-    history.push('/category');
+    dispatch({ type: EDIT_ENGINEBRAND_SUCCESS, payload: enginebrandEdit });
+    history.push('/enginebrands');
   } catch (error) {
     toast.error(error.message);
     dispatch({ type: EDIT_ENGINEBRAND_ERROR });

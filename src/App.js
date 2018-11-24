@@ -54,18 +54,25 @@ class App extends Component {
                 <PrivateRoute exact={true} path="/machine/create" component={CreateMachinesContainer} />
                 <PrivateRoute exact={true} path="/home" component={HomeContainer} />
                 <PrivateRoute exact={true} path="/condition/create" component={CreateConditionContainer} />
+                <PrivateRoute exact={true} path="/conditions/:id" component={CreateConditionContainer} />
                 <PrivateRoute exact={true} path="/conditions" component={ConditionContainer} />
                 <PrivateRoute exact={true} path="/enginebrand/create" component={CreateEnginebrandContainer} />
+                <PrivateRoute exact={true} path="/enginebrands/:id" component={CreateEnginebrandContainer} />
                 <PrivateRoute exact={true} path="/enginebrands" component={EnginebrandContainer} />
                 <PrivateRoute exact={true} path="/enginemodel/create" component={CreateEnginemodelContainer} />
+                <PrivateRoute exact={true} path="/enginemodels/:id" component={CreateEnginemodelContainer} />
                 <PrivateRoute exact={true} path="/enginemodels" component={EnginemodelContainer} />
                 <PrivateRoute exact={true} path="/machinebrand/create" component={CreateMachinebrandContainer} />
+                <PrivateRoute exact={true} path="/machinebrands/:id" component={CreateMachinebrandContainer} />
                 <PrivateRoute exact={true} path="/machinebrands" component={MachinebrandContainer} />
                 <PrivateRoute exact={true} path="/machinemodel/create" component={CreateMachinemodelContainer} />
+                <PrivateRoute exact={true} path="/machinemodels/:id" component={CreateMachinemodelContainer} />
                 <PrivateRoute exact={true} path="/machinemodels" component={MachinemodelContainer} />
                 <PrivateRoute exact={true} path="/category/create" component={CreateCategoryContainer} />
+                <PrivateRoute exact={true} path="/categorys/:id" component={CreateCategoryContainer} />
                 <PrivateRoute exact={true} path="/categorys" component={CategoryContainer} />
                 <PrivateRoute exact={true} path="/subcategory/create" component={CreateSubcategoryContainer} />
+                <PrivateRoute exact={true} path="/subcategorys/:id" component={CreateSubcategoryContainer} />
                 <PrivateRoute exact={true} path="/subcategorys" component={SubcategoryContainer} />
                 <PrivateRoute exact={true} path="/statesite/create" component={CreateStatesiteContainer} />
                 <PrivateRoute exact={true} path="/statesites" component={StatesiteContainer} />

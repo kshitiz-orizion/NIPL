@@ -2,10 +2,6 @@ import React,{Component} from 'react';
 import history from '../../Inits/history';
 class ListMachinemodel extends Component{
 	componentWillMount(){
-		this.getMachinemodels();
-	}
-	getMachinemodels=async()=>{
-		 await this.props.machinemodelInfo.getMachinemodels();
 	}
 	AddMachinemodel=()=>{
 		history.push('/machinemodel/create');
@@ -38,7 +34,7 @@ class ListMachinemodel extends Component{
 						<tr key={i}>
 							<td>{i+1}</td>
 							<td>{machinemodel.name}</td>
-							<td>{machinemodel.brand_id}</td>
+							<td>{machinemodel.machinebrandname}</td>
 							<td style={{textAlign:'center'}}>
 								<button className="btn btn-default btn-sm" onClick={()=>this.editMachinemodel(machinemodel)}><i className="fa fa-pencil" aria-hidden="true"></i>Edit</button>
 								<button className="btn btn-danger btn-sm" onClick={()=>this.deleteMachinemodel(machinemodel)}><i className="fa fa-trash" aria-hidden="true"></i>Delete</button>

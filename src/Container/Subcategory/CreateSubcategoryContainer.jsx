@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import history from '../../Inits/history';
 import { createSubcategory, getSubcategoryByID, editSubcategory} from '../../Store/Actions/sub-category/sub-category.action';
 import CreateSubcategory from '../../Component/Subcategory/CreateSubcategory';
+import PageLoader from '../Common/pageloader';
 class CreateSubcategoryContainer extends Component {
   state = {
     mode:'CREATE',
@@ -32,10 +33,10 @@ class CreateSubcategoryContainer extends Component {
   };
   render() {
     if (this.state.mode === 'EDIT' && !this.state.conditionToBeEdit) {
-      return <h1>Loading...</h1>
+      return <PageLoader/>
     }
     if(this.props.isCreating){
-      return <h1>Creating...</h1>
+      return <PageLoader/>
     }
     const { createSubcategory, editSubcategory } = this.props;
     return (

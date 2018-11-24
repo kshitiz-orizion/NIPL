@@ -4,9 +4,7 @@ import {Typeahead} from 'react-bootstrap-typeahead';
 class CreateMachine extends Component{
 	componentWillMount(){
 		if(this.props.mode==='EDIT'){
-			const {category,subcategory,enginemodel,enginebrand,machinemodel,machinebrand,condition,site}=this.props.initialValues;
-			console.log(this.props.initialValues);
-			debugger;
+			const {category,subcategory,enginemodel,enginebrand,machinemodel,machinebrand,condition,site,state,district}=this.props.initialValues;
 			this.setState({
 				 ...this.props.initialValues,
 				 category:[category],
@@ -16,10 +14,10 @@ class CreateMachine extends Component{
 				 machinemodel:[machinemodel],
 				 machinebrand:[machinebrand],
 				 condition:[condition],
-				 site:[site]
+				 site:[site],
+				 state:[state],
+				 district:[district]
 			});
-			console.log(this.state);
-			debugger;
 		}
 		else{
 			this.setState({
@@ -28,7 +26,6 @@ class CreateMachine extends Component{
 				engine_serial_no:'',
 				purchase_year:'',
 				remark:'',
-				warrant:'',
 				reg_no:'',
 				description:'',
 				name:'',
@@ -40,7 +37,8 @@ class CreateMachine extends Component{
 				brand_id:'',
 				model_id:'',
 				category_id:'',
-				engine_brand_id:''
+				engine_brand_id:'',
+				warranty:''
 			})
 		}
 	}
@@ -48,10 +46,11 @@ class CreateMachine extends Component{
 			if(stateKey==='warranty'){
 				const pattern=/^$|^[0-9]+$/;
 				const result=pattern.test(e.target.value);
+				const value=Number(e.target.value);
 				if(result===true){
 					this.setState({
 						warrantyerror:false,
-						[stateKey]:e.target.value
+						[stateKey]:value
 					})
 				}else{
 					this.setState({
@@ -59,11 +58,14 @@ class CreateMachine extends Component{
 					})
 				}
 			}
+			else{
 			this.setState({ [stateKey]: e.target.value });
+			}
   	};
   	submitUser=()=>{
-  		debugger;
+  		console.log(typeof(this.state.warranty));
   		if(this.props.mode==='EDIT'){
+  			console.log(this.state);
   			this.props.onEdit(this.state);
   			return
   		}
@@ -99,9 +101,8 @@ class CreateMachine extends Component{
   	setSite=(value)=>{
   		document.getElementsByClassName("rbt-menu")[0].style.display="none";
   	}
-	render(){
-		console.log(this.props.paramvalue);
-		debugger;
+	render()
+	{		
 		return (
 			<div>
 				<div className="topHeadingContainer">
@@ -121,6 +122,10 @@ class CreateMachine extends Component{
 								</div>
 								<div className="container formContainer" >
 									<form className="form-inline machineForm" onSubmit={this.props.handleSubmit(this.submitUser)}>
+										<div className="form-group col-md-12 inputPaddingMachine">
+										    <label  className="col-md-3">Name</label>
+										    <input type="text" className="form-control col-md-9"  onChange={this.onChangeSetToState('name')} value={this.state.name}/>
+										  </div>
 										<div className=" col-md-12 inputPaddingMachine">
 										  	<div className="row">
 											    <label className="col-md-3">Category</label>
@@ -130,6 +135,11 @@ class CreateMachine extends Component{
 											          labelKey="name"
 											          onChange={(selected) => {
 													    this.setState({category:selected});
+													    if(selected[0]!==undefined){
+													    	this.setState({
+													    		category_id:selected[0].id
+													    	});
+													    }
 													  }}
 													  selected={this.state.category}
 													  onInputChange={(name,value)=>{													  		
@@ -168,6 +178,11 @@ class CreateMachine extends Component{
 											    <Typeahead
 													  onChange={(selected) => {
 													    this.setState({subcategory:selected});
+													    if(selected[0]!==undefined){
+													    	this.setState({
+													    		sub_category_id:selected[0].id
+													    	});
+													    }
 													  }}
 													  options={this.props.paramvalue.subcategory}
 													  labelKey="name"
@@ -212,6 +227,11 @@ class CreateMachine extends Component{
 											    <Typeahead
 													  onChange={(selected) => {
 													    this.setState({machinebrand:selected});
+													    if(selected[0]!==undefined){
+													    	this.setState({
+													    		brand_id:selected[0].id
+													    	});
+													    }
 													  }}
 													  options={this.props.paramvalue.machinebrand}
 													  labelKey="name"
@@ -256,6 +276,11 @@ class CreateMachine extends Component{
 											    <Typeahead
 													  onChange={(selected) => {
 													    this.setState({machinemodel:selected});
+													    if(selected[0]!==undefined){
+													    	this.setState({
+													    		model_id:selected[0].id
+													    	});
+													    }
 													  }}
 													  options={this.props.paramvalue.machinemodel}
 													  labelKey="name"
@@ -300,6 +325,11 @@ class CreateMachine extends Component{
 											    <Typeahead
 													  onChange={(selected) => {
 													    this.setState({enginebrand:selected});
+													    if(selected[0]!==undefined){
+													    	this.setState({
+													    		engine_brand_id:selected[0].id
+													    	});
+													    }
 													  }}
 													  options={this.props.paramvalue.enginebrand}
 													  labelKey="name"
@@ -340,6 +370,11 @@ class CreateMachine extends Component{
 											    <Typeahead
 													  onChange={(selected) => {
 													    this.setState({enginemodel:selected});
+													    if(selected[0]!==undefined){
+													    	this.setState({
+													    		engine_model_id:selected[0].id
+													    	});
+													    }
 													  }}
 													  options={this.props.paramvalue.enginemodel}
 													  labelKey="name"
@@ -375,7 +410,7 @@ class CreateMachine extends Component{
 										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine" >
 										    <label  className="col-md-3">Engine Serial Number</label>
-										    <input type="text" className="form-control col-md-9"   onChange={this.onChangeSetToState('serial_no')} value={this.state.engine_serial_no}/>
+										    <input type="text" className="form-control col-md-9"   onChange={this.onChangeSetToState('engine_serial_no')} value={this.state.engine_serial_no}/>
 										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine">
 										    <label  className="col-md-3">Chassis Number</label>
@@ -392,6 +427,11 @@ class CreateMachine extends Component{
 											    <Typeahead
 													  onChange={(selected) => {
 													    this.setState({condition:selected});
+													    if(selected[0]!==undefined){
+													    	this.setState({
+													    		condition_id:selected[0].id
+													    	});
+													    }
 													  }}
 													  options={this.props.paramvalue.condition}
 													  labelKey="name"
@@ -437,14 +477,19 @@ class CreateMachine extends Component{
 										    <div className="row">
 											    <label htmlFor="email" className="col-md-3">State</label>
 											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
-											    {/*<Typeahead
+											    <Typeahead
 													  onChange={(selected) => {
 													    this.setState({state:selected});
+													    if(selected[0]!==undefined){
+													    	this.setState({
+													    		state_id:selected[0].id
+													    	});
+													    }
 													    //call api for district
 													  }}
 													  options={this.props.paramvalue.state}
 													  labelKey="name"
-													  selected={this.state.state?this.state.state:''}
+													  selected={this.state.state}
 													  onInputChange={(name,value)=>{
 													  		var element=document.getElementsByClassName("rbt-menu");
 													  		if(element[0]){
@@ -470,7 +515,7 @@ class CreateMachine extends Component{
 													  			}
 													  		}													  	 	
 													  }}
-													/>*/}
+													/>
 												</div>
 										  	</div>
 										  </div>
@@ -478,14 +523,19 @@ class CreateMachine extends Component{
 										    <div className="row">
 											    <label htmlFor="email" className="col-md-3">District</label>
 											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
-											    {/*<Typeahead
+											    <Typeahead
 													  onChange={(selected) => {
-													    this.setState({district:selected[0].id});
+													    this.setState({district:selected});
+													    if(selected[0]!==undefined){
+													    	this.setState({
+													    		district_id:selected[0].id
+													    	});
+													    }
 													    //call api for site
 													  }}
-													  options={this.props.paramvalue.state}
+													  options={this.props.paramvalue.district}
 													  labelKey="name"
-													  selected={this.state.state}
+													  selected={this.state.district}
 													  onInputChange={(name,value)=>{
 													  		var element=document.getElementsByClassName("rbt-menu");
 													  		if(element[0]){
@@ -511,7 +561,7 @@ class CreateMachine extends Component{
 													  			}
 													  		}													  	 	
 													  }}
-													/>*/}
+													/>
 												</div>
 										  	</div>
 										  </div>
@@ -522,6 +572,11 @@ class CreateMachine extends Component{
 											    <Typeahead
 													  onChange={(selected) => {
 													    this.setState({site:selected});
+													    if(selected[0]!==undefined){
+													    	this.setState({
+													    		site_id:selected[0].id
+													    	});
+													    }
 													  }}
 													  options={this.props.paramvalue.site}
 													  labelKey="name"
@@ -572,7 +627,7 @@ class CreateMachine extends Component{
 										<div className="cancelFooterMachine">
 										Cancel
 										</div>
-										<button type="submit" className="btn btn-primary btn-sm saveButtonFooterMachine" >Submit</button>
+										<button className="btn btn-primary btn-sm saveButtonFooterMachine" onClick={this.props.handleSubmit(this.submitUser)}>Submit</button>
 										<button type="submit" className="btn btn-default btn-sm submitAndEditFooterMachine" >Save & Continue Editing</button>
 									</div>
 								</div>	

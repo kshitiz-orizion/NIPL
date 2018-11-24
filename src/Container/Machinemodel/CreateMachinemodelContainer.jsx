@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import history from '../../Inits/history';
 import { createMachinemodel, getMachinemodelByID, editMachinemodel} from '../../Store/Actions/machine-model/machine-model.action';
-import { getMachinebrands} from '../../Store/Actions/machine-brand/machine-brand.action';
+import { getMachinebrands,getMachinebrandByID} from '../../Store/Actions/machine-brand/machine-brand.action';
 import CreateMachinemodel from '../../Component/Machinemodel/CreateMachinemodel';
+import PageLoader from '../Common/pageloader';
 class CreateMachinemodelContainer extends Component {
   state = {
     mode:'CREATE',
-    conditionToBeEdit: null,
+    machinemodelToBeEdit: null,
   };
   componentWillMount() {
     this.getMachineBrands();
@@ -22,25 +23,27 @@ class CreateMachinemodelContainer extends Component {
   getMachineBrands=async()=>{
     await this.props.getMachinebrands();
   }
-  getMachinemodel = async (conditionID) => {
+  getMachinemodel = async (machinemodelID) => {
     try {
-      const conditionToBeEdit =await this.props.getMachinemodelByID(conditionID);
+      const machinemodelToBeEdit =await this.props.getMachinemodelByID(machinemodelID);
+      const machinebrand=await this.props.getMachinebrandByID(machinemodelToBeEdit.brand_id);
+      machinemodelToBeEdit['machinebrand']=machinebrand;
       this.setState(prevState => {
         return {
           ...prevState,
-          conditionToBeEdit,
+          machinemodelToBeEdit,
         };
       });
     } catch (error) {
-      history.push('/');
+      history.push('/machinemodels');
     }
   };
   render() {
-    if (this.state.mode === 'EDIT' && !this.state.conditionToBeEdit) {
-      return <h1>Loading...</h1>
+    if (this.state.mode === 'EDIT' && !this.state.machinemodelToBeEdit) {
+      return <PageLoader/>
     }
     if(this.props.isCreating){
-      return <h1>Creating...</h1>
+      return <PageLoader/>
     }
     const { createMachinemodel, editMachinemodel,machinebrand } = this.props;
     const machinebrandInfo={machinebrand};
@@ -50,7 +53,7 @@ class CreateMachinemodelContainer extends Component {
         <CreateMachinemodel
           onCreate={createMachinemodel}
           onEdit={editMachinemodel}
-          initialValues={this.state.conditionToBeEdit}
+          initialValues={this.state.machinemodelToBeEdit}
           mode={this.state.mode}
           machinebrandInfo={machinebrandInfo}
         />
@@ -62,7 +65,7 @@ class CreateMachinemodelContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    isCreating: state.condition.isCreating,
+    isCreating: state.machinemodel.isCreating,
     machinebrand:state.machinebrand.list
   };
 };
@@ -70,7 +73,8 @@ const mapDispatchToProps = {
   createMachinemodel, 
   getMachinemodelByID, 
   editMachinemodel,
-  getMachinebrands
+  getMachinebrands,
+  getMachinebrandByID
 };
 
 export default connect(

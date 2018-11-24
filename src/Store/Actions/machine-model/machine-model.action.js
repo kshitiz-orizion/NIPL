@@ -42,20 +42,14 @@ export const getMachinemodelByID = machinemodelId => async dispatch => {
 };
 
 
-export const createMachinemodel = machines => async dispatch => {
+export const createMachinemodel = machinemodel => async dispatch => {
   try{
+    const newMachine={"brand_id":machinemodel.machinebrand[0].id,"name":machinemodel.name}
     dispatch({type: CREATE_MACHINEMODEL_START});
-    let machine=new FormData();
-    machine.append('name',machines.name);
-    machine.append('roll',machines.roll);
-    machine.append('photo',machines.image);
-    machine.append('std',machines.std);
-    machine.append('email',machines.email);
-    machine.append('dob',machines.dob.format('YYYY-MM-DD'));
-    const createdMachinemodel=await axiosService.post('/machine',machine,{'Content-type':'multipart/form-data'});
+    const createdMachinemodel=await axiosService.post('/machine-models',newMachine,{'Content-Type':'application/json'});
     toast.success('Successfully created.');
     dispatch({ type: CREATE_MACHINEMODEL_SUCCESS, payload: createdMachinemodel });
-    history.push('/machine');
+    history.push('/machinemodels');
   }
   catch(error){
      toast.error(error.message);
@@ -63,33 +57,27 @@ export const createMachinemodel = machines => async dispatch => {
   }
 };
 
-export const editMachinemodel = machines => async dispatch => {
+export const editMachinemodel = machinemodel => async dispatch => {
   try {
+    const newMachine={"brand_id":machinemodel.machinebrand[0].id,"name":machinemodel.name};
+    console.log(machinemodel);
+    console.log(newMachine);
     dispatch({ type: EDIT_MACHINEMODEL_START });
-    let machine=new FormData();
-    machine.append('name',machines.name);
-    machine.append('roll',machines.roll);
-    if(typeof(machines.image)===Object){
-    machine.append('photo',machines.image); 
-    }
-    machine.append('std',machines.std);
-    machine.append('email',machines.email);
-    machine.append('dob',machines.dob.format('YYYY-MM-DD'));
-    const machineEdit=await axiosService.put('/machine/'+machines.id,machine,{'Content-type':'multipart/form-data'});
+    const machineEdit=await axiosService.put('/machine-models/'+machinemodel.id,newMachine,{'Content-Type':'application/json'});
     toast.success('Successfully saved.');
     dispatch({ type: EDIT_MACHINEMODEL_SUCCESS, payload: machineEdit });
-    history.push('/machine');
+    history.push('/machinemodels');
   } catch (error) {
     toast.error(error.message);
     dispatch({ type: EDIT_MACHINEMODEL_ERROR });
   }
 };
 
-export const deleteMachinemodel= machine =>async dispatch=>{
+export const deleteMachinemodel= machinemodel =>async dispatch=>{
   try{
     dispatch({type:DELETE_MACHINEMODEL_START});
-    const machinemodel=await axiosService.delete('/machine/'+machine.id);
-    dispatch({type:DELETE_MACHINEMODEL_SUCCESS,payload:machinemodel});
+    const deleteMachinemodel=await axiosService.delete('/machine-models/'+machinemodel.id);
+    dispatch({type:DELETE_MACHINEMODEL_SUCCESS,payload:deleteMachinemodel});
     toast.success('Successfully Deleted');
   }
   catch(error){

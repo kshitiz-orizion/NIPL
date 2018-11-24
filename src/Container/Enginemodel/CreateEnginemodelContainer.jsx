@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import history from '../../Inits/history';
 import { createEnginemodel, getEnginemodelByID, editEnginemodel} from '../../Store/Actions/engine-model/engine-model.action';
-import { getEnginebrands} from '../../Store/Actions/engine-brand/engine-brand.action';
+import { getEnginebrands,getEnginebrandByID} from '../../Store/Actions/engine-brand/engine-brand.action';
 import CreateEnginemodel from '../../Component/Enginemodel/CreateEnginemodel';
+import PageLoader from '../Common/pageloader';
 class CreateEnginemodelsContainer extends Component {
   state = {
     mode:'CREATE',
-    conditionToBeEdit: null,
+    enginemodelToBeEdit: null,
   };
   componentWillMount() {
     this.getEngineBrands();
@@ -22,13 +23,15 @@ class CreateEnginemodelsContainer extends Component {
   getEngineBrands=async()=>{
     await this.props.getEnginebrands();
   }
-  getEnginemodel = async (conditionID) => {
+  getEnginemodel = async (enginemodelID) => {
     try {
-      const conditionToBeEdit =await this.props.getEnginemodelByID(conditionID);
+      const enginemodelToBeEdit =await this.props.getEnginemodelByID(enginemodelID);
+      const enginebrand=await this.props.getEnginebrandByID(enginemodelToBeEdit.brand_id);
+      enginemodelToBeEdit['enginebrand']=enginebrand;
       this.setState(prevState => {
         return {
           ...prevState,
-          conditionToBeEdit,
+          enginemodelToBeEdit,
         };
       });
     } catch (error) {
@@ -36,11 +39,8 @@ class CreateEnginemodelsContainer extends Component {
     }
   };
   render() {
-    if (this.state.mode === 'EDIT' && !this.state.conditionToBeEdit) {
-      return <h1>Loading...</h1>
-    }
-    if(this.props.isCreating){
-      return <h1>Creating...</h1>
+    if (this.state.mode === 'EDIT' && !this.state.enginemodelToBeEdit) {
+      return <PageLoader/>
     }
     const { createEnginemodel, editEnginemodel,enginebrand } = this.props;
     const enginebrandInfo={enginebrand}
@@ -50,7 +50,7 @@ class CreateEnginemodelsContainer extends Component {
         <CreateEnginemodel
           onCreate={createEnginemodel}
           onEdit={editEnginemodel}
-          initialValues={this.state.conditionToBeEdit}
+          initialValues={this.state.enginemodelToBeEdit}
           mode={this.state.mode}
           enginebrandInfo={enginebrandInfo}
         />
@@ -62,7 +62,7 @@ class CreateEnginemodelsContainer extends Component {
 
 const mapStateToProps = state => {
   return {
-    isCreating: state.condition.isCreating,
+    isCreating: state.enginemodel.isCreating,
     enginebrand:state.enginebrand.list
   };
 };
@@ -70,7 +70,8 @@ const mapDispatchToProps = {
   createEnginemodel, 
   getEnginemodelByID, 
   editEnginemodel,
-  getEnginebrands
+  getEnginebrands,
+  getEnginebrandByID
 };
 
 export default connect(

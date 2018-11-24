@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import history from '../../Inits/history';
 //import { createVehicle, getVehicleByID, editVehicle} from '../../Store/Actions/sub-category/sub-category.action';
 import CreateVehicle from '../../Component/Vehicle/CreateVehicle';
+import PageLoader from '../Common/pageloader';
 class CreateVehicleContainer extends Component {
   state = {
     mode:'CREATE',
@@ -32,10 +33,10 @@ class CreateVehicleContainer extends Component {
   };
   render() {
     if (this.state.mode === 'EDIT' && !this.state.conditionToBeEdit) {
-      return <h1>Loading...</h1>
+      return <PageLoader/>
     }
     if(this.props.isCreating){
-      return <h1>Creating...</h1>
+      return <PageLoader/>
     }
     const { createVehicle, editVehicle } = this.props;
     return (

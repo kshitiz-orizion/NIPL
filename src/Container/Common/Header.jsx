@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import history from '../../Inits/history';
 export class Header extends Component{
 	componentWillMount(){
+		
 		this.setState({
 			menu1:false,
 			profile:false,
@@ -118,8 +119,8 @@ export class Header extends Component{
 					<div className="divContainer logoContainer" >
 						<img src={process.env.PUBLIC_URL + '/car.svg'} alt="/car"/>
 					</div>
-					<div className="divContainer col-md-4 col-sm-4">
-						<input type="text" className="form-control inputHeader" style={{backgroundImage: `url(${process.env.PUBLIC_URL+'/search.svg'})`}} placeholder="Search..."  />
+					<div className="divContainer col-xs-4 col-sm-4 ">
+						<input type="text" className="form-control inputHeader"  placeholder="Search..."  />
 					</div>
 					<div className="divContainer plusHeader">
 						<i className="fa fa-plus plusIconHeader" aria-hidden="true"></i>

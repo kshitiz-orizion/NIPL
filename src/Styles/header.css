@@ -1,3 +1,15 @@
+/*font-awesome*/
+
+i.fa.fa-user-circle.userCircleProfile {
+    font-size: 40px;
+}
+/*font-awesome-end*/
+/* Pageloader */
+.PageLoader{
+	position: relative;
+	top:30vh;
+	left:35vw;
+}
 .HeaderContainer{
 	width:300px;
 	height: 100vh;
@@ -11,7 +23,6 @@
 	margin:10px 10px 10px 10px;
 	text-align: center;
 }
-
 body {
     font-family: "Lato", sans-serif;
     width:100%;
@@ -50,6 +61,9 @@ body {
 	position: relative;
 	color:#C7D1D7;
 	padding-top:15px;
+}
+.innersidenav>div:nth-child(2) {
+    padding-bottom: 15px;
 }
 .innersidenav:hover{
 	color:white;
@@ -103,7 +117,7 @@ body {
 }
 .inputHeader{
 	background-color:#EDF1F2;
-	background-image: url(http://localhost:3000/search.svg);
+	background-image: url("/search.svg");
 	background-position: 7px 7px;
     background-repeat: no-repeat;
     background-size: 20px 20px;
@@ -174,7 +188,7 @@ body {
 	height: 100%;
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-around;
+	justify-content: flex-start;
 	background-color: #eee;
 	margin-left: 5px;
 }
@@ -483,8 +497,13 @@ ul{
 .form-inline .form-control{
 	width:100.5% !important;
 }
+.rbt-input-main{
+	background-image: url("/inputdrop.svg");
+	background-repeat: no-repeat;
+	background-size: 15px 10px;
+	background-position: 100%;
+}
 /* react-bootstrap-typeahead-end*/
-
 .downicon{
 	float: right;
 	margin-right: 10px;
