@@ -99,14 +99,122 @@ class CreateVehicles extends Component{
 						<h5>{this.props.mode==='EDIT'?'Edit Vehicles':'Create Vehicles'}</h5>
 						<hr/>
 						<form className="form-inline machineForm" onSubmit={this.props.handleSubmit(this.submitVehicles)}>
-							{this.state.navbar==="details" && <div className="form-group col-md-12 inputPaddingMachine">
-								<label  className="col-md-3">Name</label>
-									<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
-							</div>}
-							{this.state.navbar==="specs" && <div className="form-group col-md-12 inputPaddingMachine">
-								<label  className="col-md-3">Dimensions</label>
-									<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
-							</div>}
+							{this.state.navbar==="details" && 
+							<div style={{width:'100%'}}>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">VIN</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">NIPL CODE</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">License Plate</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">Type</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">Make</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">Model</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">Year</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">Registration State</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">Status</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">Ownership</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">Colour</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">Body Type</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">Universe</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+							</div>
+							}
+							{this.state.navbar==="specs" && 
+							<div style={{width:'100%'}}>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">Dimensions</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">Width</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">Length</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">Height</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">Interior Volume</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">Passenger Volume</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">Cargo Volume</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">Weight</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">Curb Weight</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">Gross Vehicle Weight Rating</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">Performance</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">Towing Capacity</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">Max Payload</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+								<div className="form-group col-md-12 inputPaddingMachine">
+									<label  className="col-md-3">Fuel Economy</label>
+										<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>
+								</div>
+							</div>
+							}
 							{this.state.navbar==="engine" && <div className="form-group col-md-12 inputPaddingMachine">
 								<label  className="col-md-3">Engine Brand</label>
 									<input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('')}/>

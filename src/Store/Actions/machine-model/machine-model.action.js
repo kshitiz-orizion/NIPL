@@ -52,8 +52,9 @@ export const createMachinemodel = machinemodel => async dispatch => {
     history.push('/machinemodels');
   }
   catch(error){
-     toast.error(error.message);
-    dispatch({ type: CREATE_MACHINEMODEL_ERROR });
+    console.log(error);
+    // toast.error(error.message);
+    dispatch({ type: CREATE_MACHINEMODEL_ERROR,payload:error });
   }
 };
 

@@ -46,30 +46,36 @@ class CreateMachine extends Component{
 			if(stateKey==='warranty'){
 				const pattern=/^$|^[0-9]+$/;
 				const result=pattern.test(e.target.value);
-				const value=Number(e.target.value);
 				if(result===true){
 					this.setState({
 						warrantyerror:false,
-						[stateKey]:value
+						[stateKey]:e.target.value
 					})
 				}else{
 					this.setState({
-						warrantyerror:true
+						warrantyerror:true,
+						[stateKey]:e.target.value
 					})
 				}
 			}
 			else{
 			this.setState({ [stateKey]: e.target.value });
 			}
-  	};
+  	}
   	submitUser=()=>{
-  		console.log(typeof(this.state.warranty));
-  		if(this.props.mode==='EDIT'){
-  			console.log(this.state);
-  			this.props.onEdit(this.state);
-  			return
-  		}
-  		this.props.onCreate(this.state);
+  			const {warrantyerror}=this.state;
+  			if(warrantyerror){
+  				const warranty=document.getElementById("machineWarranty");
+  				warranty.classList.add("has-error");
+  			}
+  			else{
+		  		if(this.props.mode==='EDIT'){
+		  			console.log(this.state);
+		  			this.props.onEdit(this.state);
+		  			return
+		  		}
+		  		this.props.onCreate(this.state);
+	  		}
   	}
   	setCategory=(value)=>{
   		document.getElementsByClassName("rbt-menu")[0].style.display="none";
@@ -101,6 +107,10 @@ class CreateMachine extends Component{
   	setSite=(value)=>{
   		document.getElementsByClassName("rbt-menu")[0].style.display="none";
   	}
+  	removehasError=(label)=>{
+  		const warranty=document.getElementById(label);
+  		warranty.classList.remove('has-error');
+  	}
 	render()
 	{		
 		return (
@@ -124,7 +134,7 @@ class CreateMachine extends Component{
 									<form className="form-inline machineForm" onSubmit={this.props.handleSubmit(this.submitUser)}>
 										<div className="form-group col-md-12 inputPaddingMachine">
 										    <label  className="col-md-3">Name</label>
-										    <input type="text" className="form-control col-md-9"  onChange={this.onChangeSetToState('name')} value={this.state.name}/>
+										    <input type="text" id="nameMachine" className="form-control col-md-9" onFocus={()=>this.removehasError('nameMachine')} onChange={this.onChangeSetToState('name')} value={this.state.name}/>
 										  </div>
 										<div className=" col-md-12 inputPaddingMachine">
 										  	<div className="row">
@@ -616,9 +626,9 @@ class CreateMachine extends Component{
 										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine" >
 										    <label  className="col-md-3">Warranty</label>
-										    <input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('warranty')} value={this.state.warranty}/>
+										    <input id="machineWarranty" type="text" className="form-control col-md-9" onFocus={()=>this.removehasError('machineWarranty')} onChange={this.onChangeSetToState('warranty')} value={this.state.warranty}/>
 										    <span className="col-md-3"></span>
-										    {this.state.warrantyerror && <span className="text-danger col-md-9">not a valid number</span>}
+										    {this.state.warrantyerror && <span className="text-danger col-md-9">Enter a valid Number</span>}
 										  </div>
 									</form>
 								</div>

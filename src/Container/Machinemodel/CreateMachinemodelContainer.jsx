@@ -45,8 +45,8 @@ class CreateMachinemodelContainer extends Component {
     if(this.props.isCreating){
       return <PageLoader/>
     }
-    const { createMachinemodel, editMachinemodel,machinebrand } = this.props;
-    const machinebrandInfo={machinebrand};
+    const { createMachinemodel, editMachinemodel,machinebrand,errorList } = this.props;
+    const machinebrandInfo={machinebrand,errorList};
     return (
       <div style={{marginTop:'-40px',backgroundColor:'#eee',width:'100%',height:'auto'}}>
       <section>
@@ -66,7 +66,8 @@ class CreateMachinemodelContainer extends Component {
 const mapStateToProps = state => {
   return {
     isCreating: state.machinemodel.isCreating,
-    machinebrand:state.machinebrand.list
+    machinebrand:state.machinebrand.list,
+    errorList:state.machinemodel.errorList
   };
 };
 const mapDispatchToProps = {

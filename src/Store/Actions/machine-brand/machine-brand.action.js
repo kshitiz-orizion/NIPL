@@ -44,7 +44,7 @@ export const getMachinebrandByID = machinebrandId => async dispatch => {
 export const createMachinebrand = machinebrand => async dispatch => {
   try{
     dispatch({type: CREATE_MACHINEBRAND_START});
-    const createdMachinebrand=await axiosService.post('/machine-brands',machinebrand,{'Content-Type':'application/json'});
+    const createdMachinebrand=await axiosService.post('/machine-brands',machinebrand);
     toast.success('Successfully created.');
     dispatch({ type: CREATE_MACHINEBRAND_SUCCESS, payload: createdMachinebrand });
     history.push('/machinebrands');
@@ -71,7 +71,7 @@ export const editMachinebrand = machinebrand => async dispatch => {
 export const deleteMachinebrand= machinebrand =>async dispatch=>{
   try{
     dispatch({type:DELETE_MACHINEBRAND_START});
-    const deletedMachinebrand=await axiosService.delete('/machine-brands/'+machinebrand.id);
+    const deletedMachinebrand=await axiosService.delete('/machine-brands'+machinebrand.id);
     dispatch({type:DELETE_MACHINEBRAND_SUCCESS,payload:deletedMachinebrand});
     toast.success('Successfully Deleted');
   }

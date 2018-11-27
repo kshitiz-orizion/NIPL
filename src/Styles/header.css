@@ -462,6 +462,9 @@ ul{
 .inputPaddingMachine{
 	padding-bottom: 10px;
 }
+.has-error{
+	border:1px solid red;
+}
 /* react-bootstrap-typeahead css start*/
 .close{
 	font-size: 1.2em;

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {reduxForm } from 'redux-form';
 import {Typeahead} from 'react-bootstrap-typeahead';
 class CreateMachinemodel extends Component{
-	componentWillMount(){
+	componentWillMount(){		
 		if(this.props.mode==='EDIT'){
 			const {name,machinebrand,id}=this.props.initialValues
 			this.setState({
@@ -18,10 +18,25 @@ class CreateMachinemodel extends Component{
 			})
 		}
 	}
+	componentDidMount(){
+		if(this.props.machinebrandInfo.errorList!==undefined){
+			const {brand_id}=this.props.machinebrandInfo.errorList;
+			this.setState({
+				brand_id
+			});
+			if(this.props.machinebrandInfo.errorList['brand_id']){
+				var machinebrandx=document.getElementsByClassName("rbt-input-main form-control rbt-input machineBrand");
+				machinebrandx[0].classList.add('has-error');
+			}
+		}
+	}
 	onChangeSetToState = stateKey => e => {
 			this.setState({ [stateKey]: e.target.value });
   	};
-  	submitUser=()=>{ 		
+  	submitUser=async()=>{ 	
+  		if(this.state.machinebrand.length===0){
+  			await this.setState({ machinebrand:[{name:'',id:''}]});
+  		}	
   		if(this.props.mode==='EDIT'){
   			this.props.onEdit(this.state);
   			return
@@ -59,9 +74,22 @@ class CreateMachinemodel extends Component{
 													  options={this.props.machinebrandInfo.machinebrand}
 													  labelKey="name"
 													  selected={this.state.machinebrand}
+													  inputProps={{"className":"machineBrand"}}
+													  onFocus={()=>{this.setState({
+													  					brand_id:null
+													  			})
+													   }}
 													/>
 												</div>
 										  	</div>
+										  	{this.state.brand_id && 
+										  		<div className="row">
+												    <label className="col-md-3"></label>
+												    <div className="col-md-9" style={{marginLeft:'-7px'}}>
+												    	<span  className="text-danger">{this.state.brand_id}</span>
+													</div>
+										  		</div>
+										  	}
 										</div>
 										  <div className="form-group col-md-12 inputPaddingMachine">
 										    <label  className="col-md-3">Name</label>

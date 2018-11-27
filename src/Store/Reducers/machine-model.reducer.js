@@ -25,6 +25,7 @@ export default function(state = { list: [] }, action) {
         ...state,
         isFetching: false,
         list: action.payload,
+        errorList:{}
       };
     case GET_MACHINEMODELS_ERROR:
       return {
@@ -46,6 +47,7 @@ export default function(state = { list: [] }, action) {
       return {
         ...state,
         isCreating: false,
+        errorList:action.payload
       };
     case EDIT_MACHINEMODEL_START:
       return {
