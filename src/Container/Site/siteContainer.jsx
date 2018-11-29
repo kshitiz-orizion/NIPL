@@ -14,7 +14,7 @@ class SiteContainer extends Component{
 	}
 	return (
 		<div>
-			<section className="container-fluid" style={{marginTop:'-100px'}}>
+			<section className="container-fluid" style={{marginTop:'-114px'}}>
 				<ListSite machineInfo={machineInfo} />
 			</section>
 		</div>
@@ -25,7 +25,7 @@ class SiteContainer extends Component{
 const mapStateToProps = state => {
   return {
     sites:state.site.list,
-    isFetching:state.site.list
+    isFetching:state.site.isFetching
   };
 };
 const mapDispatchToProps = {

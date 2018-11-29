@@ -18,7 +18,7 @@ class subcategoryContainer extends Component{
 	}
 	return (
 		<div>
-			<section className="container-fluid" style={{marginTop:'-100px'}}>
+			<section className="container-fluid" style={{marginTop:'-114px'}}>
 				<Listsubcategory subcategoryInfo={subcategoryInfo} />
 			</section>
 		</div>

@@ -34,7 +34,7 @@ class MachineContainer extends Component{
 	}
 	return (
 		<div>
-			<section className="container-fluid" style={{marginTop:'-100px'}}>
+			<section className="container-fluid" style={{marginTop:'-114px'}} >
 				<ListMachine machineInfo={machineInfo} />
 			</section>
 		</div>

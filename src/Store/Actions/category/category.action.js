@@ -31,7 +31,7 @@ export const getCategoryByID = categoryId => async dispatch => {
   try {
     var category={name:'',id:''}
     if(categoryId!==null){
-    category = await axiosService.get('/categories'+categoryId);
+    category = await axiosService.get('/categories/'+categoryId);
     }
     return Promise.resolve(category);
   } catch (error) {
@@ -44,12 +44,13 @@ export const getCategoryByID = categoryId => async dispatch => {
 export const createCategory = categorys => async dispatch => {
   try{
     dispatch({type: CREATE_CATEGORY_START});
-    const createdCategory=await axiosService.post('/categories/',categorys);
+    const createdCategory=await axiosService.post('/categories',categorys,{'Content-type':'application/json'});
     toast.success('Successfully created.');
     dispatch({ type: CREATE_CATEGORY_SUCCESS, payload: createdCategory });
     history.push('/categorys');
   }
   catch(error){
+    console.log(error);
      toast.error(error.message);
     dispatch({ type: CREATE_CATEGORY_ERROR });
   }

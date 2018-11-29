@@ -19,7 +19,7 @@ import {
 export const getMachines = () => async dispatch => {
   try {
     dispatch({ type: GET_MACHINES_START });
-    const machines=await axiosService.get('machine/machines/');
+    const machines=await axiosService.get('/machines');
     dispatch({ type: GET_MACHINES_SUCCESS, payload: machines });
   } catch (error) {
     toast.error(error.message || 'something went wrong.');

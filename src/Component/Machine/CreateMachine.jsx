@@ -3,6 +3,15 @@ import {reduxForm } from 'redux-form';
 import {Typeahead} from 'react-bootstrap-typeahead';
 class CreateMachine extends Component{
 	componentWillMount(){
+		if(this.props.editable===false){
+			this.setState({
+				editable:false
+			})
+		}else{
+			this.setState({
+				editable:true
+			})
+		}
 		if(this.props.mode==='EDIT'){
 			const {category,subcategory,enginemodel,enginebrand,machinemodel,machinebrand,condition,site,state,district}=this.props.initialValues;
 			this.setState({
@@ -42,6 +51,7 @@ class CreateMachine extends Component{
 			})
 		}
 	}
+	
 	onChangeSetToState = stateKey => e => {
 			if(stateKey==='warranty'){
 				const pattern=/^$|^[0-9]+$/;
@@ -128,13 +138,24 @@ class CreateMachine extends Component{
 				</div>
 				<div>			
 								<div className="container">
-								<h5>{this.props.mode==='EDIT'?'Edit Machine':'Create Machine'}</h5>
+								<h3 style={{display:'inline'}}>{this.props.mode==='EDIT'?'Edit Machine':'Create Machine'}</h3>
+								{this.props.mode==='EDIT' && <button className="btn btn-sm btn-info editButtonMachine" onClick={()=>this.setState({
+									editable:true
+								})}>Edit Machine</button>}
 								</div>
 								<div className="container formContainer" >
 									<form className="form-inline machineForm" onSubmit={this.props.handleSubmit(this.submitUser)}>
 										<div className="form-group col-md-12 inputPaddingMachine">
 										    <label  className="col-md-3">Name</label>
-										    <input type="text" id="nameMachine" className="form-control col-md-9" onFocus={()=>this.removehasError('nameMachine')} onChange={this.onChangeSetToState('name')} value={this.state.name}/>
+										    <input 
+										    type="text" 
+										    id="nameMachine" 
+										    className="form-control col-md-9" 
+										    onFocus={()=>this.removehasError('nameMachine')} 
+										    onChange={this.onChangeSetToState('name')} 
+										    value={this.state.name}
+										    disabled={!this.state.editable}
+										    />
 										  </div>
 										<div className=" col-md-12 inputPaddingMachine">
 										  	<div className="row">
@@ -177,6 +198,7 @@ class CreateMachine extends Component{
 													  			}
 													  		}													  	 	
 													  }}
+													  disabled={!this.state.editable}
 											        />
 												</div>
 										  	</div>
@@ -222,13 +244,20 @@ class CreateMachine extends Component{
 													  			}
 													  		}													  	 	
 													  }}
+													  disabled={!this.state.editable}
 													/>
 												</div>
 										  	</div>
 										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine">
 										    <label  className="col-md-3">Code</label>
-										    <input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('code')} value={this.state.code}/>
+										    <input 
+										    type="text" 
+										    className="form-control col-md-9" 
+										    onChange={this.onChangeSetToState('code')} 
+										    value={this.state.code}
+										    disabled={!this.state.editable}
+										    />
 										  </div>
 										  <div className=" col-md-12 inputPaddingMachine">
 										    <div className="row">
@@ -271,13 +300,20 @@ class CreateMachine extends Component{
 													  			}
 													  		}													  	 	
 													  }}
+													  disabled={!this.state.editable}
 													/>
 												</div>
 										  	</div>
 										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine">
 										    <label  className="col-md-3">Year of Purchase</label>
-										    <input type="text" className="form-control col-md-9" onChange={this.onChangeSetToState('purchase_year')} value={this.state.purchase_year}/>
+										    <input 
+										    type="text" 
+										    className="form-control col-md-9" 
+										    onChange={this.onChangeSetToState('purchase_year')} 
+										    value={this.state.purchase_year}
+										    disabled={!this.state.editable}
+										    />
 										  </div>
 										  <div className=" col-md-12 inputPaddingMachine">
 										    <div className="row">
@@ -320,13 +356,20 @@ class CreateMachine extends Component{
 													  			}
 													  		}													  	 	
 													  }}
+													  disabled={!this.state.editable}
 													/>
 												</div>
 										  	</div>
 										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine">
 										    <label  className="col-md-3">Serial Number</label>
-										    <input type="text" className="form-control col-md-9"  onChange={this.onChangeSetToState('serial_no')} value={this.state.serial_no}/>
+										    <input 
+										    type="text" 
+										    className="form-control col-md-9"  
+										    onChange={this.onChangeSetToState('serial_no')} 
+										    value={this.state.serial_no}
+										    disabled={!this.state.editable}
+										    />
 										  </div>
 										  <div className=" col-md-12 inputPaddingMachine">
 										    <div className="row">
@@ -369,6 +412,7 @@ class CreateMachine extends Component{
 													  			}
 													  		}													  	 	
 													  }}
+													  disabled={!this.state.editable}
 													/>
 												</div>
 										  	</div>
@@ -414,21 +458,39 @@ class CreateMachine extends Component{
 													  			}
 													  		}													  	 	
 													  }}
+													  disabled={!this.state.editable}
 													/>
 												</div>
 										  	</div>
 										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine" >
 										    <label  className="col-md-3">Engine Serial Number</label>
-										    <input type="text" className="form-control col-md-9"   onChange={this.onChangeSetToState('engine_serial_no')} value={this.state.engine_serial_no}/>
+										    <input 
+										    type="text" 
+										    className="form-control col-md-9"   
+										    onChange={this.onChangeSetToState('engine_serial_no')} 
+										    value={this.state.engine_serial_no}
+										    disabled={!this.state.editable}/>
 										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine">
 										    <label  className="col-md-3">Chassis Number</label>
-										    <input type="text" className="form-control col-md-9"   onChange={this.onChangeSetToState('chassis_no')} value={this.state.chassis_no}/>
+										    <input 
+										    type="text" 
+										    className="form-control col-md-9"   
+										    onChange={this.onChangeSetToState('chassis_no')} 
+										    value={this.state.chassis_no}
+										    disabled={!this.state.editable}
+										    />
 										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine">
 										    <label  className="col-md-3">Registration Number</label>
-										    <input type="text" className="form-control col-md-9"  onChange={this.onChangeSetToState('reg_no')} value={this.state.reg_no}/>
+										    <input 
+										    type="text" 
+										    className="form-control col-md-9"  
+										    onChange={this.onChangeSetToState('reg_no')} 
+										    value={this.state.reg_no}
+										    disabled={!this.state.editable}
+										    />
 										  </div>
 										  <div className=" col-md-12 inputPaddingMachine">
 										    <div className="row">
@@ -471,17 +533,28 @@ class CreateMachine extends Component{
 													  			}
 													  		}													  	 	
 													  }}
+													  disabled={!this.state.editable}
 													/>
 												</div>
 										  	</div>
 										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine">
 										    <label  className="col-md-3">Unit Price</label>
-										    <input type="text" className="form-control col-md-9"   onChange={this.onChangeSetToState('price')} value={this.state.price}/>
+										    <input 
+										    type="text" 
+										    className="form-control col-md-9"   
+										    onChange={this.onChangeSetToState('price')} 
+										    value={this.state.price}
+										    disabled={!this.state.editable}/>
 										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine" >
 										    <label  className="col-md-3">Remarks</label>
-										    <input type="text" className="form-control col-md-9"  onChange={this.onChangeSetToState('remark')} value={this.state.remark}/>
+										    <input 
+										    type="text" 
+										    className="form-control col-md-9"  
+										    onChange={this.onChangeSetToState('remark')} 
+										    value={this.state.remark}
+										    disabled={!this.state.editable}/>
 										  </div>
 										  <div className=" col-md-12 inputPaddingMachine">
 										    <div className="row">
@@ -525,6 +598,7 @@ class CreateMachine extends Component{
 													  			}
 													  		}													  	 	
 													  }}
+													  disabled={!this.state.editable}
 													/>
 												</div>
 										  	</div>
@@ -571,6 +645,7 @@ class CreateMachine extends Component{
 													  			}
 													  		}													  	 	
 													  }}
+													  disabled={!this.state.editable}
 													/>
 												</div>
 										  	</div>
@@ -616,17 +691,30 @@ class CreateMachine extends Component{
 													  			}
 													  		}													  	 	
 													  }}
+													  disabled={!this.state.editable}
 													/>
 												</div>
 										  	</div>
 										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine" >
 										    <label  className="col-md-3">Operating Condition</label>
-										    <input type="text" className="form-control col-md-9"  onChange={this.onChangeSetToState('operating_condition')} value={this.state.operating_condition}/>
+										    <input 
+										    type="text" 
+										    className="form-control col-md-9"  
+										    onChange={this.onChangeSetToState('operating_condition')} 
+										    value={this.state.operating_condition}
+										    disabled={!this.state.editable}/>
 										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine" >
 										    <label  className="col-md-3">Warranty</label>
-										    <input id="machineWarranty" type="text" className="form-control col-md-9" onFocus={()=>this.removehasError('machineWarranty')} onChange={this.onChangeSetToState('warranty')} value={this.state.warranty}/>
+										    <input 
+										    id="machineWarranty" 
+										    type="text" 
+										    className="form-control col-md-9" 
+										    onFocus={()=>this.removehasError('machineWarranty')}
+										    onChange={this.onChangeSetToState('warranty')} 
+										    value={this.state.warranty}
+										    disabled={!this.state.editable}/>
 										    <span className="col-md-3"></span>
 										    {this.state.warrantyerror && <span className="text-danger col-md-9">Enter a valid Number</span>}
 										  </div>

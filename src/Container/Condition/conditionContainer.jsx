@@ -17,7 +17,7 @@ class ConditionContainer extends Component{
 	return (
 		<div>
 		<Header/>
-			<section className="container-fluid" style={{marginTop:'-100px'}}>
+			<section className="container-fluid" style={{marginTop:'-114px'}}>
 				<ListCondition conditionInfo={conditionInfo} />
 			</section>
 		</div>

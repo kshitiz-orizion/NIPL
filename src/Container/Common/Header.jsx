@@ -23,6 +23,31 @@ export class Header extends Component{
 			vehicle:false
 		})
 	}
+	componentDidMount(){
+		document.addEventListener('mousedown', this.handleClickOutside);
+	}
+	handleClickOutside=(event)=>{
+		var company='';
+		var profile='';
+		for(var i=0;i<event['path'].length;i++){
+			if(event['path'][i].className==='companyDrop'){
+				company='DONT SHOW'
+			}
+			if(event['path'][i].className==='profileDrop'){
+				profile='DONT SHOW'
+			}
+		}
+		if(profile===''){
+			this.setState({
+				profile:false
+			})
+		}
+		if(company===''){
+			this.setState({
+				showcompany:false
+			})
+		}
+	}
 	showMenu=()=>{
 		this.setState({
 			profile:!this.state.profile,
@@ -125,9 +150,11 @@ export class Header extends Component{
 					<div className="divContainer plusHeader">
 						<i className="fa fa-plus plusIconHeader" aria-hidden="true"></i>
 					</div>	
-					<div className="divContainer profileHeader" onClick={this.showMenu}>
+					<div className="divContainer profileHeader" >
+						<section onClick={this.showMenu}>
 						<i className="fa fa-angle-down angledownProfile" ></i>
 						<i className="fa fa-user-circle userCircleProfile" ></i>
+						</section>
 						{this.state.profile && <div className="profileDrop">
 							<ul>
 								<li className="profileDropList"><i className="fa fa-user-circle-o marginLogo" aria-hidden="true"></i>Name</li>
@@ -143,8 +170,8 @@ export class Header extends Component{
 							</ul>
 						</div>}
 					</div>
-					<div className="divContainer companyHeader" onClick={this.showCompany}>
-						<div className="row innerCompanyHeader">
+					<div className="divContainer companyHeader" >
+						<div className="row innerCompanyHeader" onClick={this.showCompany}>
 							<div className="nameCompanyHeader">Company Name</div>
 							<div className="angeldownCompany"><i className="fa fa-angle-down"></i></div>
 						</div>

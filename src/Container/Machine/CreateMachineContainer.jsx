@@ -24,6 +24,11 @@ class CreateMachinesContainer extends Component {
     this.setState({
       mode: params && params.id ? 'EDIT' : 'CREATE',
     });
+    if(this.props.history.location.state!==undefined){
+      this.setState({
+        editable:this.props.history.location.state.noEdit?false:true
+      })
+    }
     this.getMachineAttributes();
     if(params.id){
       this.getMachine(params.id);
@@ -84,6 +89,7 @@ class CreateMachinesContainer extends Component {
           initialValues={this.state.machineToBeEdit}
           mode={this.state.mode}
           paramvalue={paramvalue}
+          editable={this.state.editable}
         />
       </section>
       </div>

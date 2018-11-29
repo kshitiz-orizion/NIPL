@@ -15,7 +15,7 @@ class DistrictSiteContainer extends Component{
 	}
 	return (
 		<div>
-			<section className="container-fluid" style={{marginTop:'-100px'}}>
+			<section className="container-fluid" style={{marginTop:'-114px'}}>
 				<ListDistrictSite districtsiteInfo={districtsiteInfo} />
 			</section>
 		</div>
@@ -26,7 +26,7 @@ class DistrictSiteContainer extends Component{
 const mapStateToProps = state => {
   return {
     districtsites:state.districtsite.list,
-    isFetching:state.districtsite.list
+    isFetching:state.districtsite.isFetching
   };
 };
 const mapDispatchToProps = {

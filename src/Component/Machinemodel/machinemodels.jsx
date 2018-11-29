@@ -15,11 +15,15 @@ class ListMachinemodel extends Component{
 	render(){
 		return (
 			<div style={{marginTop:'175px'}}>
-				
-				<div className="container">
-				<div style={{float:'right',display:'inline-block'}}>
-					<button type="button" className="btn btn-success"  onClick={this.AddMachinemodel}><i className="fa fa-plus" aria-hidden="true"></i>Add</button>
+				<div className="topHeadingContainer">
+					<div className="headingCreateMachine">
+						<h3>Machine Model List</h3>
+					</div>
+					<div className="saveButtonHeader" >
+						<button className="btn btn-sm btn-primary" style={{marginRight:'100px'}} onClick={this.AddMachinemodel}><i className="fa fa-plus" aria-hidden="true"></i>Add Machine Model</button>
+					</div>
 				</div>
+				<div className="container">
 					<table className="table table-hover table-bordered">
 					    <thead>
 					      <tr>
