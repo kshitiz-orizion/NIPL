@@ -19,7 +19,7 @@ import {
 export const getSites = () => async dispatch => {
   try {
     dispatch({ type: GET_SITES_START });
-    const sites=await axiosService.get('/sites')
+    const sites=await axiosService.get('/location/sites/')
     dispatch({ type: GET_SITES_SUCCESS, payload: sites });
   } catch (error) {
     toast.error(error.message || 'something went wrong.');
@@ -31,7 +31,7 @@ export const getSiteByID = siteId => async dispatch => {
   try {
     var site={name:'',id:''};
     if(siteId!==null){
-    site = await axiosService.get('/sites/'+siteId);
+    site = await axiosService.get('/location/sites/'+siteId);
     }
     return Promise.resolve(site);
   } catch (error) {
@@ -44,14 +44,7 @@ export const getSiteByID = siteId => async dispatch => {
 export const createSite = machines => async dispatch => {
   try{
     dispatch({type: CREATE_SITE_START});
-    let machine=new FormData();
-    machine.append('name',machines.name);
-    machine.append('roll',machines.roll);
-    machine.append('photo',machines.image);
-    machine.append('std',machines.std);
-    machine.append('email',machines.email);
-    machine.append('dob',machines.dob.format('YYYY-MM-DD'));
-    const createdsite=await axiosService.post('/machine',machine,{'Content-type':'multipart/form-data'});
+    const createdsite=await axiosService.post('/location/sites/',machines,{'Content-type':'multipart/form-data'});
     toast.success('Successfully created.');
     dispatch({ type: CREATE_SITE_SUCCESS, payload: createdsite });
     history.push('/machine');
@@ -65,16 +58,7 @@ export const createSite = machines => async dispatch => {
 export const editSite = machines => async dispatch => {
   try {
     dispatch({ type: EDIT_SITE_START });
-    let machine=new FormData();
-    machine.append('name',machines.name);
-    machine.append('roll',machines.roll);
-    if(typeof(machines.image)===Object){
-    machine.append('photo',machines.image); 
-    }
-    machine.append('std',machines.std);
-    machine.append('email',machines.email);
-    machine.append('dob',machines.dob.format('YYYY-MM-DD'));
-    const machineEdit=await axiosService.put('/machine/'+machines.id,machine,{'Content-type':'multipart/form-data'});
+    const machineEdit=await axiosService.put('/location/sites/'+machines.id+'/',machines,{'Content-type':'multipart/form-data'});
     toast.success('Successfully saved.');
     dispatch({ type: EDIT_SITE_SUCCESS, payload: machineEdit });
     history.push('/machine');
@@ -87,8 +71,8 @@ export const editSite = machines => async dispatch => {
 export const deleteSite= machine =>async dispatch=>{
   try{
     dispatch({type:DELETE_SITE_START});
-    const deletedsite=await axiosService.delete('/machine/'+machine.id);
-    dispatch({type:DELETE_SITE_SUCCESS,payload:deletedsite});
+    await axiosService.delete('/location/sites/'+machine.id);
+    dispatch({type:DELETE_SITE_SUCCESS,payload:machine});
     toast.success('Successfully Deleted');
   }
   catch(error){

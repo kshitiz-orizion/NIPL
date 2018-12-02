@@ -19,7 +19,7 @@ import {
 export const getEnginebrands = () => async dispatch => {
   try {
     dispatch({ type: GET_ENGINEBRANDS_START });
-    const enginebrands=await axiosService.get('/engine-brands');
+    const enginebrands=await axiosService.get('/assets/engine/brands/');
     dispatch({ type: GET_ENGINEBRANDS_SUCCESS, payload: enginebrands });
   } catch (error) {
     toast.error(error.message || 'something went wrong.');
@@ -31,7 +31,7 @@ export const getEnginebrandByID = engineBrandId => async dispatch => {
   try {
     var enginebrand={name:'',id:''};
     if(engineBrandId!==null){
-    enginebrand = await axiosService.get('/engine-brands/'+engineBrandId);
+    enginebrand = await axiosService.get('/assets/engine/brands/'+engineBrandId);
     }
     return Promise.resolve(enginebrand);
   } catch (error) {
@@ -44,7 +44,7 @@ export const getEnginebrandByID = engineBrandId => async dispatch => {
 export const createEnginebrand = enginebrand => async dispatch => {
   try{
     dispatch({type: CREATE_ENGINEBRAND_START});
-    const createdEnginebrand=await axiosService.post('/engine-brands',enginebrand,{'Content-type':'application/json'});
+    const createdEnginebrand=await axiosService.post('/assets/engine/brands/',enginebrand,{'Content-type':'application/json'});
     toast.success('Successfully created.');
     dispatch({ type: CREATE_ENGINEBRAND_SUCCESS, payload: createdEnginebrand });
     history.push('/enginebrands');
@@ -58,7 +58,7 @@ export const createEnginebrand = enginebrand => async dispatch => {
 export const editEnginebrand = enginebrand => async dispatch => {
   try {
     dispatch({ type: EDIT_ENGINEBRAND_START });
-    const enginebrandEdit=await axiosService.put('/engine-brands/'+enginebrand.id,enginebrand,{'Content-type':'application/json'});
+    const enginebrandEdit=await axiosService.put('/assets/engine/brands/'+enginebrand.id,enginebrand,{'Content-type':'application/json'});
     toast.success('Successfully saved.');
     dispatch({ type: EDIT_ENGINEBRAND_SUCCESS, payload: enginebrandEdit });
     history.push('/enginebrands');
@@ -71,7 +71,7 @@ export const editEnginebrand = enginebrand => async dispatch => {
 export const deleteEnginebrand= category =>async dispatch=>{
   try{
     dispatch({type:DELETE_ENGINEBRAND_START});
-    const enginebrand=await axiosService.delete('/category/'+category.id);
+    const enginebrand=await axiosService.delete('/assets/engine/brands/'+category.id);
     dispatch({type:DELETE_ENGINEBRAND_SUCCESS,payload:enginebrand});
     toast.success('Successfully Deleted');
   }

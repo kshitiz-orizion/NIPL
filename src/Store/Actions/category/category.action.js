@@ -19,7 +19,7 @@ import {
 export const getCategorys = () => async dispatch => {
   try {
     dispatch({ type: GET_CATEGORYS_START });
-    const categorys=await axiosService.get('/categories');
+    const categorys=await axiosService.get('/assets/machine/categories/');
     dispatch({ type: GET_CATEGORYS_SUCCESS, payload: categorys });
   } catch (error) {
     toast.error(error.message || 'something went wrong.');
@@ -31,7 +31,7 @@ export const getCategoryByID = categoryId => async dispatch => {
   try {
     var category={name:'',id:''}
     if(categoryId!==null){
-    category = await axiosService.get('/categories/'+categoryId);
+    category = await axiosService.get('/assets/machine/categories/'+categoryId);
     }
     return Promise.resolve(category);
   } catch (error) {
@@ -44,7 +44,7 @@ export const getCategoryByID = categoryId => async dispatch => {
 export const createCategory = categorys => async dispatch => {
   try{
     dispatch({type: CREATE_CATEGORY_START});
-    const createdCategory=await axiosService.post('/categories',categorys,{'Content-type':'application/json'});
+    const createdCategory=await axiosService.post('/assets/machine/categories/',categorys,{'Content-type':'application/json'});
     toast.success('Successfully created.');
     dispatch({ type: CREATE_CATEGORY_SUCCESS, payload: createdCategory });
     history.push('/categorys');
@@ -59,7 +59,7 @@ export const createCategory = categorys => async dispatch => {
 export const editCategory = categorys => async dispatch => {
   try {
     dispatch({ type: EDIT_CATEGORY_START });
-    const categoryEdit=await axiosService.put('/categories/'+categorys.id,categorys,{'Content-type':'application/json'});
+    const categoryEdit=await axiosService.put('/assets/machine/categories/'+categorys.id,categorys,{'Content-type':'application/json'});
     toast.success('Successfully saved.');
     dispatch({ type: EDIT_CATEGORY_SUCCESS, payload: categoryEdit });
     history.push('/categorys');
@@ -72,7 +72,7 @@ export const editCategory = categorys => async dispatch => {
 export const deleteCategory= category =>async dispatch=>{
   try{
     dispatch({type:DELETE_CATEGORY_START});
-    const deletedcategory=await axiosService.delete('/categories/'+category.id);
+    const deletedcategory=await axiosService.delete('/assets/machine/categories/'+category.id);
     dispatch({type:DELETE_CATEGORY_SUCCESS,payload:deletedcategory});
     toast.success('Successfully Deleted');
   }

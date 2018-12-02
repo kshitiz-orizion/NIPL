@@ -19,7 +19,7 @@ import {
 export const getEnginemodels = () => async dispatch => {
   try {
     dispatch({ type: GET_ENGINEMODELS_START });
-    const enginemodels=await axiosService.get('/engine-models');
+    const enginemodels=await axiosService.get('/assets/engine/models/');
     dispatch({ type: GET_ENGINEMODELS_SUCCESS, payload: enginemodels });
   } catch (error) {
     toast.error(error.message || 'something went wrong.');
@@ -31,7 +31,7 @@ export const getEnginemodelByID = enginemodelId => async dispatch => {
   try {
     var enginemodel={name:'',id:''};
     if(enginemodelId!==null){
-    enginemodel = await axiosService.get('/engine-models/'+enginemodelId);
+    enginemodel = await axiosService.get('/assets/engine/models/'+enginemodelId);
     }
     return Promise.resolve(enginemodel);
   } catch (error) {
@@ -44,7 +44,7 @@ export const getEnginemodelByID = enginemodelId => async dispatch => {
 export const createEnginemodel = enginemodel => async dispatch => {
   try{
     dispatch({type: CREATE_ENGINEMODEL_START});
-    const createdEnginemodel=await axiosService.post('/engine-models',enginemodel,{'Content-type':'application/json'});
+    const createdEnginemodel=await axiosService.post('/assets/engine/models/',enginemodel,{'Content-type':'application/json'});
     toast.success('Successfully created.');
     dispatch({ type: CREATE_ENGINEMODEL_SUCCESS, payload: createdEnginemodel });
     history.push('/enginemodels');
@@ -61,7 +61,7 @@ export const editEnginemodel = enginemodel => async dispatch => {
     const {brand_id,id,name}=enginemodel;
     const newEngineModel={brand_id,id,name};
     dispatch({ type: EDIT_ENGINEMODEL_START });
-    const enginemodelEdit=await axiosService.put('/engine-models/'+enginemodel.id,newEngineModel,{'Content-type':'application/json'});
+    const enginemodelEdit=await axiosService.put('/assets/engine/models/'+enginemodel.id,newEngineModel,{'Content-type':'application/json'});
     toast.success('Successfully saved.');
     dispatch({ type: EDIT_ENGINEMODEL_SUCCESS, payload: enginemodelEdit });
     history.push('/enginemodels');
@@ -74,7 +74,7 @@ export const editEnginemodel = enginemodel => async dispatch => {
 export const deleteEnginemodel= enginemodel =>async dispatch=>{
   try{
     dispatch({type:DELETE_ENGINEMODEL_START});
-    const deletedenginemodel=await axiosService.delete('/engine-models/'+enginemodel.id);
+    const deletedenginemodel=await axiosService.delete('/assets/engine/models/'+enginemodel.id);
     dispatch({type:DELETE_ENGINEMODEL_SUCCESS,payload:deletedenginemodel});
     toast.success('Successfully Deleted');
   }

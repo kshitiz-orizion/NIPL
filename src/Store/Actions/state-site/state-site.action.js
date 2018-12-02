@@ -19,7 +19,7 @@ import {
 export const getStatesites = () => async dispatch => {
   try {
     dispatch({ type: GET_STATESITES_START });
-    const states=await axiosService.get('/states');
+    const states=await axiosService.get('/location/states/');
     dispatch({ type: GET_STATESITES_SUCCESS, payload: states });
   } catch (error) {
     toast.error(error.message || 'something went wrong.');
@@ -31,7 +31,7 @@ export const getStatesiteByID = stateId => async dispatch => {
   try {
     var state={name:'',id:''};
     if(stateId!==null){
-    state = await axiosService.get('/states/'+stateId);
+    state = await axiosService.get('/location/states/'+stateId);
     }
     return Promise.resolve(state);
   } catch (error) {
@@ -44,17 +44,10 @@ export const getStatesiteByID = stateId => async dispatch => {
 export const createStatesite = machines => async dispatch => {
   try{
     dispatch({type: CREATE_STATESITE_START});
-    let machine=new FormData();
-    machine.append('name',machines.name);
-    machine.append('roll',machines.roll);
-    machine.append('photo',machines.image);
-    machine.append('std',machines.std);
-    machine.append('email',machines.email);
-    machine.append('dob',machines.dob.format('YYYY-MM-DD'));
-    const createdStatesite=await axiosService.post('/machine',machine,{'Content-type':'multipart/form-data'});
+    const createdStatesite=await axiosService.post('/machine',machines,{'Content-type':'multipart/form-data'});
     toast.success('Successfully created.');
     dispatch({ type: CREATE_STATESITE_SUCCESS, payload: createdStatesite });
-    history.push('/machine');
+    history.push('/machines');
   }
   catch(error){
      toast.error(error.message);
@@ -65,19 +58,10 @@ export const createStatesite = machines => async dispatch => {
 export const editStatesite = machines => async dispatch => {
   try {
     dispatch({ type: EDIT_STATESITE_START });
-    let machine=new FormData();
-    machine.append('name',machines.name);
-    machine.append('roll',machines.roll);
-    if(typeof(machines.image)===Object){
-    machine.append('photo',machines.image); 
-    }
-    machine.append('std',machines.std);
-    machine.append('email',machines.email);
-    machine.append('dob',machines.dob.format('YYYY-MM-DD'));
-    const machineEdit=await axiosService.put('/machine/'+machines.id,machine,{'Content-type':'multipart/form-data'});
+    const machineEdit=await axiosService.put('/machine/'+machines.id+'/',machines,{'Content-type':'multipart/form-data'});
     toast.success('Successfully saved.');
     dispatch({ type: EDIT_STATESITE_SUCCESS, payload: machineEdit });
-    history.push('/machine');
+    history.push('/machines');
   } catch (error) {
     toast.error(error.message);
     dispatch({ type: EDIT_STATESITE_ERROR });
@@ -87,8 +71,8 @@ export const editStatesite = machines => async dispatch => {
 export const deleteStatesite= machine =>async dispatch=>{
   try{
     dispatch({type:DELETE_STATESITE_START});
-    const statesite=await axiosService.delete('/machine/'+machine.id);
-    dispatch({type:DELETE_STATESITE_SUCCESS,payload:statesite});
+    await axiosService.delete('/location/states/'+machine.id);
+    dispatch({type:DELETE_STATESITE_SUCCESS,payload:machine});
     toast.success('Successfully Deleted');
   }
   catch(error){

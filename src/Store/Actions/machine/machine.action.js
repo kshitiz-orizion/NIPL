@@ -19,7 +19,7 @@ import {
 export const getMachines = () => async dispatch => {
   try {
     dispatch({ type: GET_MACHINES_START });
-    const machines=await axiosService.get('/machines');
+    const machines=await axiosService.get('/assets/machine/machines/');
     dispatch({ type: GET_MACHINES_SUCCESS, payload: machines });
   } catch (error) {
     toast.error(error.message || 'something went wrong.');
@@ -29,7 +29,7 @@ export const getMachines = () => async dispatch => {
 
 export const getMachineByID = machineId => async dispatch => {
   try {
-    const machines = await axiosService.get('/machines/'+machineId);
+    const machines = await axiosService.get('/assets/machine/machines/'+machineId);
     return Promise.resolve(machines);
   } catch (error) {
     toast.error(error.message || 'something went wrong.');
@@ -41,7 +41,7 @@ export const getMachineByID = machineId => async dispatch => {
 export const createMachine = machines => async dispatch => {
   try{
     dispatch({type: CREATE_MACHINE_START});
-    const createdMachine=await axiosService.post('/machines',machines,{"Content-Type":"application/json"});
+    const createdMachine=await axiosService.post('/assets/machine/machines/',machines,{"Content-Type":"application/json"});
     toast.success('Successfully created.');
     dispatch({ type: CREATE_MACHINE_SUCCESS, payload: createdMachine });
     history.push('/machines');
@@ -55,11 +55,12 @@ export const createMachine = machines => async dispatch => {
 export const editMachine = machines => async dispatch => {
   try {
     dispatch({ type: EDIT_MACHINE_START });
-    const machineEdit=await axiosService.put('/machines/'+machines.id,machines);
+    const machineEdit=await axiosService.put('/assets/machine/machines/'+machines.id+'/',machines,{"Content-Type":"application/json"});
     toast.success('Successfully saved.');
     dispatch({ type: EDIT_MACHINE_SUCCESS, payload: machineEdit });
     history.push('/machines');
   } catch (error) {
+    console.log(error);
     toast.error(error.message);
     dispatch({ type: EDIT_MACHINE_ERROR });
   }
@@ -68,8 +69,8 @@ export const editMachine = machines => async dispatch => {
 export const deleteMachine= machine =>async dispatch=>{
   try{
     dispatch({type:DELETE_MACHINE_START});
-    const deletedMachine=await axiosService.delete('/machines/'+machine.id);
-    dispatch({type:DELETE_MACHINE_SUCCESS,payload:deletedMachine});
+    await axiosService.delete('/assets/machine/machines/'+machine.id+'/');
+    dispatch({type:DELETE_MACHINE_SUCCESS,payload:machine});
     toast.success('Successfully Deleted');
   }
   catch(error){

@@ -13,19 +13,20 @@ class CreateMachine extends Component{
 			})
 		}
 		if(this.props.mode==='EDIT'){
-			const {category,subcategory,enginemodel,enginebrand,machinemodel,machinebrand,condition,site,state,district}=this.props.initialValues;
+			const {category,engine_model,model,condition,site,state,district}=this.props.initialValues;
+			const enginebrand=engine_model.brand;
+			const machinebrand=model.brand;
 			this.setState({
 				 ...this.props.initialValues,
-				 category:[category],
-				 subcategory:[subcategory],
-				 enginemodel:[enginemodel],
+				 categoryname:[category],
+				 enginemodel:[engine_model],
 				 enginebrand:[enginebrand],
-				 machinemodel:[machinemodel],
+				 machinemodel:[model],
 				 machinebrand:[machinebrand],
-				 condition:[condition],
-				 site:[site],
-				 state:[state],
-				 district:[district]
+				 conditionname:[condition],
+				 sitename:[site],
+				 statename:[state],
+				 districtname:[district]
 			});
 		}
 		else{
@@ -33,7 +34,7 @@ class CreateMachine extends Component{
 				engine_model_id:'',
 				chassis_no:'',
 				engine_serial_no:'',
-				purchase_year:'',
+				purchased_on:'',
 				remark:'',
 				reg_no:'',
 				description:'',
@@ -74,17 +75,27 @@ class CreateMachine extends Component{
   	}
   	submitUser=()=>{
   			const {warrantyerror}=this.state;
+  			var {id,name,category,code,snumber,model,condition,purchased_on,regnum,engine_model,engine_snum,chassis_num,warranty,price,description,site}=this.state;
   			if(warrantyerror){
-  				const warranty=document.getElementById("machineWarranty");
-  				warranty.classList.add("has-error");
+  				const warrantydiv=document.getElementById("machineWarranty");
+  				warrantydiv.classList.add("has-error");
   			}
   			else{
 		  		if(this.props.mode==='EDIT'){
-		  			console.log(this.state);
-		  			this.props.onEdit(this.state);
+		  			const editvalue=this.state;
+		  			for(var key in editvalue){
+		  				if(typeof(editvalue[key])==='object'){
+		  					editvalue[key]=editvalue[key]['id']
+		  				}
+		  			}
+		  			this.props.onEdit(editvalue);
 		  			return
 		  		}
-		  		this.props.onCreate(this.state);
+		  		if(this.state.name.length===0){
+		  			return
+		  		}
+		  		const createvalue={id,name,site,category,code,snumber,model,condition,purchased_on,warranty,price,regnum,engine_model,engine_snum,chassis_num,description};
+		  		this.props.onCreate(createvalue);
 	  		}
   	}
   	setCategory=(value)=>{
@@ -156,7 +167,12 @@ class CreateMachine extends Component{
 										    value={this.state.name}
 										    disabled={!this.state.editable}
 										    />
-										  </div>
+										    {this.state.name.length===0 && 
+										   	<div className="row" style={{'width':'100%'}}>
+										   		<div className="col-md-3"></div>
+										    	<div className="col-md-9 text-danger">Required Field</div>
+										    </div>}
+										</div>
 										<div className=" col-md-12 inputPaddingMachine">
 										  	<div className="row">
 											    <label className="col-md-3">Category</label>
@@ -165,14 +181,14 @@ class CreateMachine extends Component{
 											          options={this.props.paramvalue.category}
 											          labelKey="name"
 											          onChange={(selected) => {
-													    this.setState({category:selected});
+													    this.setState({categoryname:selected});
 													    if(selected[0]!==undefined){
 													    	this.setState({
-													    		category_id:selected[0].id
+													    		category:selected[0].id
 													    	});
 													    }
 													  }}
-													  selected={this.state.category}
+													  selected={this.state.categoryname}
 													  onInputChange={(name,value)=>{													  		
 													  		var element=document.getElementsByClassName("rbt-menu");
 													  		if(element[0]){
@@ -202,53 +218,12 @@ class CreateMachine extends Component{
 											        />
 												</div>
 										  	</div>
+										  	{!this.state.categoryname && 
+													   	<div className="row" style={{'width':'100%'}}>
+													   		<div className="col-md-3"></div>
+													    	<div className="col-md-9 text-danger">Required Field</div>
+													    </div>}
 										</div>
-										  <div className=" col-md-12 inputPaddingMachine">
-										  	<div className="row">
-											    <label className="col-md-3">Sub Category</label>
-											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
-											    <Typeahead
-													  onChange={(selected) => {
-													    this.setState({subcategory:selected});
-													    if(selected[0]!==undefined){
-													    	this.setState({
-													    		sub_category_id:selected[0].id
-													    	});
-													    }
-													  }}
-													  options={this.props.paramvalue.subcategory}
-													  labelKey="name"
-													  selected={this.state.subcategory}
-													  onInputChange={(name,value)=>{
-													  		var element=document.getElementsByClassName("rbt-menu");
-													  		if(element[0]){
-													  			element[0].style.display="block";
-													  			var p=element[0].getElementsByTagName("p");
-													  			for(var i=0;i<p.length;i++){
-													  				p[i].parentNode.removeChild(p[i]);
-													  			}
-													  			if(name!==''){
-													  			var para = document.createElement("p");
-													  	 		para.classList.add("dropdown-item");
-																var node = document.createTextNode(name);
-																var btn=document.createElement("button");
-																btn.className="btn-sm btn btn-danger";
-																btn.setAttribute("type", "button");
-																var btnname=document.createTextNode("+");
-																btn.appendChild(btnname);
-																btn.style.marginLeft="20px";
-																para.appendChild(node);
-																para.appendChild(btn);
-																btn.onclick=()=>{this.setSubCategory(name)};
-													  			element[0].appendChild(para);
-													  			}
-													  		}													  	 	
-													  }}
-													  disabled={!this.state.editable}
-													/>
-												</div>
-										  	</div>
-										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine">
 										    <label  className="col-md-3">Code</label>
 										    <input 
@@ -310,8 +285,8 @@ class CreateMachine extends Component{
 										    <input 
 										    type="text" 
 										    className="form-control col-md-9" 
-										    onChange={this.onChangeSetToState('purchase_year')} 
-										    value={this.state.purchase_year}
+										    onChange={this.onChangeSetToState('purchased_on')} 
+										    value={this.state.purchased_on}
 										    disabled={!this.state.editable}
 										    />
 										  </div>
@@ -324,7 +299,7 @@ class CreateMachine extends Component{
 													    this.setState({machinemodel:selected});
 													    if(selected[0]!==undefined){
 													    	this.setState({
-													    		model_id:selected[0].id
+													    		model:selected[0].id
 													    	});
 													    }
 													  }}
@@ -366,8 +341,8 @@ class CreateMachine extends Component{
 										    <input 
 										    type="text" 
 										    className="form-control col-md-9"  
-										    onChange={this.onChangeSetToState('serial_no')} 
-										    value={this.state.serial_no}
+										    onChange={this.onChangeSetToState('snumber')} 
+										    value={this.state.snumber}
 										    disabled={!this.state.editable}
 										    />
 										  </div>
@@ -426,7 +401,7 @@ class CreateMachine extends Component{
 													    this.setState({enginemodel:selected});
 													    if(selected[0]!==undefined){
 													    	this.setState({
-													    		engine_model_id:selected[0].id
+													    		engine_model:selected[0].id
 													    	});
 													    }
 													  }}
@@ -468,8 +443,8 @@ class CreateMachine extends Component{
 										    <input 
 										    type="text" 
 										    className="form-control col-md-9"   
-										    onChange={this.onChangeSetToState('engine_serial_no')} 
-										    value={this.state.engine_serial_no}
+										    onChange={this.onChangeSetToState('engine_snum')} 
+										    value={this.state.engine_snum}
 										    disabled={!this.state.editable}/>
 										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine">
@@ -477,8 +452,8 @@ class CreateMachine extends Component{
 										    <input 
 										    type="text" 
 										    className="form-control col-md-9"   
-										    onChange={this.onChangeSetToState('chassis_no')} 
-										    value={this.state.chassis_no}
+										    onChange={this.onChangeSetToState('chassis_num')} 
+										    value={this.state.chassis_num}
 										    disabled={!this.state.editable}
 										    />
 										  </div>
@@ -487,8 +462,8 @@ class CreateMachine extends Component{
 										    <input 
 										    type="text" 
 										    className="form-control col-md-9"  
-										    onChange={this.onChangeSetToState('reg_no')} 
-										    value={this.state.reg_no}
+										    onChange={this.onChangeSetToState('regnum')} 
+										    value={this.state.regnum}
 										    disabled={!this.state.editable}
 										    />
 										  </div>
@@ -498,16 +473,16 @@ class CreateMachine extends Component{
 											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
 											    <Typeahead
 													  onChange={(selected) => {
-													    this.setState({condition:selected});
+													    this.setState({conditionname:selected});
 													    if(selected[0]!==undefined){
 													    	this.setState({
-													    		condition_id:selected[0].id
+													    		condition:selected[0].id
 													    	});
 													    }
 													  }}
 													  options={this.props.paramvalue.condition}
 													  labelKey="name"
-													  selected={this.state.condition}
+													  selected={this.state.conditionname}
 													  onInputChange={(name,value)=>{
 													  		var element=document.getElementsByClassName("rbt-menu");
 													  		if(element[0]){
@@ -562,7 +537,7 @@ class CreateMachine extends Component{
 											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
 											    <Typeahead
 													  onChange={(selected) => {
-													    this.setState({state:selected});
+													    this.setState({statename:selected});
 													    if(selected[0]!==undefined){
 													    	this.setState({
 													    		state_id:selected[0].id
@@ -572,7 +547,7 @@ class CreateMachine extends Component{
 													  }}
 													  options={this.props.paramvalue.state}
 													  labelKey="name"
-													  selected={this.state.state}
+													  selected={this.state.statename}
 													  onInputChange={(name,value)=>{
 													  		var element=document.getElementsByClassName("rbt-menu");
 													  		if(element[0]){
@@ -609,7 +584,7 @@ class CreateMachine extends Component{
 											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
 											    <Typeahead
 													  onChange={(selected) => {
-													    this.setState({district:selected});
+													    this.setState({districtname:selected});
 													    if(selected[0]!==undefined){
 													    	this.setState({
 													    		district_id:selected[0].id
@@ -619,7 +594,7 @@ class CreateMachine extends Component{
 													  }}
 													  options={this.props.paramvalue.district}
 													  labelKey="name"
-													  selected={this.state.district}
+													  selected={this.state.districtname}
 													  onInputChange={(name,value)=>{
 													  		var element=document.getElementsByClassName("rbt-menu");
 													  		if(element[0]){
@@ -656,16 +631,16 @@ class CreateMachine extends Component{
 											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
 											    <Typeahead
 													  onChange={(selected) => {
-													    this.setState({site:selected});
+													    this.setState({sitename:selected});
 													    if(selected[0]!==undefined){
 													    	this.setState({
-													    		site_id:selected[0].id
+													    		site:selected[0].id
 													    	});
 													    }
 													  }}
 													  options={this.props.paramvalue.site}
 													  labelKey="name"
-													  selected={this.state.site}
+													  selected={this.state.sitename}
 													  onInputChange={(name,value)=>{
 													  		var element=document.getElementsByClassName("rbt-menu");
 													  		if(element[0]){
@@ -695,15 +670,6 @@ class CreateMachine extends Component{
 													/>
 												</div>
 										  	</div>
-										  </div>
-										  <div className="form-group col-md-12 inputPaddingMachine" >
-										    <label  className="col-md-3">Operating Condition</label>
-										    <input 
-										    type="text" 
-										    className="form-control col-md-9"  
-										    onChange={this.onChangeSetToState('operating_condition')} 
-										    value={this.state.operating_condition}
-										    disabled={!this.state.editable}/>
 										  </div>
 										  <div className="form-group col-md-12 inputPaddingMachine" >
 										    <label  className="col-md-3">Warranty</label>

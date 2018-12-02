@@ -12,6 +12,8 @@ import machinebrandReducer from './machine-brand.reducer';
 import statesiteReducer from './statesite.reducer';
 import districtsiteReducer from './districtsite.reducer';
 import siteReducer from './site.reducer';
+import vehicleReducer from './vehicle.reducer';
+import vehicleComponentReducer from './vehicle-component.reducer';
 export default combineReducers({
   form: formReducer,
   auth:authReducer,
@@ -25,5 +27,7 @@ export default combineReducers({
   machinebrand:machinebrandReducer,
   statesite:statesiteReducer,
   districtsite:districtsiteReducer,
-  site:siteReducer
+  site:siteReducer,
+  vehicle:vehicleReducer,
+  vehicleComponent:vehicleComponentReducer
 });

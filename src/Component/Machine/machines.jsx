@@ -1,7 +1,29 @@
 import React,{Component} from 'react';
 import history from '../../Inits/history';
+const $=require('jquery');
+$.DataTable=require('datatables.net');
 class ListMachine extends Component{
 	componentWillMount(){
+		// this.setState({
+		// 	machinesX:[]
+		// })
+	}
+	componentDidMount(){
+		// this.$el=$(this.el);
+		// this.$el.DataTable(
+		// 		{   
+		// 			processing:true,
+		// 			data:this.props.machineInfo.machines,
+		// 			clickHandler:this.handleTableClick,
+		// 			columns:[
+		// 				{title:"name",render:function(data, type, row, meta){
+		// 						return '<div onClick={this.handleTableClick}>'+row.name+'</div>';
+		// 				}},
+		// 				{data:"machinebrandname"},
+		// 				{data:"machinemodelname"},
+		// 			]
+		// 		}
+		// 	)
 	}
 	AddMachine=()=>{
 		history.push('/machine/create');
@@ -26,7 +48,16 @@ class ListMachine extends Component{
 						<button className="btn btn-sm btn-primary" style={{marginRight:'100px'}} onClick={this.AddMachine}><i className="fa fa-plus" aria-hidden="true"></i>Add Machine</button>
 					</div>
 				</div>
-				<div className="container">
+				<div className="container-fluid">
+					{/*<table className="display" width="100%" ref={el=>this.el=el}>
+						<thead>
+				            <tr>
+				                <th>name</th>
+				                <th>brand</th>
+				                <th>model</th>
+				            </tr>
+				        </thead>
+					</table>*/}
 					<table className="table table-hover table-bordered">
 					    <thead>
 					      <tr>
@@ -40,7 +71,7 @@ class ListMachine extends Component{
 					    <tbody>
 					    {this.props.machineInfo.machines.map((machine,i)=>(
 						<tr key={i}>
-							<td>{machine.serial_no}</td>
+							<td>{machine.snumber}</td>
 							<td>{machine.name}</td>
 							<td>{machine.machinebrandname}</td>
 							<td>{machine.machinemodelname}</td>

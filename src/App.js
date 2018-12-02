@@ -7,38 +7,90 @@ import 'react-toastify/dist/ReactToastify.css';
 import { axiosInterceptor } from './Inits/axios';
 import history from './Inits/history';
 import store from './Store';
-
+import asyncComponent from './AsyncComponent';
 // import { getCurrentUser } from './Store/Actions/auth/auth.action';
 // import { getLocalStorage } from './Utils/web-storage';
 import { PrivateRoute, PublicRoute } from './Utils/route';
 
-import LoginContainer from './Container/Login/LoginContainer';
-import Header from './Container/Common/Header';
-import MachineContainer from './Container/Machine/machineContainer';
-import CreateMachinesContainer from './Container/Machine/CreateMachineContainer';
-import HomeContainer from './Container/Home/homeContainer';
-import CreateConditionContainer from './Container/Condition/CreateConditionContainer';
-import ConditionContainer from './Container/Condition/conditionContainer';
-import CreateEnginebrandContainer from './Container/Enginebrand/CreateEnginebrandContainer';
-import EnginebrandContainer from './Container/Enginebrand/engineBrandContainer';
-import CreateEnginemodelContainer from './Container/Enginemodel/CreateEnginemodelContainer';
-import EnginemodelContainer from './Container/Enginemodel/engineModelContainer';
-import CreateMachinebrandContainer from './Container/Machinebrand/CreateMachinebrandContainer';
-import MachinebrandContainer from './Container/Machinebrand/machineBrandContainer';
-import CreateMachinemodelContainer from './Container/Machinemodel/CreateMachinemodelContainer';
-import MachinemodelContainer from './Container/Machinemodel/machineModelContainer';
-import CreateCategoryContainer from './Container/Category/CreateCategoryContainer';
-import CategoryContainer from './Container/Category/categoryContainer';
-import CreateSubcategoryContainer from './Container/Subcategory/CreateSubcategoryContainer';
-import SubcategoryContainer from './Container/Subcategory/subCategoryContainer';
-import CreateStatesiteContainer from './Container/Statesite/CreateStateSiteContainer';
-import StatesiteContainer from './Container/Statesite/stateSiteContainer';
-import CreateDistrictsiteContainer from './Container/Districtsite/CreateDistrictsiteContainer';
-import DistrictsiteContainer from './Container/Districtsite/districtSiteContainer';
-import CreateSiteContainer from './Container/Site/CreateSiteContainer';
-import SiteContainer from './Container/Site/siteContainer';
-import CreateVehicleContainer from './Container/Vehicle/CreateVehicleContainer';
 import './App.css';
+const LoginContainer = asyncComponent(() =>
+    import('./Container/Login/LoginContainer').then(module => module.default)
+)
+const Header = asyncComponent(() =>
+    import('./Container/Common/Header').then(module => module.default)
+)
+const MachineContainer = asyncComponent(() =>
+    import('./Container/Machine/machineContainer').then(module => module.default)
+)
+const CreateMachinesContainer = asyncComponent(() =>
+    import('./Container/Machine/CreateMachineContainer').then(module => module.default)
+)
+const HomeContainer = asyncComponent(() =>
+    import('./Container/Home/homeContainer').then(module => module.default)
+)
+const CreateConditionContainer = asyncComponent(() =>
+    import('./Container/Condition/CreateConditionContainer').then(module => module.default)
+)
+const ConditionContainer = asyncComponent(() =>
+    import('./Container/Condition/conditionContainer').then(module => module.default)
+)
+const CreateEnginebrandContainer = asyncComponent(() =>
+    import('./Container/Enginebrand/CreateEnginebrandContainer').then(module => module.default)
+)
+const EnginebrandContainer = asyncComponent(() =>
+    import('./Container/Enginebrand/engineBrandContainer').then(module => module.default)
+)
+const CreateEnginemodelContainer = asyncComponent(() =>
+    import('./Container/Enginemodel/CreateEnginemodelContainer').then(module => module.default)
+)
+const EnginemodelContainer = asyncComponent(() =>
+    import('./Container/Enginemodel/engineModelContainer').then(module => module.default)
+)
+const CreateMachinebrandContainer = asyncComponent(() =>
+    import('./Container/Machinebrand/CreateMachinebrandContainer').then(module => module.default)
+)
+const MachinebrandContainer = asyncComponent(() =>
+    import('./Container/Machinebrand/machineBrandContainer').then(module => module.default)
+)
+const CreateMachinemodelContainer = asyncComponent(() =>
+    import('./Container/Machinemodel/CreateMachinemodelContainer').then(module => module.default)
+)
+const MachinemodelContainer = asyncComponent(() =>
+    import('./Container/Machinemodel/machineModelContainer').then(module => module.default)
+)
+const CreateCategoryContainer = asyncComponent(() =>
+    import('./Container/Category/CreateCategoryContainer').then(module => module.default)
+)
+const CategoryContainer = asyncComponent(() =>
+    import('./Container/Category/categoryContainer').then(module => module.default)
+)
+const CreateSubcategoryContainer = asyncComponent(() =>
+    import('./Container/Subcategory/CreateSubcategoryContainer').then(module => module.default)
+)
+const SubcategoryContainer = asyncComponent(() =>
+    import('./Container/Subcategory/subCategoryContainer').then(module => module.default)
+)
+const CreateStatesiteContainer = asyncComponent(() =>
+    import('./Container/Statesite/CreateStateSiteContainer').then(module => module.default)
+)
+const StatesiteContainer = asyncComponent(() =>
+    import('./Container/Statesite/stateSiteContainer').then(module => module.default)
+)
+const CreateDistrictsiteContainer = asyncComponent(() =>
+    import('./Container/Districtsite/CreateDistrictsiteContainer').then(module => module.default)
+)
+const DistrictsiteContainer = asyncComponent(() =>
+    import('./Container/Districtsite/districtSiteContainer').then(module => module.default)
+)
+const CreateSiteContainer = asyncComponent(() =>
+    import('./Container/Site/CreateSiteContainer').then(module => module.default)
+)
+const SiteContainer = asyncComponent(() =>
+    import('./Container/Site/siteContainer').then(module => module.default)
+)
+const CreateVehicleContainer = asyncComponent(() =>
+    import('./Container/Vehicle/CreateVehicleContainer').then(module => module.default)
+)
 axiosInterceptor(store);
 class App extends Component {
   render() {
@@ -81,6 +133,7 @@ class App extends Component {
                 <PrivateRoute exact={true} path="/site/create" component={CreateSiteContainer} />
                 <PrivateRoute exact={true} path="/sites" component={SiteContainer} />
                 <PrivateRoute exact={true} path="/vehicle/create" component={CreateVehicleContainer} />
+                <PrivateRoute exact={true} path="/vehicles/:id" component={CreateVehicleContainer} />
                 <Route path="/" render={ ( props ) => ( props.location.pathname !== "/") && <Header /> }/>
              </div>
            </div>

@@ -19,7 +19,7 @@ import {
 export const getConditions = () => async dispatch => {
   try {
     dispatch({ type: GET_CONDITIONS_START });
-    const conditions=await axiosService.get('/conditions');
+    const conditions=await axiosService.get('/assets/machine/conditions/');
     dispatch({ type: GET_CONDITIONS_SUCCESS, payload: conditions });
   } catch (error) {
     toast.error(error.message || 'something went wrong.');
@@ -31,7 +31,7 @@ export const getConditionByID = conditionId => async dispatch => {
   try {
     var condition={name:'',id:''};
     if(conditionId!==null){
-    condition = await axiosService.get('/conditions/'+conditionId);
+    condition = await axiosService.get('/assets/machine/conditions/'+conditionId);
     }
     return Promise.resolve(condition);
   } catch (error) {
@@ -44,7 +44,7 @@ export const getConditionByID = conditionId => async dispatch => {
 export const createCondition = condition => async dispatch => {
   try{
     dispatch({type: CREATE_CONDITION_START});
-    const createdCondition=await axiosService.post('/conditions',condition,{'Content-type':'application/json'});
+    const createdCondition=await axiosService.post('/assets/machine/conditions/',condition,{'Content-type':'application/json'});
     toast.success('Successfully created.');
     dispatch({ type: CREATE_CONDITION_SUCCESS, payload: createdCondition });
     history.push('/conditions');
@@ -58,7 +58,7 @@ export const createCondition = condition => async dispatch => {
 export const editCondition = condition => async dispatch => {
   try {
     dispatch({ type: EDIT_CONDITION_START });
-    const conditionEdit=await axiosService.put('/conditions/'+condition.id,condition,{'Content-type':'application/json'});
+    const conditionEdit=await axiosService.put('/assets/machine/conditions/'+condition.id,condition,{'Content-type':'application/json'});
     toast.success('Successfully saved.');
     dispatch({ type: EDIT_CONDITION_SUCCESS, payload: conditionEdit });
     history.push('/conditions');
@@ -71,7 +71,7 @@ export const editCondition = condition => async dispatch => {
 export const deleteCondition= condition =>async dispatch=>{
   try{
     dispatch({type:DELETE_CONDITION_START});
-    const deleteCondition=await axiosService.delete('/conditions/'+condition.id);
+    const deleteCondition=await axiosService.delete('/assets/machine/conditions/'+condition.id);
     dispatch({type:DELETE_CONDITION_SUCCESS,payload:deleteCondition});
     toast.success('Successfully Deleted');
   }

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import history from '../../Inits/history';
 import { createMachine, getMachineByID, editMachine} from '../../Store/Actions/machine/machine.action';
 import {getCategorys,getCategoryByID} from '../../Store/Actions/category/category.action';
-import {getSubcategorys,getSubcategoryByID} from '../../Store/Actions/sub-category/sub-category.action';
+// import {getSubcategorys,getSubcategoryByID} from '../../Store/Actions/sub-category/sub-category.action';
 import {getEnginebrands,getEnginebrandByID} from '../../Store/Actions/engine-brand/engine-brand.action';
 import {getConditions,getConditionByID} from '../../Store/Actions/condition/condition.action';
 import {getEnginemodels,getEnginemodelByID} from '../../Store/Actions/engine-model/engine-model.action';
@@ -35,30 +35,14 @@ class CreateMachinesContainer extends Component {
     }
   }
   getMachineAttributes=async()=>{
-    const { getCategorys,getSubcategorys,getEnginebrands,getConditions,getEnginemodels,getMachinemodels,getMachinebrands,getStatesites,getDistrictsites,getSites} = this.props;
-    await Promise.all([getCategorys(),getSubcategorys(),getEnginebrands(),getConditions(),getEnginemodels(),getMachinemodels(),getMachinebrands(),getStatesites(),getDistrictsites(),getSites()]);
+    const { getCategorys,getEnginebrands,getConditions,getEnginemodels,getMachinemodels,getMachinebrands,getStatesites,getDistrictsites,getSites} = this.props;
+    await Promise.all([getCategorys(),getEnginebrands(),getConditions(),getEnginemodels(),getMachinemodels(),getMachinebrands(),getSites(),getDistrictsites(),getStatesites()]);
   }
   getMachine = async (machineID) => {
     try {
       const machineToBeEdit =await this.props.getMachineByID(machineID);
-      const category=await this.props.getCategoryByID(machineToBeEdit.category_id);
-      const subcategory=await this.props.getSubcategoryByID(machineToBeEdit.sub_category_id);
-      const enginebrand=await this.props.getEnginebrandByID(machineToBeEdit.engine_brand_id);
-      const enginemodel=await this.props.getEnginemodelByID(machineToBeEdit.engine_model_id);
-      const condition=await this.props.getConditionByID(machineToBeEdit.condition_id);
-      const machinemodel=await this.props.getMachinemodelByID(machineToBeEdit.model_id);
-      const machinebrand=await this.props.getMachinebrandByID(machineToBeEdit.brand_id);
-      const site=await this.props.getSiteByID(machineToBeEdit.site_id);
-      const district=await this.props.getDistrictsiteByID(site.district_id);
-      const state=await this.props.getStatesiteByID(district.state_id);
-      machineToBeEdit['category']=category;
-      machineToBeEdit['subcategory']=subcategory;
-      machineToBeEdit['enginebrand']=enginebrand;
-      machineToBeEdit['enginemodel']=enginemodel;
-      machineToBeEdit['condition']=condition;
-      machineToBeEdit['machinemodel']=machinemodel;
-      machineToBeEdit['machinebrand']=machinebrand;
-      machineToBeEdit['site']=site;
+      const district=await this.props.getDistrictsiteByID(machineToBeEdit.site['district']);
+      const state=await this.props.getStatesiteByID(district.state);
       machineToBeEdit['state']=state;
       machineToBeEdit['district']=district;
       this.setState(prevState => {
@@ -78,8 +62,8 @@ class CreateMachinesContainer extends Component {
     if(this.props.isCreating){
       return <PageLoader/>
     }
-    const { createMachine, editMachine,category,subcategory,enginebrand,enginemodel,condition,machinemodel,machinebrand,site,state,district} = this.props;
-    const paramvalue={category,subcategory,enginebrand,enginemodel,condition,machinemodel,machinebrand,site,state,district};
+    const { createMachine, editMachine,category,enginebrand,enginemodel,condition,machinemodel,machinebrand,site,district,state} = this.props;
+    const paramvalue={category,enginebrand,enginemodel,condition,machinemodel,machinebrand,site,district,state};
     return (
       <div style={{marginTop:'-40px',backgroundColor:'#eee',width:'100%',height:'auto'}}>
       <section>
@@ -100,7 +84,7 @@ class CreateMachinesContainer extends Component {
 const mapStateToProps = state => {
   return {
     isCreating: state.machine.isCreating,
-    subcategory: state.subcategory.list,
+    // subcategory: state.subcategory.list,
     category:state.category.list,
     enginebrand:state.enginebrand.list,
     enginemodel:state.enginemodel.list,
@@ -118,8 +102,8 @@ const mapDispatchToProps = {
   editMachine,
   getCategorys,
   getCategoryByID,
-  getSubcategorys,
-  getSubcategoryByID,
+  // getSubcategorys,
+  // getSubcategoryByID,
   getEnginebrands,
   getEnginebrandByID,
   getConditions,
