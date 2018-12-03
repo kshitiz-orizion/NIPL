@@ -38,7 +38,7 @@ class ListMachinemodel extends Component{
 						<tr key={i}>
 							<td>{i+1}</td>
 							<td>{machinemodel.name}</td>
-							<td>{machinemodel.machinebrandname}</td>
+							<td>{machinemodel.brand.name}</td>
 							<td style={{textAlign:'center'}}>
 								<button className="btn btn-default btn-sm" onClick={()=>this.editMachinemodel(machinemodel)}><i className="fa fa-pencil" aria-hidden="true"></i>Edit</button>
 								<button className="btn btn-danger btn-sm" onClick={()=>this.deleteMachinemodel(machinemodel)}><i className="fa fa-trash" aria-hidden="true"></i>Delete</button>

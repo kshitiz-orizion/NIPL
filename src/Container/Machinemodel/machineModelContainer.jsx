@@ -13,10 +13,6 @@ class MachineModelContainer extends Component{
 	}
 	getMachinemodels=async()=>{
 		await this.props.getMachinemodels();
-		for(var i=0;i<this.props.machinemodels.length;i++){
-			var machinebrand=await this.props.getMachinebrandByID(this.props.machinemodels[i].brand_id);
-			this.props.machinemodels[i].machinebrandname=machinebrand.name;
-		}
 		this.setState({
 			waiting:false
 		})

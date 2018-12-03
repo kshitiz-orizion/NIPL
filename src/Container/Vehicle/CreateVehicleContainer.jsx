@@ -33,7 +33,7 @@ class CreateVehicleContainer extends Component {
   getVehicle = async (vehicleID) => {
     try {
       const vehicleToBeEdit =await this.props.getVehicleByID(vehicleID);
-      const make=this.props.make.filter(a=>a.id===vehicleToBeEdit.model.make);
+      const make=this.props.make.filter(a=>a.id===vehicleToBeEdit.model.make.id);
       const enginebrand=this.props.enginebrand.filter(a=>a.id===vehicleToBeEdit.engine_model.brand.id);
       vehicleToBeEdit['make']=make;
       vehicleToBeEdit['enginebrand']=enginebrand;

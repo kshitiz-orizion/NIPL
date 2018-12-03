@@ -58,7 +58,7 @@ export const createMachinebrand = machinebrand => async dispatch => {
 export const editMachinebrand = machinebrand => async dispatch => {
   try {
     dispatch({ type: EDIT_MACHINEBRAND_START });
-    const machineEdit=await axiosService.put('/assets/machine/brands/'+machinebrand.id,machinebrand,{'Content-Type':'application/json'});
+    const machineEdit=await axiosService.put('/assets/machine/brands/'+machinebrand.id+'/',machinebrand,{'Content-Type':'application/json'});
     toast.success('Successfully saved.');
     dispatch({ type: EDIT_MACHINEBRAND_SUCCESS, payload: machineEdit });
     history.push('/machinebrands');
@@ -71,7 +71,7 @@ export const editMachinebrand = machinebrand => async dispatch => {
 export const deleteMachinebrand= machinebrand =>async dispatch=>{
   try{
     dispatch({type:DELETE_MACHINEBRAND_START});
-    const deletedMachinebrand=await axiosService.delete('/assets/machine/brands/'+machinebrand.id);
+    const deletedMachinebrand=await axiosService.delete('/assets/machine/brands/'+machinebrand.id+'/');
     dispatch({type:DELETE_MACHINEBRAND_SUCCESS,payload:deletedMachinebrand});
     toast.success('Successfully Deleted');
   }

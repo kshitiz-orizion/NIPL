@@ -13,10 +13,6 @@ class EngineModelContainer extends Component{
 	}
 	getEnginemodels=async()=>{
 		await this.props.getEnginemodels();
-		for(var i=0;i<this.props.enginemodels.length;i++){
-			var enginebrand=await this.props.getEnginebrandByID(this.props.enginemodels[i].brand_id);
-			this.props.enginemodels[i].enginebrandname=enginebrand.name;
-		}
 		this.setState({
 			waiting:false
 		});

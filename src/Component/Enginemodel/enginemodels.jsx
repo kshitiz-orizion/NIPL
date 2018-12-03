@@ -38,7 +38,7 @@ class ListEnginemodel extends Component{
 						<tr key={i}>
 							<td>{i+1}</td>
 							<td>{enginemodel.name}</td>
-							<td>{enginemodel.enginebrandname}</td>
+							<td>{enginemodel.brand.name}</td>
 							<td>
 								<button className="btn btn-default btn-sm" onClick={()=>this.editEnginemodel(enginemodel)}><i className="fa fa-pencil" aria-hidden="true"></i>Edit</button>
 								<button className="btn btn-danger btn-sm" onClick={()=>this.deleteEnginemodel(enginemodel)}><i className="fa fa-trash" aria-hidden="true"></i>Delete</button>
