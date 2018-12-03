@@ -307,7 +307,6 @@ class CreateVehicles extends Component{
   				});
   				formerror=true;
   			}
-  		return
   		if(this.props.mode==='EDIT'){
   			const editValue=this.state;
   			for(var key in editValue){
@@ -394,7 +393,7 @@ class CreateVehicles extends Component{
 								<i className="fa fa-pencil-square-o" aria-hidden="true"></i>
 							</div>
 							<div className={this.state.errorpageindetails===true?"text-danger navfield":"navfield"}>
-								Details{this.state.errorpageindetails===true && <i class="fa fa-exclamation-triangle"></i>}
+								Details{this.state.errorpageindetails===true && <i className="fa fa-exclamation-triangle"></i>}
 							</div>
 						</div>
 						<div className={this.state.navbar==="specs"?"activenavbar navbarField":"navbarField"} onClick={()=>this.setActive("specs")}>
@@ -402,7 +401,7 @@ class CreateVehicles extends Component{
 								<i className="fa fa-indent" aria-hidden="true"></i>
 							</div>
 							<div className={this.state.errorpageinspecs===true?"text-danger navfield":"navfield"}>
-								Specifications{this.state.errorpageinspecs===true && <i class="fa fa-exclamation-triangle"></i>}
+								Specifications{this.state.errorpageinspecs===true && <i className="fa fa-exclamation-triangle"></i>}
 							</div>
 						</div>
 						<div className={this.state.navbar==="engine"?"activenavbar navbarField":"navbarField"} onClick={()=>this.setActive("engine")}>
@@ -410,7 +409,7 @@ class CreateVehicles extends Component{
 								<i className="fa fa-cogs" aria-hidden="true"></i>
 							</div>
 							<div className={this.state.errorpageinengine===true?"text-danger navfield":"navfield"}>
-								Engine & Transmission{this.state.errorpageinengine===true && <i class="fa fa-exclamation-triangle"></i>}
+								Engine & Transmission{this.state.errorpageinengine===true && <i className="fa fa-exclamation-triangle"></i>}
 							</div>
 						</div>
 						<div className={this.state.navbar==="wheels"?"activenavbar navbarField":"navbarField"} onClick={()=>this.setActive("wheels")}>
@@ -418,7 +417,7 @@ class CreateVehicles extends Component{
 								<i className="fa fa-life-ring" aria-hidden="true"></i>
 							</div>
 							<div className={this.state.errorpageinwheels===true?"text-danger navfield":"navfield"}>
-								Wheels & Tires{this.state.errorpageinengine===true && <i class="fa fa-exclamation-triangle"></i>}
+								Wheels & Tires{this.state.errorpageinengine===true && <i className="fa fa-exclamation-triangle"></i>}
 							</div>
 						</div>
 						<div className={this.state.navbar==="fluids"?"activenavbar navbarField":"navbarField"} onClick={()=>this.setActive("fluids")}>
@@ -434,7 +433,7 @@ class CreateVehicles extends Component{
 								<i className="fa fa-cog" aria-hidden="true"></i>
 							</div>
 							<div className={this.state.errorpageincurrent===true?"text-danger navfield":"navfield"}>
-								Current Status{this.state.errorpageincurrent===true && <i class="fa fa-exclamation-triangle"></i>}
+								Current Status{this.state.errorpageincurrent===true && <i className="fa fa-exclamation-triangle"></i>}
 							</div>
 						</div>
 					</div>		
