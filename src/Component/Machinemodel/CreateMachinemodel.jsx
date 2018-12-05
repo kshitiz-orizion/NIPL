@@ -5,11 +5,10 @@ import history from '../../Inits/history';
 class CreateMachinemodel extends Component{
 	componentWillMount(){		
 		if(this.props.mode==='EDIT'){
-			const {name,machinebrand,id}=this.props.initialValues
+			const {name,machinebrand,id,brand}=this.props.initialValues;
 			this.setState({
-				 name,
-				 machinebrand:[machinebrand],
-				 id
+				 ...this.props.initialValues,
+				 machinebrand:[brand],
 			});
 		}
 		else{
@@ -34,12 +33,15 @@ class CreateMachinemodel extends Component{
 	onChangeSetToState = stateKey => e => {
 			this.setState({ [stateKey]: e.target.value });
   	};
-  	submitUser=async()=>{ 	
-  		if(this.state.machinebrand.length===0){
-  			await this.setState({ machinebrand:[{name:'',id:''}]});
-  		}	
+  	submitUser=async()=>{ 
   		if(this.props.mode==='EDIT'){
-  			this.props.onEdit(this.state);
+  			const editValue=this.state;
+  			for(var key in editValue){
+  				if(typeof(editValue[key])==='object'){
+  					editValue[key]=editValue[key]['id']
+  				}
+  			}
+  			this.props.onEdit(editValue);
   			return
   		}
   		this.props.onCreate(this.state);
@@ -71,26 +73,23 @@ class CreateMachinemodel extends Component{
 											    <Typeahead
 													  onChange={(selected) => {
 													    this.setState({machinebrand:selected});
+													    if(selected[0]!==undefined){
+													    	this.setState({
+													    		brand:selected[0].id
+													    	})
+													    }
 													  }}
 													  options={this.props.machinebrandInfo.machinebrand}
 													  labelKey="name"
 													  selected={this.state.machinebrand}
 													  inputProps={{"className":"machineBrand"}}
 													  onFocus={()=>{this.setState({
-													  					brand_id:null
+													  					brand_id:[]
 													  			})
 													   }}
 													/>
 												</div>
 										  	</div>
-										  	{this.state.brand_id && 
-										  		<div className="row">
-												    <label className="col-md-3"></label>
-												    <div className="col-md-9" style={{marginLeft:'-7px'}}>
-												    	<span  className="text-danger">{this.state.brand_id}</span>
-													</div>
-										  		</div>
-										  	}
 										</div>
 										  <div className="form-group col-md-12 inputPaddingMachine">
 										    <label  className="col-md-3">Name</label>

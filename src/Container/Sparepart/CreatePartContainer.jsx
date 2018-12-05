@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import history from '../../Inits/history';
-import { createPart, getPartByID, editPart,getRemarks,deleteRemark} from '../../Store/Actions/part/part.action';
+import { createPart, getPartByID, editPart} from '../../Store/Actions/part/part.action';
 import {getMachinemodels,getMachinemodelByID} from '../../Store/Actions/machine-model/machine-model.action';
 import CreatePart from '../../Component/Sparepart/CreatePart';
 import PageLoader from '../Common/pageloader';

@@ -71,8 +71,8 @@ export const editMachinebrand = machinebrand => async dispatch => {
 export const deleteMachinebrand= machinebrand =>async dispatch=>{
   try{
     dispatch({type:DELETE_MACHINEBRAND_START});
-    const deletedMachinebrand=await axiosService.delete('/assets/machine/brands/'+machinebrand.id+'/');
-    dispatch({type:DELETE_MACHINEBRAND_SUCCESS,payload:deletedMachinebrand});
+    await axiosService.delete('/assets/machine/brands/'+machinebrand.id+'/');
+    dispatch({type:DELETE_MACHINEBRAND_SUCCESS,payload:machinebrand});
     toast.success('Successfully Deleted');
   }
   catch(error){

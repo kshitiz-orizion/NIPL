@@ -44,9 +44,8 @@ export const getMachinemodelByID = machinemodelId => async dispatch => {
 
 export const createMachinemodel = machinemodel => async dispatch => {
   try{
-    const newMachine={"brand_id":machinemodel.machinebrand[0].id,"name":machinemodel.name}
     dispatch({type: CREATE_MACHINEMODEL_START});
-    const createdMachinemodel=await axiosService.post('/assets/machine/models/',newMachine,{'Content-Type':'application/json'});
+    const createdMachinemodel=await axiosService.post('/assets/machine/models/',machinemodel,{'Content-Type':'application/json'});
     toast.success('Successfully created.');
     dispatch({ type: CREATE_MACHINEMODEL_SUCCESS, payload: createdMachinemodel });
     history.push('/machinemodels');
@@ -60,11 +59,8 @@ export const createMachinemodel = machinemodel => async dispatch => {
 
 export const editMachinemodel = machinemodel => async dispatch => {
   try {
-    const newMachine={"brand_id":machinemodel.machinebrand[0].id,"name":machinemodel.name};
-    console.log(machinemodel);
-    console.log(newMachine);
     dispatch({ type: EDIT_MACHINEMODEL_START });
-    const machineEdit=await axiosService.put('/assets/machine/models/'+machinemodel.id,newMachine,{'Content-Type':'application/json'});
+    const machineEdit=await axiosService.put('/assets/machine/models/'+machinemodel.id+'/',machinemodel,{'Content-Type':'application/json'});
     toast.success('Successfully saved.');
     dispatch({ type: EDIT_MACHINEMODEL_SUCCESS, payload: machineEdit });
     history.push('/machinemodels');
@@ -77,8 +73,8 @@ export const editMachinemodel = machinemodel => async dispatch => {
 export const deleteMachinemodel= machinemodel =>async dispatch=>{
   try{
     dispatch({type:DELETE_MACHINEMODEL_START});
-    const deleteMachinemodel=await axiosService.delete('/assets/machine/models/'+machinemodel.id);
-    dispatch({type:DELETE_MACHINEMODEL_SUCCESS,payload:deleteMachinemodel});
+    await axiosService.delete('/assets/machine/models/'+machinemodel.id+'/');
+    dispatch({type:DELETE_MACHINEMODEL_SUCCESS,payload:machinemodel});
     toast.success('Successfully Deleted');
   }
   catch(error){

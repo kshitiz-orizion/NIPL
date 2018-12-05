@@ -308,18 +308,22 @@ class CreateVehicles extends Component{
   				});
   				formerror=true;
   			}
-  		if(this.props.mode==='EDIT'){
-  			const editValue=this.state;
-  			for(var key in editValue){
-  				if(typeof(editValue[key])==='object'){
-  					editValue[key]=editValue[key]['id'];
-  				}
-  			}
-  			this.props.onEdit(editValue);
-  			return
-  		}
-  		this.props.onCreate(this.state);
-  	}
+  		else{
+          if(formerror!==true){
+            if(this.props.mode==='EDIT'){
+      			const editValue=this.state;
+      			for(var key in editValue){
+      				if(typeof(editValue[key])==='object'){
+      					editValue[key]=editValue[key]['id'];
+      				}
+      			}
+      			this.props.onEdit(editValue);
+      			return
+      		}
+      		this.props.onCreate(this.state);
+        }
+    	}
+    }
   	setActive=(label)=>{
   		this.setState({
   			navbar:label,
@@ -366,7 +370,7 @@ class CreateVehicles extends Component{
 		const vehicleTypeError=this.state.vehicleType?{id:"vehicleType",className:"has-error"}:{id:"vehicleType"};
 		const vehicleModelError=this.state.vehicleModel?{id:"vehicleModel",className:"has-error"}:{id:"vehicleModel"};
 		const vehicleStatusError=this.state.vehicleStatus?{id:"vehicleStatus",className:"has-error"}:{id:"vehicleStatus"};
-		const vehicleOwnershipError=this.state.vehicleOwnership?{id:"vehicle",className:"has-error"}:{id:"vehicleOwnership"};
+		const vehicleOwnershipError=this.state.vehicleOwnership?{id:"vehicleOwnership",className:"has-error"}:{id:"vehicleOwnership"};
 		const vehicleColorError=this.state.vehicleColor?{id:"vehicleColor",className:"has-error"}:{id:"vehicleColor"};
 		const vehicleBodyError=this.state.vehicleBody?{id:"vehicleBody",className:"has-error"}:{id:"vehicleBody"};
 		const vehicleEngineModelError=this.state.vehicleEngineModel?{id:"vehicleEngineModel",className:"has-error"}:{id:"vehicleEngineModel"};
@@ -418,7 +422,7 @@ class CreateVehicles extends Component{
 								<i className="fa fa-life-ring" aria-hidden="true"></i>
 							</div>
 							<div className={this.state.errorpageinwheels===true?"text-danger navfield":"navfield"}>
-								Wheels & Tires{this.state.errorpageinengine===true && <i className="fa fa-exclamation-triangle"></i>}
+								Wheels & Tires{this.state.errorpageinwheels===true && <i className="fa fa-exclamation-triangle"></i>}
 							</div>
 						</div>
 						<div className={this.state.navbar==="fluids"?"activenavbar navbarField":"navbarField"} onClick={()=>this.setActive("fluids")}>
@@ -426,7 +430,7 @@ class CreateVehicles extends Component{
 								<i className="fa fa-tachometer" aria-hidden="true"></i>
 							</div>
 							<div className={this.state.errorpageinfuel===true?"text-danger navfield":"navfield"}>
-								Fluids{this.state.errorpageinfuel===true && <i class="fa fa-exclamation-triangle"></i>}
+								Fluids{this.state.errorpageinfuel===true && <i className="fa fa-exclamation-triangle"></i>}
 							</div>
 						</div>
 						<div className={this.state.navbar==="status"?"activenavbar navbarField":"navbarField"} onClick={()=>this.setActive("status")}>

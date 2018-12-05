@@ -26,8 +26,6 @@ class CreateMachinemodelContainer extends Component {
   getMachinemodel = async (machinemodelID) => {
     try {
       const machinemodelToBeEdit =await this.props.getMachinemodelByID(machinemodelID);
-      const machinebrand=await this.props.getMachinebrandByID(machinemodelToBeEdit.brand_id);
-      machinemodelToBeEdit['machinebrand']=machinebrand;
       this.setState(prevState => {
         return {
           ...prevState,
