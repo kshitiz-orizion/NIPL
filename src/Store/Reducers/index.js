@@ -14,6 +14,7 @@ import districtsiteReducer from './districtsite.reducer';
 import siteReducer from './site.reducer';
 import vehicleReducer from './vehicle.reducer';
 import vehicleComponentReducer from './vehicle-component.reducer';
+import partReducer from './part.reducer';
 export default combineReducers({
   form: formReducer,
   auth:authReducer,
@@ -29,5 +30,6 @@ export default combineReducers({
   districtsite:districtsiteReducer,
   site:siteReducer,
   vehicle:vehicleReducer,
-  vehicleComponent:vehicleComponentReducer
+  vehicleComponent:vehicleComponentReducer,
+  part:partReducer
 });

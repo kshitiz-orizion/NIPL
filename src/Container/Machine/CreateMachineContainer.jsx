@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import history from '../../Inits/history';
-import { createMachine, getMachineByID, editMachine} from '../../Store/Actions/machine/machine.action';
+import { createMachine, getMachineByID, editMachine,getRemarks,deleteRemark} from '../../Store/Actions/machine/machine.action';
 import {getCategorys,getCategoryByID} from '../../Store/Actions/category/category.action';
 // import {getSubcategorys,getSubcategoryByID} from '../../Store/Actions/sub-category/sub-category.action';
 import {getEnginebrands,getEnginebrandByID} from '../../Store/Actions/engine-brand/engine-brand.action';
@@ -43,8 +43,10 @@ class CreateMachinesContainer extends Component {
       const machineToBeEdit =await this.props.getMachineByID(machineID);
       const district=await this.props.getDistrictsiteByID(machineToBeEdit.site['district']);
       const state=await this.props.getStatesiteByID(district.state);
+      await this.props.getRemarks(machineToBeEdit.id);
       machineToBeEdit['state']=state;
       machineToBeEdit['district']=district;
+      machineToBeEdit['remark']=this.props.remark;
       this.setState(prevState => {
         return {
           ...prevState,
@@ -62,7 +64,7 @@ class CreateMachinesContainer extends Component {
     if(this.props.isCreating){
       return <PageLoader/>
     }
-    const { createMachine, editMachine,category,enginebrand,enginemodel,condition,machinemodel,machinebrand,site,district,state} = this.props;
+    const {deleteRemark, createMachine, editMachine,category,enginebrand,enginemodel,condition,machinemodel,machinebrand,site,district,state} = this.props;
     const paramvalue={category,enginebrand,enginemodel,condition,machinemodel,machinebrand,site,district,state};
     return (
       <div style={{marginTop:'-40px',backgroundColor:'#eee',width:'100%',height:'auto'}}>
@@ -74,6 +76,7 @@ class CreateMachinesContainer extends Component {
           mode={this.state.mode}
           paramvalue={paramvalue}
           editable={this.state.editable}
+          deleteRemark={deleteRemark}
         />
       </section>
       </div>
@@ -84,6 +87,7 @@ class CreateMachinesContainer extends Component {
 const mapStateToProps = state => {
   return {
     isCreating: state.machine.isCreating,
+    remark:state.machine.remark,
     // subcategory: state.subcategory.list,
     category:state.category.list,
     enginebrand:state.enginebrand.list,
@@ -119,7 +123,9 @@ const mapDispatchToProps = {
   getDistrictsites,
   getDistrictsiteByID,
   getSites,
-  getSiteByID
+  getSiteByID,
+  getRemarks,
+  deleteRemark
 };
 
 export default connect(

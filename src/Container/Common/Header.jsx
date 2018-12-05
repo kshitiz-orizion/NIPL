@@ -20,7 +20,8 @@ export class Header extends Component{
 			statesite:false,
 			districtsite:false,
 			site:false,
-			vehicle:false
+			vehicle:false,
+			spare:false
 		})
 	}
 	componentDidMount(){
@@ -121,6 +122,11 @@ export class Header extends Component{
 			vehicle:!this.state.vehicle
 		})
 	}
+	showSpare=()=>{
+		this.setState({
+			spare:!this.state.spare
+		})
+	}
 	logout=()=>{
 	    this.props.removeUser();
 	}
@@ -128,16 +134,17 @@ export class Header extends Component{
 	render(){
 		const dashboardClass=window.location.pathname.slice(0,5)==='/home'? "menuActive" :"";
 		const machineClass=window.location.pathname.slice(0,8)==='/machine'? "menuActive" :"";
-		const engineClass=window.location.pathname.slice(0,7)==='/engine'? "menuActive" :"";
-		const locationClass=(
-				(window.location.pathname.slice(0,10)==='/statesite')
-				||(window.location.pathname.slice(0,13)==='/districtsite')
-				||(window.location.pathname.slice(0,5)==='/site')
-				)? "menuActive" :"";
-		const conditionClass=window.location.pathname.slice(0,10)==='/condition'? "menuActive" :"";
-		const categoryClass=window.location.pathname.slice(0,9)==='/category'?"menuActive":"";
-		const subcategoryClass=window.location.pathname.slice(0,12)==='/subcategory'?"menuActive":"";
+		// const engineClass=window.location.pathname.slice(0,7)==='/engine'? "menuActive" :"";
+		// const locationClass=(
+		// 		(window.location.pathname.slice(0,10)==='/statesite')
+		// 		||(window.location.pathname.slice(0,13)==='/districtsite')
+		// 		||(window.location.pathname.slice(0,5)==='/site')
+		// 		)? "menuActive" :"";
+		// const conditionClass=window.location.pathname.slice(0,10)==='/condition'? "menuActive" :"";
+		// const categoryClass=window.location.pathname.slice(0,9)==='/category'?"menuActive":"";
+		// const subcategoryClass=window.location.pathname.slice(0,12)==='/subcategory'?"menuActive":"";
 		const vehicleClass=window.location.pathname.slice(0,8)==='/vehicle'?"menuActive":"";
+		const spareClass=window.location.pathname.slice(0,5)==='/part'?"menuActive":"";
 		return(
 			<div>
 				<div className="header" >
@@ -249,7 +256,22 @@ export class Header extends Component{
 								</div>
 							}
 						</div>
-						<div className={`innersidenav ${conditionClass}`}>
+						<div className={`innersidenav ${spareClass}`}>
+							<div  className="menuName" onClick={()=>this.showSpare()}>
+							Spare Parts{this.state.spare?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
+							</div>
+							{this.state.spare && 
+								<div>
+									<div className="submenu" onClick={()=>history.push('/parts')}>
+										Spare Parts
+									</div>
+									<div className="submenu" onClick={()=>history.push('/part/create')}>
+										Create Spare Parts
+									</div>
+								</div>
+							}
+						</div>
+						{/*<div className={`innersidenav ${conditionClass}`}>
 							<div  className="menuName" onClick={()=>this.showCondition()}>
 							Condition{this.state.condition?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
 							</div>
@@ -327,7 +349,7 @@ export class Header extends Component{
 										Create Site
 									</div>
 								</div>}
-						</div>
+						</div>*/}
 					</div>
 				</div>
 			</div>

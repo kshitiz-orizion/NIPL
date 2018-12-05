@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {reduxForm } from 'redux-form';
 import {Typeahead} from 'react-bootstrap-typeahead';
+import history from '../../Inits/history';
 class CreateEnginemodel extends Component{
 	componentWillMount(){
 		if(this.props.mode==='EDIT'){
@@ -37,7 +38,7 @@ class CreateEnginemodel extends Component{
 					<div className="saveButtonHeader" >
 						<button className="btn btn-sm btn-primary">Save Enginemodel</button>
 					</div>
-					<div className="cancelHeading" >
+					<div className="cancelHeading" onClick={()=>history.goBack()}>
 						Cancel
 					</div>
 				</div>
@@ -75,7 +76,7 @@ class CreateEnginemodel extends Component{
 								</div>
 								<div className="container footerContainerMachine">
 									<div className="footerMachine" >
-										<div className="cancelFooterMachine">
+										<div className="cancelFooterMachine" onClick={()=>history.goBack()}>
 										Cancel
 										</div>
 										<button type="submit" className="btn btn-primary btn-sm saveButtonFooterMachine" onClick={this.props.handleSubmit(this.submitUser)}>Submit</button>

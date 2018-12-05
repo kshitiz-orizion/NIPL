@@ -11,9 +11,15 @@ import {
   EDIT_MACHINE_START,
   EDIT_MACHINE_SUCCESS,
   EDIT_MACHINE_ERROR,
+  GET_MACHINE_REMARK_START,
+  GET_MACHINE_REMARK_SUCCESS,
+  GET_MACHINE_REMARK_ERROR,
+  DELETE_MACHINE_REMARK_START,
+  DELETE_MACHINE_REMARK_SUCCESS,
+  DELETE_MACHINE_REMARK_ERROR
 } from '../Actions/machine/machine.actiontype';
 
-export default function(state = { list: [] }, action) {
+export default function(state = { list: [],remark:[] }, action) {
   switch (action.type) {
     case GET_MACHINES_START:
       return {
@@ -27,6 +33,22 @@ export default function(state = { list: [] }, action) {
         list: action.payload,
       };
     case GET_MACHINES_ERROR:
+      return {
+        ...state,
+        isFetching: false,
+      };
+    case GET_MACHINE_REMARK_START:
+      return {
+        ...state,
+        isFetching: true,
+      };
+    case GET_MACHINE_REMARK_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        remark: action.payload,
+      };
+    case GET_MACHINE_REMARK_ERROR:
       return {
         ...state,
         isFetching: false,
@@ -81,6 +103,23 @@ export default function(state = { list: [] }, action) {
         list: newList,
       };
     case DELETE_MACHINE_ERROR:
+      return {
+        ...state,
+        isDeleting: false,
+      };
+      case DELETE_MACHINE_REMARK_START:
+      return {
+        ...state,
+        isDeleting: true,
+      };
+    case DELETE_MACHINE_REMARK_SUCCESS:
+      const newRemark = state.remark.filter(machine => machine.id !== action.payload);
+      return {
+        ...state,
+        isDeleting: false,
+        remark: newRemark,
+      };
+    case DELETE_MACHINE_REMARK_ERROR:
       return {
         ...state,
         isDeleting: false,

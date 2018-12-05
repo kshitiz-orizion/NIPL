@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {reduxForm } from 'redux-form';
+import history from '../../Inits/history';
 class CreateMachinebrand extends Component{
 	componentWillMount(){
 		if(this.props.mode==='EDIT'){
@@ -33,7 +34,7 @@ class CreateMachinebrand extends Component{
 					<div className="saveButtonHeader" >
 						<button className="btn btn-sm btn-primary">Save Machine brand</button>
 					</div>
-					<div className="cancelHeading" >
+					<div className="cancelHeading" onClick={()=>history.goBack()}>
 						Cancel
 					</div>
 				</div>
@@ -51,7 +52,7 @@ class CreateMachinebrand extends Component{
 								</div>
 								<div className="container footerContainerMachine">
 									<div className="footerMachine" >
-										<div className="cancelFooterMachine">
+										<div className="cancelFooterMachine" onClick={()=>history.goBack()}>
 										Cancel
 										</div>
 										<button type="submit" className="btn btn-primary btn-sm saveButtonFooterMachine" onClick={this.props.handleSubmit(this.submitUser)}>Submit</button>

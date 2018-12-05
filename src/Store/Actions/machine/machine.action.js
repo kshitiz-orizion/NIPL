@@ -14,6 +14,12 @@ import {
   DELETE_MACHINE_START,
   DELETE_MACHINE_SUCCESS,
   DELETE_MACHINE_ERROR,
+  GET_MACHINE_REMARK_START,
+  GET_MACHINE_REMARK_SUCCESS,
+  GET_MACHINE_REMARK_ERROR,
+  DELETE_MACHINE_REMARK_START,
+  DELETE_MACHINE_REMARK_SUCCESS,
+  DELETE_MACHINE_REMARK_ERROR
 } from './machine.actiontype';
 
 export const getMachines = () => async dispatch => {
@@ -42,6 +48,9 @@ export const createMachine = machines => async dispatch => {
   try{
     dispatch({type: CREATE_MACHINE_START});
     const createdMachine=await axiosService.post('/assets/machine/machines/',machines,{"Content-Type":"application/json"});
+    for (var i=0;i<machines.remarks.length;i++){
+      await axiosService.post('/assets/machine/remarks/',{'remark':machines.remarks[i].remark,'machine':createdMachine.id},{"Content-Type":"application/json"})
+    }
     toast.success('Successfully created.');
     dispatch({ type: CREATE_MACHINE_SUCCESS, payload: createdMachine });
     history.push('/machines');
@@ -56,6 +65,11 @@ export const editMachine = machines => async dispatch => {
   try {
     dispatch({ type: EDIT_MACHINE_START });
     const machineEdit=await axiosService.put('/assets/machine/machines/'+machines.id+'/',machines,{"Content-Type":"application/json"});
+    for(var j=0;j<machines.remarks.length;j++){
+      if(!machines.remarks[j].id){
+        await axiosService.post('/assets/machine/remarks/',{'remark':machines.remarks[j].remark,'machine':machines.id},{"Content-Type":"application/json"});
+      }
+    }
     toast.success('Successfully saved.');
     dispatch({ type: EDIT_MACHINE_SUCCESS, payload: machineEdit });
     history.push('/machines');
@@ -79,3 +93,26 @@ export const deleteMachine= machine =>async dispatch=>{
   }
 }
 
+export const getRemarks=machineID=>async dispatch=>{
+  try{
+    dispatch({type:GET_MACHINE_REMARK_START});
+    const remarks=await axiosService.get('/assets/machine/remarks/?machine='+machineID);
+    dispatch({type:GET_MACHINE_REMARK_SUCCESS,payload:remarks});
+  }
+  catch(error){
+    toast.error(error.message);
+    dispatch({type:GET_MACHINE_REMARK_ERROR});
+  }
+}
+
+export const deleteRemark=remarkID=>async dispatch=>{
+  try{
+    dispatch({type:DELETE_MACHINE_REMARK_START});
+    await axiosService.delete('/assets/machine/remarks/'+remarkID+'/');
+    dispatch({type:DELETE_MACHINE_REMARK_SUCCESS,payload:remarkID});
+  }
+  catch(error){
+    toast.error(error.message);
+    dispatch({type:DELETE_MACHINE_REMARK_ERROR});
+  }
+}

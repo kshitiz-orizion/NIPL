@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {reduxForm } from 'redux-form';
 import {Typeahead} from 'react-bootstrap-typeahead';
+import history from '../../Inits/history';
 class CreateMachine extends Component{
 	componentWillMount(){
 		if(this.props.editable===false){
@@ -13,7 +14,7 @@ class CreateMachine extends Component{
 			})
 		}
 		if(this.props.mode==='EDIT'){
-			const {category,engine_model,model,condition,site,state,district}=this.props.initialValues;
+			const {category,engine_model,model,condition,site,state,district,remark}=this.props.initialValues;
 			const enginebrand=engine_model.brand;
 			const machinebrand=model.brand;
 			this.setState({
@@ -26,7 +27,8 @@ class CreateMachine extends Component{
 				 conditionname:[condition],
 				 sitename:[site],
 				 statename:[state],
-				 districtname:[district]
+				 districtname:[district],
+				 remarks:[...remark]
 			});
 		}
 		else{
@@ -48,7 +50,8 @@ class CreateMachine extends Component{
 				model_id:'',
 				category_id:'',
 				engine_brand_id:'',
-				warranty:''
+				warranty:'',
+				remarks:[]
 			})
 		}
 	}
@@ -76,7 +79,7 @@ class CreateMachine extends Component{
   	submitUser=()=>{
   			const {warrantypatternerror}=this.state;
   			var formerror=false;
-  			var {id,name,category,code,snumber,model,condition,purchased_on,regnum,engine_model,engine_snum,chassis_num,warranty,price,description,site}=this.state;
+  			var {id,name,category,code,snumber,model,condition,purchased_on,regnum,engine_model,engine_snum,chassis_num,warranty,price,description,site,remarks}=this.state;
   			if(this.state.warranty.length===0 || warrantypatternerror){
   				this.setState({
   					machineWarranty:true,
@@ -178,47 +181,19 @@ class CreateMachine extends Component{
 			  		if(this.props.mode==='EDIT'){
 			  			const editvalue=this.state;
 			  			for(var key in editvalue){
-			  				if(typeof(editvalue[key])==='object'){
-			  					editvalue[key]=editvalue[key]['id']
-			  				}
+			  				if(key!=='remarks'){
+				  				if(typeof(editvalue[key])==='object'){
+				  					editvalue[key]=editvalue[key]['id']
+				  				}
+				  			}
 			  			}
 			  			this.props.onEdit(editvalue);
 			  			return
 			  		}
-		  		const createvalue={id,name,site,category,code,snumber,model,condition,purchased_on,warranty,price,regnum,engine_model,engine_snum,chassis_num,description};
+		  		const createvalue={id,name,site,category,code,snumber,model,condition,purchased_on,warranty,price,regnum,engine_model,engine_snum,chassis_num,description,remarks};
 		  		this.props.onCreate(createvalue);
 		  		}
 	  		}
-  	}
-  	setCategory=(value)=>{
-  		document.getElementsByClassName("rbt-menu")[0].style.display="none";
-  	}
-  	setSubCategory=(value)=>{
-  		document.getElementsByClassName("rbt-menu")[0].style.display="none";
-  	}
-  	setMachineMake=(value)=>{
-  		document.getElementsByClassName("rbt-menu")[0].style.display="none";
-  	}
-  	setMachineModel=(value)=>{
-  		document.getElementsByClassName("rbt-menu")[0].style.display="none";
-  	}
-  	setEngineMake=(value)=>{
-  		document.getElementsByClassName("rbt-menu")[0].style.display="none";
-  	}
-  	setEngineModel=(value)=>{
-  		document.getElementsByClassName("rbt-menu")[0].style.display="none";
-  	}
-  	setCondition=(value)=>{
-  		document.getElementsByClassName("rbt-menu")[0].style.display="none";
-  	}
-  	setnewState=(value)=>{
-  		document.getElementsByClassName("rbt-menu")[0].style.display="none";
-  	}
-  	setDistrict=(value)=>{
-  		document.getElementsByClassName("rbt-menu")[0].style.display="none";
-  	}
-  	setSite=(value)=>{
-  		document.getElementsByClassName("rbt-menu")[0].style.display="none";
   	}
   	removehasError=(label)=>{
   		const warranty=document.getElementById(label);
@@ -226,6 +201,30 @@ class CreateMachine extends Component{
   		this.setState({
   			[label]:false
   		})
+  	}
+  	removeRemark=(i,remarkID)=>{
+  		if(remarkID){
+  		this.props.deleteRemark(remarkID);
+  		}
+  		this.state.remarks.splice(i,1);
+  		this.setState({
+  			remarks:[...this.state.remarks]
+  		});
+  	}
+  	addRemark=()=>{
+  		const newRemark=this.state.remarks.concat({remark:''});
+  		this.setState({
+  			remarks:[...newRemark]
+  		});
+  	}
+  	setRemark=(i)=>(e)=>{
+  		const newRemark=this.state.remarks.map((remark,sid)=>{
+  			if(i!==sid) return remark;
+  			return{...remark,remark:e.target.value}
+  		});
+  		this.setState({
+  			remarks:newRemark
+  		});
   	}
 	render()
 	{		
@@ -238,7 +237,7 @@ class CreateMachine extends Component{
 					<div className="saveButtonHeader" >
 						<button className="btn btn-sm btn-primary">Save Machine</button>
 					</div>
-					<div className="cancelHeading" >
+					<div className="cancelHeading" onClick={()=>history.goBack()}>
 						Cancel
 					</div>
 				</div>
@@ -287,29 +286,29 @@ class CreateMachine extends Component{
 													  inputProps={{"id":"machineCategory"}}
 													  onFocus={()=>this.removehasError('machineCategory')}
 													  onInputChange={(name,value)=>{													  		
-													  		var element=document.getElementsByClassName("rbt-menu");
-													  		if(element[0]){
-													  			element[0].style.display="block";
-													  			var p=element[0].getElementsByTagName("p");
-													  			for(var i=0;i<p.length;i++){
-													  				p[i].parentNode.removeChild(p[i]);
-													  			}
-													  			if(name!==''){
-													  			var para = document.createElement("p");
-													  	 		para.classList.add("dropdown-item");
-																var node = document.createTextNode(name);
-																var btn=document.createElement("button");
-																btn.className="btn-sm btn btn-danger";
-																btn.setAttribute("type", "button");
-																var btnname=document.createTextNode("+");
-																btn.appendChild(btnname);
-																btn.style.marginLeft="20px";
-																para.appendChild(node);
-																para.appendChild(btn);
-																btn.onclick=()=>{this.setCategory(name)};
-													  			element[0].appendChild(para);
-													  			}
-													  		}													  	 	
+													  	// 	var element=document.getElementsByClassName("rbt-menu");
+													  	// 	if(element[0]){
+													  	// 		element[0].style.display="block";
+													  	// 		var p=element[0].getElementsByTagName("p");
+													  	// 		for(var i=0;i<p.length;i++){
+													  	// 			p[i].parentNode.removeChild(p[i]);
+													  	// 		}
+													  	// 		if(name!==''){
+													  	// 		var para = document.createElement("p");
+													  	//  		para.classList.add("dropdown-item");
+																// var node = document.createTextNode(name);
+																// var btn=document.createElement("button");
+																// btn.className="btn-sm btn btn-danger";
+																// btn.setAttribute("type", "button");
+																// var btnname=document.createTextNode("+");
+																// btn.appendChild(btnname);
+																// btn.style.marginLeft="20px";
+																// para.appendChild(node);
+																// para.appendChild(btn);
+																// btn.onclick=()=>{this.setCategory(name)};
+													  	// 		element[0].appendChild(para);
+													  	// 		}
+													  	// 	}													  	 	
 													  }}
 													  disabled={!this.state.editable}
 											        />
@@ -354,31 +353,6 @@ class CreateMachine extends Component{
 													  options={this.props.paramvalue.machinebrand}
 													  labelKey="name"
 													  selected={this.state.machinebrand}
-													  onInputChange={(name,value)=>{
-													  		var element=document.getElementsByClassName("rbt-menu");
-													  		if(element[0]){
-													  			element[0].style.display="block";
-													  			var p=element[0].getElementsByTagName("p");
-													  			for(var i=0;i<p.length;i++){
-													  				p[i].parentNode.removeChild(p[i]);
-													  			}
-													  			if(name!==''){
-													  			var para = document.createElement("p");
-													  	 		para.classList.add("dropdown-item");
-																var node = document.createTextNode(name);
-																var btn=document.createElement("button");
-																btn.className="btn-sm btn btn-danger";
-																btn.setAttribute("type", "button");
-																var btnname=document.createTextNode("+");
-																btn.appendChild(btnname);
-																btn.style.marginLeft="20px";
-																para.appendChild(node);
-																para.appendChild(btn);
-																btn.onclick=()=>{this.setMachineMake(name)};
-													  			element[0].appendChild(para);
-													  			}
-													  		}													  	 	
-													  }}
 													  disabled={!this.state.editable}
 													/>
 												</div>
@@ -417,31 +391,6 @@ class CreateMachine extends Component{
 													  selected={this.state.machinemodel}
 													  inputProps={{"id":"machineModel"}}
 													  onFocus={()=>this.removehasError('machineModel')}
-													  onInputChange={(name,value)=>{
-													  		var element=document.getElementsByClassName("rbt-menu");
-													  		if(element[0]){
-													  			element[0].style.display="block";
-													  			var p=element[0].getElementsByTagName("p");
-													  			for(var i=0;i<p.length;i++){
-													  				p[i].parentNode.removeChild(p[i]);
-													  			}
-													  			if(name!==''){
-													  			var para = document.createElement("p");
-													  	 		para.classList.add("dropdown-item");
-																var node = document.createTextNode(name);
-																var btn=document.createElement("button");
-																btn.className="btn-sm btn btn-danger";
-																btn.setAttribute("type", "button");
-																var btnname=document.createTextNode("+");
-																btn.appendChild(btnname);
-																btn.style.marginLeft="20px";
-																para.appendChild(node);
-																para.appendChild(btn);
-																btn.onclick=()=>{this.MachineModel(name)};
-													  			element[0].appendChild(para);
-													  			}
-													  		}													  	 	
-													  }}
 													  disabled={!this.state.editable}
 													/>
 												</div>
@@ -485,31 +434,6 @@ class CreateMachine extends Component{
 													  options={this.props.paramvalue.enginebrand}
 													  labelKey="name"
 													  selected={this.state.enginebrand}
-													  onInputChange={(name,value)=>{
-													  		var element=document.getElementsByClassName("rbt-menu");
-													  		if(element[0]){
-													  			element[0].style.display="block";
-													  			var p=element[0].getElementsByTagName("p");
-													  			for(var i=0;i<p.length;i++){
-													  				p[i].parentNode.removeChild(p[i]);
-													  			}
-													  			if(name!==''){
-													  			var para = document.createElement("p");
-													  	 		para.classList.add("dropdown-item");
-																var node = document.createTextNode(name);
-																var btn=document.createElement("button");
-																btn.className="btn-sm btn btn-danger";
-																btn.setAttribute("type", "button");
-																var btnname=document.createTextNode("+");
-																btn.appendChild(btnname);
-																btn.style.marginLeft="20px";
-																para.appendChild(node);
-																para.appendChild(btn);
-																btn.onclick=()=>{this.setEngineMake(name)};
-													  			element[0].appendChild(para);
-													  			}
-													  		}													  	 	
-													  }}
 													  disabled={!this.state.editable}
 													/>
 												</div>
@@ -533,31 +457,6 @@ class CreateMachine extends Component{
 													  selected={this.state.enginemodel}
 													  inputProps={{"id":"machineEngineModel"}}
 													  onFocus={()=>this.removehasError('machineEngineModel')}
-													  onInputChange={(name,value)=>{
-													  		var element=document.getElementsByClassName("rbt-menu");
-													  		if(element[0]){
-													  			element[0].style.display="block";
-													  			var p=element[0].getElementsByTagName("p");
-													  			for(var i=0;i<p.length;i++){
-													  				p[i].parentNode.removeChild(p[i]);
-													  			}
-													  			if(name!==''){
-													  			var para = document.createElement("p");
-													  	 		para.classList.add("dropdown-item");
-																var node = document.createTextNode(name);
-																var btn=document.createElement("button");
-																btn.className="btn-sm btn btn-danger";
-																btn.setAttribute("type", "button");
-																var btnname=document.createTextNode("+");
-																btn.appendChild(btnname);
-																btn.style.marginLeft="20px";
-																para.appendChild(node);
-																para.appendChild(btn);
-																btn.onclick=()=>{this.setEngineModel(name)};
-													  			element[0].appendChild(para);
-													  			}
-													  		}													  	 	
-													  }}
 													  disabled={!this.state.editable}
 													/>
 												</div>
@@ -636,31 +535,6 @@ class CreateMachine extends Component{
 													  selected={this.state.conditionname}
 													  inputProps={{"id":"machineCondition"}}
 													  onFocus={()=>this.removehasError('machineCondition')}
-													  onInputChange={(name,value)=>{
-													  		var element=document.getElementsByClassName("rbt-menu");
-													  		if(element[0]){
-													  			element[0].style.display="block";
-													  			var p=element[0].getElementsByTagName("p");
-													  			for(var i=0;i<p.length;i++){
-													  				p[i].parentNode.removeChild(p[i]);
-													  			}
-													  			if(name!==''){
-													  			var para = document.createElement("p");
-													  	 		para.classList.add("dropdown-item");
-																var node = document.createTextNode(name);
-																var btn=document.createElement("button");
-																btn.className="btn-sm btn btn-danger";
-																btn.setAttribute("type", "button");
-																var btnname=document.createTextNode("+");
-																btn.appendChild(btnname);
-																btn.style.marginLeft="20px";
-																para.appendChild(node);
-																para.appendChild(btn);
-																btn.onclick=()=>{this.setCondition(name)};
-													  			element[0].appendChild(para);
-													  			}
-													  		}													  	 	
-													  }}
 													  disabled={!this.state.editable}
 													/>
 												</div>
@@ -685,15 +559,6 @@ class CreateMachine extends Component{
 										    	<div className="col-md-9 text-danger">Required Field</div>
 										    </div>}
 										  </div>
-										  <div className="form-group col-md-12 inputPaddingMachine" >
-										    <label  className="col-md-3">Remarks</label>
-										    <input 
-										    type="text" 
-										    className="form-control col-md-9"  
-										    onChange={this.onChangeSetToState('remark')} 
-										    value={this.state.remark}
-										    disabled={!this.state.editable}/>
-										  </div>
 										  <div className=" col-md-12 inputPaddingMachine">
 										    <div className="row">
 											    <label htmlFor="email" className="col-md-3">State</label>
@@ -711,31 +576,6 @@ class CreateMachine extends Component{
 													  options={this.props.paramvalue.state}
 													  labelKey="name"
 													  selected={this.state.statename}
-													  onInputChange={(name,value)=>{
-													  		var element=document.getElementsByClassName("rbt-menu");
-													  		if(element[0]){
-													  			element[0].style.display="block";
-													  			var p=element[0].getElementsByTagName("p");
-													  			for(var i=0;i<p.length;i++){
-													  				p[i].parentNode.removeChild(p[i]);
-													  			}
-													  			if(name!==''){
-													  			var para = document.createElement("p");
-													  	 		para.classList.add("dropdown-item");
-																var node = document.createTextNode(name);
-																var btn=document.createElement("button");
-																btn.className="btn-sm btn btn-danger";
-																btn.setAttribute("type", "button");
-																var btnname=document.createTextNode("+");
-																btn.appendChild(btnname);
-																btn.style.marginLeft="20px";
-																para.appendChild(node);
-																para.appendChild(btn);
-																btn.onclick=()=>{this.setnewState(name)};
-													  			element[0].appendChild(para);
-													  			}
-													  		}													  	 	
-													  }}
 													  disabled={!this.state.editable}
 													/>
 												</div>
@@ -758,31 +598,6 @@ class CreateMachine extends Component{
 													  options={this.props.paramvalue.district}
 													  labelKey="name"
 													  selected={this.state.districtname}
-													  onInputChange={(name,value)=>{
-													  		var element=document.getElementsByClassName("rbt-menu");
-													  		if(element[0]){
-													  			element[0].style.display="block";
-													  			var p=element[0].getElementsByTagName("p");
-													  			for(var i=0;i<p.length;i++){
-													  				p[i].parentNode.removeChild(p[i]);
-													  			}
-													  			if(name!==''){
-													  			var para = document.createElement("p");
-													  	 		para.classList.add("dropdown-item");
-																var node = document.createTextNode(name);
-																var btn=document.createElement("button");
-																btn.className="btn-sm btn btn-danger";
-																btn.setAttribute("type", "button");
-																var btnname=document.createTextNode("+");
-																btn.appendChild(btnname);
-																btn.style.marginLeft="20px";
-																para.appendChild(node);
-																para.appendChild(btn);
-																btn.onclick=()=>{this.setDistrict(name)};
-													  			element[0].appendChild(para);
-													  			}
-													  		}													  	 	
-													  }}
 													  disabled={!this.state.editable}
 													/>
 												</div>
@@ -806,31 +621,6 @@ class CreateMachine extends Component{
 													  selected={this.state.sitename}
 													  inputProps={{"id":"machineSite"}}
 													  onFocus={()=>this.removehasError('machineSite')}
-													  onInputChange={(name,value)=>{
-													  		var element=document.getElementsByClassName("rbt-menu");
-													  		if(element[0]){
-													  			element[0].style.display="block";
-													  			var p=element[0].getElementsByTagName("p");
-													  			for(var i=0;i<p.length;i++){
-													  				p[i].parentNode.removeChild(p[i]);
-													  			}
-													  			if(name!==''){
-													  			var para = document.createElement("p");
-													  	 		para.classList.add("dropdown-item");
-																var node = document.createTextNode(name);
-																var btn=document.createElement("button");
-																btn.className="btn-sm btn btn-danger";
-																btn.setAttribute("type", "button");
-																var btnname=document.createTextNode("+");
-																btn.appendChild(btnname);
-																btn.style.marginLeft="20px";
-																para.appendChild(node);
-																para.appendChild(btn);
-																btn.onclick=()=>{this.setSite(name)};
-													  			element[0].appendChild(para);
-													  			}
-													  		}													  	 	
-													  }}
 													  disabled={!this.state.editable}
 													/>
 												</div>
@@ -863,11 +653,31 @@ class CreateMachine extends Component{
 										    	<div className="col-md-9 text-danger">Please Input Only Number</div>
 										    </div>}
 										  </div>
+										  <div className="form-group col-md-12 inputPaddingMachine" style={{textAlign:'center'}}>
+										  	<div className="col-md-12">
+										    	<label style={{'display':'inline-block'}}>Remarks</label>
+										    	<span style={{'display':'inline-block'}}>
+										    	<button type="button" className="btn btn-sm btn-success" onClick={()=>this.addRemark()}>Add</button>
+										    	</span>
+										    </div>
+										    {this.state.remarks.map((remark,i)=>(
+										    		<div className="row col-md-12" key={i} style={{paddingBottom:'10px'}}>
+										    		<span className="col-md-3"></span>
+										    		<input key={i}
+										    		className="form-group form-control col-md-8"
+										    		value={remark.remark}
+										    		disabled={remark.id}
+										    		onChange={this.setRemark(i)}
+										    		/>
+										    		<span><button type="button" className="btn btn-sm btn-danger" onClick={()=>this.removeRemark(i,remark.id)}><i className="fa fa-trash" aria-hidden="true"></i></button></span>
+										    		</div>
+										    ))}
+										  </div>
 									</form>
 								</div>
 								<div className="container footerContainerMachine">
 									<div className="footerMachine" >
-										<div className="cancelFooterMachine">
+										<div className="cancelFooterMachine" onClick={()=>history.goBack()}>
 										Cancel
 										</div>
 										<button className="btn btn-primary btn-sm saveButtonFooterMachine" onClick={this.props.handleSubmit(this.submitUser)}>Submit</button>

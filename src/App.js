@@ -94,6 +94,12 @@ const CreateVehicleContainer = asyncComponent(() =>
 const VehicleContainer = asyncComponent(() =>
     import('./Container/Vehicle/vehicleContainer').then(module => module.default)
 )
+const PartContainer = asyncComponent(() =>
+    import('./Container/Sparepart/partContainer').then(module => module.default)
+)
+const CreatePartContainer = asyncComponent(() =>
+    import('./Container/Sparepart/CreatePartContainer').then(module => module.default)
+)
 axiosInterceptor(store);
 class App extends Component {
   render() {
@@ -138,6 +144,9 @@ class App extends Component {
                 <PrivateRoute exact={true} path="/vehicle/create" component={CreateVehicleContainer} />
                 <PrivateRoute exact={true} path="/vehicles/:id" component={CreateVehicleContainer} />
                 <PrivateRoute exact={true} path="/vehicles" component={VehicleContainer} />
+                <PrivateRoute exact={true} path="/parts" component={PartContainer} />
+                <PrivateRoute exact={true} path="/part/create" component={CreatePartContainer} />
+                <PrivateRoute exact={true} path="/parts/:id" component={CreatePartContainer} />
                 <Route path="/" render={ ( props ) => ( props.location.pathname !== "/") && <Header /> }/>
              </div>
            </div>
