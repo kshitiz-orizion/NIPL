@@ -23,7 +23,7 @@ class ListMachinebrand extends Component{
 						<button className="btn btn-sm btn-primary" style={{marginRight:'100px'}} onClick={this.AddMachinebrand}><i className="fa fa-plus" aria-hidden="true"></i>Add Machine Brand</button>
 					</div>
 				</div>
-				<div className="container">
+				<div className="container-fluid TableContainer">
 					<table className="table table-hover table-bordered">
 					    <thead>
 					      <tr>

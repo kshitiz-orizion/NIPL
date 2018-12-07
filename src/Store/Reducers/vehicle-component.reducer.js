@@ -42,7 +42,7 @@ export default function(state = { type: [],make:[],model:[],status:[],ownership:
       return {
         ...state,
         isFetching: false,
-        fuel: action.payload,
+        fuel: action.payload.results,
       };
     case GET_VEHICLE_FUEL_ERROR:
       return {
@@ -58,7 +58,7 @@ export default function(state = { type: [],make:[],model:[],status:[],ownership:
       return {
         ...state,
         isFetching: false,
-        brake: action.payload,
+        brake: action.payload.results,
       };
     case GET_VEHICLE_BRAKE_ERROR:
       return {
@@ -74,7 +74,7 @@ export default function(state = { type: [],make:[],model:[],status:[],ownership:
       return {
         ...state,
         isFetching: false,
-        drive: action.payload,
+        drive: action.payload.results,
       };
     case GET_VEHICLE_DRIVE_ERROR:
       return {
@@ -90,7 +90,7 @@ export default function(state = { type: [],make:[],model:[],status:[],ownership:
       return {
         ...state,
         isFetching: false,
-        body: action.payload,
+        body: action.payload.results,
       };
     case GET_VEHICLE_BODY_ERROR:
       return {
@@ -106,7 +106,7 @@ export default function(state = { type: [],make:[],model:[],status:[],ownership:
       return {
         ...state,
         isFetching: false,
-        color: action.payload,
+        color: action.payload.results,
       };
     case GET_VEHICLE_COLOR_ERROR:
       return {
@@ -122,7 +122,7 @@ export default function(state = { type: [],make:[],model:[],status:[],ownership:
       return {
         ...state,
         isFetching: false,
-        ownership: action.payload,
+        ownership: action.payload.results,
       };
     case GET_VEHICLE_OWNERSHIP_ERROR:
       return {
@@ -138,7 +138,7 @@ export default function(state = { type: [],make:[],model:[],status:[],ownership:
       return {
         ...state,
         isFetching: false,
-        status: action.payload,
+        status: action.payload.results,
       };
     case GET_VEHICLE_STATUS_ERROR:
       return {
@@ -154,7 +154,7 @@ export default function(state = { type: [],make:[],model:[],status:[],ownership:
       return {
         ...state,
         isFetching: false,
-        model: action.payload,
+        model: action.payload.results,
       };
     case GET_VEHICLE_MODEL_ERROR:
       return {
@@ -170,7 +170,7 @@ export default function(state = { type: [],make:[],model:[],status:[],ownership:
       return {
         ...state,
         isFetching: false,
-        make: action.payload,
+        make: action.payload.results,
       };
     case GET_VEHICLE_MAKE_ERROR:
       return {
@@ -186,7 +186,7 @@ export default function(state = { type: [],make:[],model:[],status:[],ownership:
       return {
         ...state,
         isFetching: false,
-        type: action.payload,
+        type: action.payload.results,
       };
     case GET_VEHICLE_TYPE_ERROR:
       return {

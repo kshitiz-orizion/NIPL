@@ -23,7 +23,7 @@ class ListPart extends Component{
 						<button className="btn btn-sm btn-primary" style={{marginRight:'100px'}} onClick={this.AddPart}><i className="fa fa-plus" aria-hidden="true"></i>Add Part</button>
 					</div>
 				</div>
-				<div className="container-fluid">
+				<div className="container-fluid TableContainer">
 					<table className="table table-hover table-bordered">
 					    <thead>
 					      <tr>

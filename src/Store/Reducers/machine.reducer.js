@@ -21,6 +21,20 @@ import {
 
 export default function(state = { list: [],remark:[] }, action) {
   switch (action.type) {
+    case 'SEARCH_MACHINES_START':
+      return {
+        ...state,
+      };
+    case 'SEARCH_MACHINES_SUCCESS':
+      return {
+        ...state,
+        list: action.payload.results,
+        pageCount:action.payload.count
+      };
+    case 'SEARCH_MACHINES_ERROR':
+      return {
+        ...state,
+      };
     case GET_MACHINES_START:
       return {
         ...state,
@@ -30,7 +44,8 @@ export default function(state = { list: [],remark:[] }, action) {
       return {
         ...state,
         isFetching: false,
-        list: action.payload,
+        list: action.payload.results,
+        pageCount:action.payload.count
       };
     case GET_MACHINES_ERROR:
       return {
@@ -46,7 +61,7 @@ export default function(state = { list: [],remark:[] }, action) {
       return {
         ...state,
         isFetching: false,
-        remark: action.payload,
+        remark: action.payload.results,
       };
     case GET_MACHINE_REMARK_ERROR:
       return {

@@ -24,7 +24,7 @@ export default function(state = { list: [] }, action) {
       return {
         ...state,
         isFetching: false,
-        list: action.payload,
+        list: action.payload.results,
       };
     case GET_DISTRICTSITES_ERROR:
       return {

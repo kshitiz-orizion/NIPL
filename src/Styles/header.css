@@ -430,6 +430,7 @@ ul{
 	position:relative;
 	right:50px;
 	top:8px;
+	cursor:pointer;
 }
 .editButtonMachine{
 	clear: both;
@@ -440,9 +441,11 @@ ul{
 	background-color:#EBEFF1;
 }
 .formContainer{
-	background-color:#fff;
+	background-color:white;
 	border-radius:5px;
-	box-shadow:1px 1px 1px 1px #666
+	box-shadow:1px 1px 1px 1px #666;
+	color:black;
+	background-image: linear-gradient(to bottom right, #F0F0F3, #B5B7C3);
 }
 .machineForm{
 	padding-top:50px;
@@ -591,4 +594,24 @@ ul{
 	width:70%;
 	position: relative;
     right: 4vw;
+}
+
+/*machines.jsx*/
+
+.TableContainer table thead{
+	background-color: #5D617D;
+	color:white;
+}
+.searchTable {
+	width:200px !important;
+	border-radius: 20px 20px 20px 20px;
+	border:1px solid red;
+}
+.searchTableContainer{
+	margin :20px 20px 20px 20px;
+}
+
+.TableContainer table tbody tr:hover{
+	background-color: #9297C4;
+	color:white;
 }
