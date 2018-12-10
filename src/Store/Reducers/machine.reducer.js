@@ -21,6 +21,20 @@ import {
 
 export default function(state = { list: [],remark:[] }, action) {
   switch (action.type) {
+    case 'FILTER_MACHINES_START':
+      return {
+        ...state,
+      };
+    case 'FILTER_MACHINES_SUCCESS':
+      return {
+        ...state,
+        list: action.payload.results,
+        pageCount:action.payload.count
+      };
+    case 'FILTER_MACHINES_ERROR':
+      return {
+        ...state,
+      };
     case 'SEARCH_MACHINES_START':
       return {
         ...state,

@@ -615,3 +615,49 @@ ul{
 	background-color: #9297C4;
 	color:white;
 }
+
+.filterContainer{
+	height: calc(95vh - 60px);
+    width: auto;
+    position: fixed;
+    right:20px;
+    background-color: white;
+    display: block;
+    flex-direction: column;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    z-index: 300;
+    overflow-x: hidden;
+    overflow-y: visible;
+   }
+.TableContainer{
+	width:79% !important;
+}
+.mainContainer{
+	display: flex;
+	flex-wrap: wrap;
+	width:100%;
+	flex-direction: row;
+}
+.filterHeading{
+	padding-left: 10px;
+	margin-top: 20px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #f1f1f1;
+}
+.filterCategories{
+	padding-left: 10px;
+	padding-bottom: 20px;
+	border-bottom: 1px solid #f1f1f1;
+}
+
+.filterScroll{
+    height: auto;
+    display: -ms-flexbox;
+    display: flex;
+    overflow: hidden;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding: 0;
+    width: 15vw;
+}

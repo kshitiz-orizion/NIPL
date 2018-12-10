@@ -24,12 +24,23 @@ import {
 export const searchMachines=(data)=>async dispatch=>{
   try{
     dispatch({type:'SEARCH_MACHINES_START'});
-    const machines=await axiosService.get('/assets/machine/machines?regnum='+data);
+    var machines= await axiosService.get('/assets/machine/machines?regnum='+data);
     dispatch({type:'SEARCH_MACHINES_SUCCESS',payload:machines});
   }
   catch(error){
     toast.error('SOMETHING WENT WRONG');
     dispatch({type:'SEARCH_MACHINES_ERROR'});
+  }
+}
+export const filterMachines=(data)=>async dispatch=>{
+  try{
+    dispatch({type:'FILTER_MACHINES_START'});
+    var machines= await axiosService.get('/assets/machine/machines',data);
+    dispatch({type:'FILTER_MACHINES_SUCCESS',payload:machines});
+  }
+  catch(error){
+    toast.error('SOMETHING WENT WRONG');
+    dispatch({type:'FILTER_MACHINES_ERROR'});
   }
 }
 export const getMachines = () => async dispatch => {

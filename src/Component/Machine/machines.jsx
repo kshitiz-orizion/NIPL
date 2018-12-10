@@ -6,8 +6,36 @@ class ListMachine extends Component{
 			sortsl:true,
 			sortname:true,
 			sortbrand:true,
-			sortmodel:true
-		})
+			sortmodel:true,
+			category:[],
+			code:'',
+			snumber:'',
+			regnum:'',
+			engine_model:'',
+			engine_snum:''
+		});
+		var codesFilter=[];
+		var snumberFilter=[];
+		var regnumFilter=[];
+		var engine_snumFilter=[];
+		for(var i=0;i<this.props.machineInfo.machines.length;i++){
+			codesFilter.push(this.props.machineInfo.machines[i].code);
+		}
+		for(var i=0;i<this.props.machineInfo.machines.length;i++){
+			snumberFilter.push(this.props.machineInfo.machines[i].snumber);
+		}
+		for(var i=0;i<this.props.machineInfo.machines.length;i++){
+			regnumFilter.push(this.props.machineInfo.machines[i].regnum);
+		}
+		for(var i=0;i<this.props.machineInfo.machines.length;i++){
+			engine_snumFilter.push(this.props.machineInfo.machines[i].engine_snum);
+		}
+		this.setState({
+			codesFilter:codesFilter,
+			snumberFilter:snumberFilter,
+			regnumFilter:regnumFilter,
+			engine_snumFilter:engine_snumFilter
+		});
 	}
 	componentDidMount(){
 		this.mounted=true;
@@ -29,12 +57,14 @@ class ListMachine extends Component{
 		history.push('/machines/'+machine.id,{noEdit:true});
 	}
 	Search=async (e)=>{
-		if(e.target.value){
-		await this.props.machineInfo.searchMachines(e.target.value);
-		this.props.machineInfo.getPages();
-		}	else{
-			this.props.machineInfo.getMachines();
-		}
+			const abcd=e.target.value;
+			if(abcd!==''){
+				setTimeout(async()=>{await this.props.machineInfo.searchMachines(abcd)},100);
+				this.props.machineInfo.getPages();
+				}	
+			else{
+					this.props.machineInfo.getMachinesClearSearch();
+				}
 	}
 	sortSlno=()=>{
 		if(this.mounted)
@@ -111,6 +141,65 @@ class ListMachine extends Component{
 				}
 		    	this.forceUpdate();}
 	}
+	setCategory=(id)=>{
+		let data=id;
+		if(id===this.state.category){
+			data='';
+		}
+		this.setState({
+			category:data
+		},this.FilterResult);
+	}
+	setCode=(code)=>{
+		let data=code;
+		if(code===this.state.code){
+			data=''
+		}
+		this.setState({
+			code:data
+		},this.FilterResult)
+	}
+	setSnumber=(snum)=>{
+		let data=snum;
+		if(snum===this.state.snumber){
+			data=''
+		}
+		this.setState({
+			snumber:data
+		},this.FilterResult);
+	}
+	setRegnum=(regnum)=>{
+		let data=regnum;
+		if(regnum===this.state.regnum){
+			data=''
+		}
+		this.setState({
+			regnum:data
+		},this.FilterResult)
+	}
+	setEmodel=(emodel)=>{
+		let data=emodel;
+		if(emodel===this.state.engine_model){
+			data=''
+		}
+		this.setState({
+			engine_model:data
+		},this.FilterResult)
+	}
+	setEsnum=(esnum)=>{
+		let data=esnum;
+		if(esnum===this.state.engine_snum){
+			data=''
+		}
+		this.setState({
+			engine_snum:data
+		},this.FilterResult)
+	}
+	FilterResult=()=>{
+		const {category,code,snumber,regnum,engine_model,engine_snum}=this.state;
+		const filterFields={category,code,snumber,regnum,engine_model,engine_snum};
+		this.props.machineInfo.filterMachines(filterFields);
+	}
 	render(){
 		return (
 			<div style={{marginTop:'175px'}}>
@@ -122,7 +211,69 @@ class ListMachine extends Component{
 						<button className="btn btn-sm btn-primary" style={{marginRight:'100px'}} onClick={this.AddMachine}><i className="fa fa-plus" aria-hidden="true"></i>Add Machine</button>
 					</div>
 				</div>
-				<div className="container-fluid TableContainer">
+				<div className="mainContainer">
+				<div className="filterContainer">
+					<div className="filterScroll">
+						<div className="filterHeading">
+							<h3 onClick={this.FilterResult}>Filters</h3>
+						</div>
+						<div className="filterCategories">
+							Category
+							{this.props.machineInfo.categories.map((catgeory,i)=>(
+								<div key={i}>
+									<input type="checkbox" checked={this.state.category===catgeory.id} style={{'display':'inline-block'}} onChange={()=>this.setCategory(catgeory.id)}/>
+									<h6 style={{display:'inline-block'}}>{catgeory.name}</h6>
+								</div>
+								))}
+						</div>
+						<div className="filterCategories">
+							Code
+							{this.state.codesFilter.map((code,i)=>(
+								<div key={i}>
+									<input type="checkbox" checked={this.state.code===code} style={{'display':'inline-block'}} onChange={()=>this.setCode(code)}/>
+									<h6 style={{display:'inline-block'}}>{code}</h6>
+									</div>
+								))}
+						</div>
+						<div className="filterCategories">
+							Serial No
+							{this.state.snumberFilter.map((snumber,i)=>(
+								<div key={i}>
+									<input type="checkbox" checked={this.state.snumber===snumber} style={{'display':'inline-block'}} onChange={()=>this.setSnumber(snumber)}/>
+									<h6 style={{display:'inline-block'}}>{snumber}</h6>
+									</div>
+								))}
+						</div>
+						<div className="filterCategories">
+							Reg Num
+							{this.state.regnumFilter.map((regnum,i)=>(
+								<div key={i}>
+									<input type="checkbox" checked={this.state.regnum===regnum} style={{'display':'inline-block'}} onChange={()=>this.setRegnum(regnum)}/>
+									<h6 style={{display:'inline-block'}}>{regnum}</h6>
+									</div>
+								))}
+						</div>
+						<div className="filterCategories">
+							Engine Model
+							{this.props.machineInfo.enginemodels.map((emodel,i)=>(
+								<div key={i}>
+									<input type="checkbox" checked={this.state.engine_model===emodel.id} style={{'display':'inline-block'}} onChange={()=>this.setEmodel(emodel.id)}/>
+									<h6 style={{display:'inline-block'}}>{emodel.name}</h6>
+								</div>
+								))}
+						</div>
+						<div className="filterCategories">
+							Engine Snum
+							{this.state.engine_snumFilter.map((esnum,i)=>(
+								<div key={i}>
+									<input type="checkbox" checked={this.state.engine_snum===esnum}style={{'display':'inline-block'}} onChange={()=>this.setEsnum(esnum)}/>
+									<h6 style={{display:'inline-block'}}>{esnum}</h6>
+									</div>
+								))}
+						</div>
+					</div>
+				</div>
+				<div className="TableContainer">
 					<div className="searchTableContainer">
 						<h3 style={{'display':'inline-block'}}>Search :</h3>
 						<input type="text" placeholder="Search" style={{display:'inline-block'}}className="searchTable form-control" onChange={this.Search}/>
@@ -158,7 +309,7 @@ class ListMachine extends Component{
 					      </tr>
 					    </thead>
 					    <tbody>
-					    {this.props.machineInfo.machines.map((machine,i)=>(
+					    {this.props.machineInfo.machines && this.props.machineInfo.machines.map((machine,i)=>(
 						<tr key={i}>
 							<td>{machine.snumber}</td>
 							<td>{machine.name}</td>
@@ -172,6 +323,7 @@ class ListMachine extends Component{
 					))}
 					    </tbody>
 	  				</table>
+	  			</div>
 	  			</div>
 			</div>
 		)

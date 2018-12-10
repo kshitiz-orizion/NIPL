@@ -1,20 +1,24 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
-import { getMachines,deleteMachine,searchMachines} from '../../Store/Actions/machine/machine.action';
+import { getMachines,deleteMachine,searchMachines,filterMachines} from '../../Store/Actions/machine/machine.action';
+import { getCategorys} from '../../Store/Actions/category/category.action';
 import {getMachinemodelByID} from '../../Store/Actions/machine-model/machine-model.action';
+import {getEnginemodels} from '../../Store/Actions/engine-model/engine-model.action';
 import ListMachine from '../../Component/Machine/machines';
 import PageLoader from '../Common/pageloader';
 class MachineContainer extends Component{
 	componentWillMount(){
 		this.mounted=true;
-		this.getMachines();
+		this.getMachinesClearSearch();
 		this.setState({
 			pageCount:''
 		})
 	}
-	getMachines=async()=>{
+	getMachinesClearSearch=async()=>{
 		if(this.mounted){
 		await this.props.getMachines();
+		await this.props.getCategorys();
+		await this.props.getEnginemodels();
 		await this.getPages();
 		}
 	}
@@ -46,9 +50,9 @@ class MachineContainer extends Component{
 		})
 	}
 	render(){
-	const {machines,deleteMachine,getMachines,isFetching,searchMachines}=this.props;
-	const machineInfo = {machines,deleteMachine,getMachines,searchMachines,getPages:this.getPages};
-	if(isFetching){
+	const {machines,deleteMachine,getMachines,isFetching,searchMachines,filterMachines,isFetchingCategory,categories,isFetchingEngineModel,enginemodels}=this.props;
+	const machineInfo = {enginemodels,categories,machines,deleteMachine,getMachines,filterMachines,searchMachines,getPages:this.getPages,getMachinesClearSearch:this.getMachinesClearSearch};
+	if(isFetching || isFetchingCategory ||isFetchingEngineModel){
 		return(
 			<PageLoader/>
 			)
@@ -76,7 +80,11 @@ const mapStateToProps = state => {
   return {
   	isFetching:state.machine.isFetching,
     machines:state.machine.list,
-    pageCount:state.machine.pageCount
+    pageCount:state.machine.pageCount,
+    categories:state.category.list,
+    isFetchingCategory:state.category.isFetching,
+    enginemodels:state.enginemodel.list,
+    isFetchingEngineModel:state.enginemodel.isFetching
   };
 };
 const mapDispatchToProps = {
@@ -84,6 +92,9 @@ const mapDispatchToProps = {
    deleteMachine,
    getMachinemodelByID,
    searchMachines,
+   getCategorys,
+   getEnginemodels,
+   filterMachines
 };
 
 export default connect(
