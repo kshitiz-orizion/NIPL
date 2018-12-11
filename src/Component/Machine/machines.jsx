@@ -8,11 +8,11 @@ class ListMachine extends Component{
 			sortbrand:true,
 			sortmodel:true,
 			category:[],
-			code:'',
-			snumber:'',
-			regnum:'',
-			engine_model:'',
-			engine_snum:''
+			code:[],
+			snumber:[],
+			regnum:[],
+			engine_model:[],
+			engine_snum:[]
 		});
 		var codesFilter=[];
 		var snumberFilter=[];
@@ -58,12 +58,13 @@ class ListMachine extends Component{
 	}
 	Search=async (e)=>{
 			const abcd=e.target.value;
-			if(abcd!==''){
-				setTimeout(async()=>{await this.props.machineInfo.searchMachines(abcd)},100);
-				this.props.machineInfo.getPages();
+			if(abcd){
+				setTimeout(async()=>{await this.props.machineInfo.searchMachines(abcd);
+									this.props.machineInfo.getPages();},100);
 				}	
 			else{
 					this.props.machineInfo.getMachinesClearSearch();
+					this.props.machineInfo.getPages();
 				}
 	}
 	sortSlno=()=>{
@@ -104,8 +105,7 @@ class ListMachine extends Component{
 		    	this.forceUpdate();}
 	}
 	sortBrand=()=>{
-		if(this.mounted)
-		{this.setState({
+		this.setState({
 					sortbrand:!this.state.sortbrand
 				});
 				if(this.state.sortbrand===true){
@@ -120,10 +120,9 @@ class ListMachine extends Component{
 			         	return ((x > y) ? -1 : ((x < y) ? 1 : 0));
 			        });
 				}
-		    	this.forceUpdate();}
+		    	this.forceUpdate();
 	}
 	sortModel=()=>{
-		if(this.mounted)
 		{this.setState({
 					sortmodel:!this.state.sortmodel
 				})
@@ -142,58 +141,144 @@ class ListMachine extends Component{
 		    	this.forceUpdate();}
 	}
 	setCategory=(id)=>{
-		let data=id;
-		if(id===this.state.category){
-			data='';
+		const obj=this.state.category;
+		var objfound='';
+		var index='';
+		for(var i=0;i<obj.length;i++){
+			if(obj[i]===id){
+				objfound=true;
+				index=i;
+			}
 		}
-		this.setState({
-			category:data
-		},this.FilterResult);
+		if(objfound!==true){
+			const arr=this.state.category;
+			arr.push(id);
+			this.setState({
+				category:[...arr]
+			},this.FilterResult);
+		}else{
+			obj.splice(index,1);
+			this.setState({
+				category:[...obj]
+			},this.FilterResult);
+		}
+
 	}
 	setCode=(code)=>{
-		let data=code;
-		if(code===this.state.code){
-			data=''
+		const obj=this.state.code;
+		var objfound;
+		var index;
+		for(var i=0;i<obj.length;i++){
+			if(obj[i]===code){
+				objfound=true;
+				index=i;
+			}
 		}
-		this.setState({
-			code:data
-		},this.FilterResult)
+		if(objfound!==true){
+			const arr=this.state.code;
+			arr.push(code);
+			this.setState({
+				code:[...arr]
+			},this.FilterResult);
+		}else{
+			obj.splice(index,1);
+			this.setState({
+				code:[...obj]
+			},this.FilterResult);
+		}
+		console.log(this.state.code);
 	}
 	setSnumber=(snum)=>{
-		let data=snum;
-		if(snum===this.state.snumber){
-			data=''
+		const obj=this.state.snumber;
+		var objfound='';
+		var index='';
+		for(var i=0;i<obj.length;i++){
+			if(obj[i]===snum){
+				objfound=true;
+				index=i;
+			}
 		}
-		this.setState({
-			snumber:data
-		},this.FilterResult);
+		if(objfound!==true){
+			const arr=this.state.snumber;
+			arr.push(snum);
+			this.setState({
+				snumber:[...arr]
+			},this.FilterResult);
+		}else{
+			obj.splice(index,1);
+			this.setState({
+				snumber:[...obj]
+			},this.FilterResult);
+		}
 	}
 	setRegnum=(regnum)=>{
-		let data=regnum;
-		if(regnum===this.state.regnum){
-			data=''
+		const obj=this.state.regnum;
+		var objfound='';
+		var index='';
+		for(var i=0;i<obj.length;i++){
+			if(obj[i]===regnum){
+				objfound=true;
+				index=i;
+			}
 		}
-		this.setState({
-			regnum:data
-		},this.FilterResult)
+		if(objfound!==true){
+			const arr=this.state.regnum;
+			arr.push(regnum);
+			this.setState({
+				regnum:[...arr]
+			},this.FilterResult);
+		}else{
+			obj.splice(index,1);
+			this.setState({
+				regnum:[...obj]
+			},this.FilterResult);
+		}
 	}
 	setEmodel=(emodel)=>{
-		let data=emodel;
-		if(emodel===this.state.engine_model){
-			data=''
+		const obj=this.state.engine_model;
+		var objfound='';
+		var index='';
+		for(var i=0;i<obj.length;i++){
+			if(obj[i]===emodel){
+				objfound=true;
+				index=i;
+			}
 		}
-		this.setState({
-			engine_model:data
-		},this.FilterResult)
+		if(objfound!==true){
+			const arr=this.state.engine_model;
+			arr.push(emodel);
+			this.setState({
+				engine_model:[...arr]
+			},this.FilterResult);
+		}else{
+			obj.splice(index,1);
+			this.setState({
+				engine_model:[...obj]
+			},this.FilterResult);
+		}
 	}
 	setEsnum=(esnum)=>{
-		let data=esnum;
-		if(esnum===this.state.engine_snum){
-			data=''
+		const obj=this.state.engine_snum;
+		var objfound='';
+		var index='';
+		for(var i=0;i<obj.length;i++){
+			if(obj[i]===esnum){
+				objfound=true;
+				index=i;
+			}
 		}
-		this.setState({
-			engine_snum:data
-		},this.FilterResult)
+		if(objfound!==true){
+			const arr=this.state.engine_snum;
+			arr.push(esnum);
+			this.setState({
+				engine_snum:[...arr]
+			},this.FilterResult);
+		}else{
+			obj.splice(index,1);
+			this.setState({
+				engine_snum:[...obj]
+			},this.FilterResult);
+		}
 	}
 	FilterResult=()=>{
 		const {category,code,snumber,regnum,engine_model,engine_snum}=this.state;
@@ -215,14 +300,14 @@ class ListMachine extends Component{
 				<div className="filterContainer">
 					<div className="filterScroll">
 						<div className="filterHeading">
-							<h3 onClick={this.FilterResult}>Filters</h3>
+							<h3>Filters</h3>
 						</div>
 						<div className="filterCategories">
 							Category
-							{this.props.machineInfo.categories.map((catgeory,i)=>(
+							{this.props.machineInfo.categories.map((category,i)=>(
 								<div key={i}>
-									<input type="checkbox" checked={this.state.category===catgeory.id} style={{'display':'inline-block'}} onChange={()=>this.setCategory(catgeory.id)}/>
-									<h6 style={{display:'inline-block'}}>{catgeory.name}</h6>
+									<input type="checkbox" checked={this.state.category[category.id]} style={{'display':'inline-block'}} onChange={()=>this.setCategory(category.id)}/>
+									<h6 style={{display:'inline-block'}}>{category.name}</h6>
 								</div>
 								))}
 						</div>
@@ -230,7 +315,7 @@ class ListMachine extends Component{
 							Code
 							{this.state.codesFilter.map((code,i)=>(
 								<div key={i}>
-									<input type="checkbox" checked={this.state.code===code} style={{'display':'inline-block'}} onChange={()=>this.setCode(code)}/>
+									<input type="checkbox" checked={this.state.code[{code}]} style={{'display':'inline-block'}} onChange={()=>this.setCode(code)}/>
 									<h6 style={{display:'inline-block'}}>{code}</h6>
 									</div>
 								))}
@@ -239,7 +324,7 @@ class ListMachine extends Component{
 							Serial No
 							{this.state.snumberFilter.map((snumber,i)=>(
 								<div key={i}>
-									<input type="checkbox" checked={this.state.snumber===snumber} style={{'display':'inline-block'}} onChange={()=>this.setSnumber(snumber)}/>
+									<input type="checkbox" checked={this.state.snumber[{snumber}]} style={{'display':'inline-block'}} onChange={()=>this.setSnumber(snumber)}/>
 									<h6 style={{display:'inline-block'}}>{snumber}</h6>
 									</div>
 								))}
@@ -248,7 +333,7 @@ class ListMachine extends Component{
 							Reg Num
 							{this.state.regnumFilter.map((regnum,i)=>(
 								<div key={i}>
-									<input type="checkbox" checked={this.state.regnum===regnum} style={{'display':'inline-block'}} onChange={()=>this.setRegnum(regnum)}/>
+									<input type="checkbox" checked={this.state.regnum[{regnum}]} style={{'display':'inline-block'}} onChange={()=>this.setRegnum(regnum)}/>
 									<h6 style={{display:'inline-block'}}>{regnum}</h6>
 									</div>
 								))}
@@ -257,7 +342,7 @@ class ListMachine extends Component{
 							Engine Model
 							{this.props.machineInfo.enginemodels.map((emodel,i)=>(
 								<div key={i}>
-									<input type="checkbox" checked={this.state.engine_model===emodel.id} style={{'display':'inline-block'}} onChange={()=>this.setEmodel(emodel.id)}/>
+									<input type="checkbox" checked={this.state.engine_model[emodel.id]} style={{'display':'inline-block'}} onChange={()=>this.setEmodel(emodel.id)}/>
 									<h6 style={{display:'inline-block'}}>{emodel.name}</h6>
 								</div>
 								))}
@@ -266,7 +351,7 @@ class ListMachine extends Component{
 							Engine Snum
 							{this.state.engine_snumFilter.map((esnum,i)=>(
 								<div key={i}>
-									<input type="checkbox" checked={this.state.engine_snum===esnum}style={{'display':'inline-block'}} onChange={()=>this.setEsnum(esnum)}/>
+									<input type="checkbox" checked={this.state.engine_snum[{esnum}]}style={{'display':'inline-block'}} onChange={()=>this.setEsnum(esnum)}/>
 									<h6 style={{display:'inline-block'}}>{esnum}</h6>
 									</div>
 								))}

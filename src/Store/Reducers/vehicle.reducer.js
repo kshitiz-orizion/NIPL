@@ -15,6 +15,34 @@ import {
 
 export default function(state = { list: [] }, action) {
   switch (action.type) {
+    case 'FILTER_VEHICLES_START':
+      return {
+        ...state,
+      };
+    case 'FILTER_VEHICLES_SUCCESS':
+      return {
+        ...state,
+        list: action.payload.results,
+        pageCount:action.payload.count
+      };
+    case 'FILTER_VEHICLES_ERROR':
+      return {
+        ...state,
+      };
+    case 'SEARCH_VEHICLES_START':
+      return {
+        ...state,
+      };
+    case 'SEARCH_VEHICLES_SUCCESS':
+      return {
+        ...state,
+        list: action.payload.results,
+        pageCount:action.payload.count
+      };
+    case 'SEARCH_VEHICLES_ERROR':
+      return {
+        ...state,
+      };
     case GET_VEHICLES_START:
       return {
         ...state,
@@ -25,6 +53,7 @@ export default function(state = { list: [] }, action) {
         ...state,
         isFetching: false,
         list: action.payload.results,
+        pageCount:action.payload.count
       };
     case GET_VEHICLES_ERROR:
       return {

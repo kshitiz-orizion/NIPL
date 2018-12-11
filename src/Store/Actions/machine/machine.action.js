@@ -33,9 +33,28 @@ export const searchMachines=(data)=>async dispatch=>{
   }
 }
 export const filterMachines=(data)=>async dispatch=>{
+  var params = new URLSearchParams();
+  for(let i=0;i<data.category.length;i++){
+    params.append("category",data.category[i])
+  }
+  for(let i=0;i<data.code.length;i++){
+    params.append("code",data.code[i])
+  }
+  for(let i=0;i<data.snumber.length;i++){
+    params.append("snumber",data.snumber[i])
+  }
+  for(let i=0;i<data.regnum.length;i++){
+    params.append("regnum",data.regnum[i])
+  }
+  for(let i=0;i<data.engine_model;i++){
+    params.append("engine_model",data.engine_model[i])
+  }
+  for(let i=0;i<data.engine_snum;i++){
+    params.append("engine_snum",data.engine_snum[i])
+  }
   try{
     dispatch({type:'FILTER_MACHINES_START'});
-    var machines= await axiosService.get('/assets/machine/machines',data);
+    var machines= await axiosService.get('/assets/machine/machines',params);
     dispatch({type:'FILTER_MACHINES_SUCCESS',payload:machines});
   }
   catch(error){

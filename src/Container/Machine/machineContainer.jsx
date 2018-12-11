@@ -8,26 +8,17 @@ import ListMachine from '../../Component/Machine/machines';
 import PageLoader from '../Common/pageloader';
 class MachineContainer extends Component{
 	componentWillMount(){
-		this.mounted=true;
 		this.getMachinesClearSearch();
 		this.setState({
 			pageCount:''
 		})
 	}
 	getMachinesClearSearch=async()=>{
-		if(this.mounted){
-		await this.props.getMachines();
-		await this.props.getCategorys();
-		await this.props.getEnginemodels();
-		await this.getPages();
-		}
-	}
-	componentWillUnmount(){
-		 this.mounted=false;
+		const {getMachines,getCategorys,getEnginemodels}=this.props;
+		await Promise.all([getMachines(),getCategorys(),getEnginemodels()]);
+		this.getPages();
 	}
 	getPages=()=>{
-		if(this.mounted)
-		{
 			var machineCount=this.props.pageCount;
 				var pageCount=machineCount/50;
 				var pageRemainder=machineCount%50;
@@ -41,7 +32,7 @@ class MachineContainer extends Component{
 				this.setState({
 					pageCount:totalPage,
 					activePage:1
-				})}
+				})
 	}
 	activePage=async (i)=>{
 		await this.props.getMachines();
@@ -68,7 +59,7 @@ class MachineContainer extends Component{
 						  			<li key={i}className={'page-item'+(this.state.activePage-1===i?" active":'')} onClick={()=>this.activePage(i+1)}><a className="page-link" href="#">{i+1}</a></li>
 						  		)):''}
 						  </ul>
-				</nav>
+					</nav>
 				</section>
 			</div>
 			)
