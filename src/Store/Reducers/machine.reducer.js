@@ -19,11 +19,25 @@ import {
   DELETE_MACHINE_REMARK_ERROR
 } from '../Actions/machine/machine.actiontype';
 
-export default function(state = { list: [],remark:[] }, action) {
+export default function(state = { list: [],remark:[],purchaseCount:0 }, action) {
   switch (action.type) {
     case 'FILTER_MACHINES_START':
       return {
         ...state,
+      };
+    case 'SET_PURCHASE_COUNT':
+      return{
+        purchaseCount:action.payload
+      }
+    case 'PURCHASE_COUNT':
+      return {
+        ...state,
+        purchaseCount:state.purchaseCount+1
+      };
+    case 'PURCHASE_COUNT_DECREASE':
+      return {
+        ...state,
+        purchaseCount:state.purchaseCount-1
       };
     case 'FILTER_MACHINES_SUCCESS':
       return {

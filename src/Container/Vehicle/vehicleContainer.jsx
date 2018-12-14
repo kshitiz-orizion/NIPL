@@ -9,6 +9,7 @@ import {getVehicleMakeByID,
 		getVehicleColor,
 		getVehicleBody,
 		} from '../../Store/Actions/vehicle-component/vehicle-component.action';
+import {purchaseCounter,purchaseCounterDecrease} from '../../Store/Actions/machine/machine.action';
 import {getEnginemodels} from '../../Store/Actions/engine-model/engine-model.action';
 import {getSites} from '../../Store/Actions/site/site.action';
 import ListVehicle from '../../Component/Vehicle/vehicles';
@@ -17,7 +18,8 @@ class VehicleContainer extends Component{
 	componentWillMount(){
 		this.getVehicles();
 		this.setState({
-			pageCount:''
+			pageCount:'',
+			activePage:0
 		})
 	}
 	getVehicles=async()=>{
@@ -49,8 +51,18 @@ class VehicleContainer extends Component{
 		})
 	}
 	render(){
-	const {vehicles,deleteVehicle,getVehicles,isFetching,searchVehicles,sites,vehicleType,ownership,body,color,model,status,engineModel,filterVehicles}=this.props;
-	const vehicleInfo = {engineModel,vehicleType,ownership,body,color,model,status,sites,vehicles,deleteVehicle,getVehicles,searchVehicles,getPages:this.getPages,filterVehicles};
+		var machineCount=this.props.pageCount;
+				var pageCount=machineCount/50;
+				var pageRemainder=machineCount%50;
+				if(pageRemainder!==0){
+					pageCount=Math.floor(pageCount)+1;
+				}
+				var totalPage=[];
+				for(var i=0;i<pageCount;i++){
+					totalPage.push(i);
+				}
+	const {purchaseCounter,purchaseCounterDecrease,vehicles,deleteVehicle,getVehicles,isFetching,searchVehicles,sites,vehicleType,ownership,body,color,model,status,engineModel,filterVehicles}=this.props;
+	const vehicleInfo = {purchaseCounter,purchaseCounterDecrease,engineModel,vehicleType,ownership,body,color,model,status,sites,vehicles,deleteVehicle,getVehicles,searchVehicles,getPages:this.getPages,filterVehicles};
 	if(isFetching){
 		return(
 			<PageLoader/>
@@ -62,9 +74,9 @@ class VehicleContainer extends Component{
 				<ListVehicle vehicleInfo={vehicleInfo} />
 				<nav aria-label="Page navigation" style={{'display':'flex','justifyContent':'center'}}>
 						  <ul className="pagination">
-						  	{this.state.pageCount?this.state.pageCount.map((page,i)=>(
-						  			<li key={i}className={'page-item'+(this.state.activePage-1===i?" active":'')} onClick={()=>this.activePage(i+1)}><a className="page-link" href="#">{i+1}</a></li>
-						  		)):''}
+						  	{totalPage.map((page,i)=>(
+						  			<li key={i}className={'page-item'+(this.state.activePage-1===i?" active":'')} onClick={()=>this.activePage(i+1)}><div className="page-link">{i+1}</div></li>
+						  		))}
 						  </ul>
 				</nav>
 			</section>
@@ -101,7 +113,9 @@ const mapDispatchToProps = {
    getVehicleColor,
    getVehicleBody,
    getEnginemodels,
-   filterVehicles
+   filterVehicles,
+   purchaseCounter,
+   purchaseCounterDecrease
 };
 
 export default connect(

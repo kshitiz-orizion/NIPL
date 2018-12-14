@@ -12,24 +12,27 @@ class ListMachine extends Component{
 			snumber:[],
 			regnum:[],
 			engine_model:[],
-			engine_snum:[]
+			engine_snum:[],
+			categoryShowFilter:false,
+			codeShowFilter:false,
+			slnoShowFilter:false,
+			regnumShowFilter:false,
+			emodelShowFilter:false,
+			esnumShowFilter:false,
+			machinesInCart:JSON.parse(localStorage['cart'])['machines']
 		});
 		var codesFilter=[];
 		var snumberFilter=[];
 		var regnumFilter=[];
 		var engine_snumFilter=[];
-		for(var i=0;i<this.props.machineInfo.machines.length;i++){
-			codesFilter.push(this.props.machineInfo.machines[i].code);
-		}
-		for(var i=0;i<this.props.machineInfo.machines.length;i++){
-			snumberFilter.push(this.props.machineInfo.machines[i].snumber);
-		}
-		for(var i=0;i<this.props.machineInfo.machines.length;i++){
-			regnumFilter.push(this.props.machineInfo.machines[i].regnum);
-		}
-		for(var i=0;i<this.props.machineInfo.machines.length;i++){
-			engine_snumFilter.push(this.props.machineInfo.machines[i].engine_snum);
-		}
+		if(this.props.machineInfo.machines!==undefined){
+			for(let i=0;i<this.props.machineInfo.machines.length;i++){
+				codesFilter.push(this.props.machineInfo.machines[i].code);
+				engine_snumFilter.push(this.props.machineInfo.machines[i].engine_snum);
+				snumberFilter.push(this.props.machineInfo.machines[i].snumber);
+				regnumFilter.push(this.props.machineInfo.machines[i].regnum);
+			}
+		}	
 		this.setState({
 			codesFilter:codesFilter,
 			snumberFilter:snumberFilter,
@@ -56,11 +59,29 @@ class ListMachine extends Component{
 	detailMachine=(machine)=>{
 		history.push('/machines/'+machine.id,{noEdit:true});
 	}
+	GPR=(machine)=>{
+		var a=JSON.parse(localStorage['cart']);
+		a['machines'][machine]=true;
+		localStorage['cart']=JSON.stringify(a);
+		this.setState({
+			machinesInCart:JSON.parse(localStorage['cart'])['machines']
+		});
+		this.props.machineInfo.purchaseCounter();
+	}
+	RemoveGPR=(machine)=>{
+		var a =JSON.parse(localStorage['cart']);
+		delete a['machines'][machine];
+		localStorage['cart']=JSON.stringify(a);
+		this.setState({
+			machinesInCart:JSON.parse(localStorage['cart'])['machines']
+		});
+		this.props.machineInfo.purchaseCounterDecrease();
+	}
 	Search=async (e)=>{
 			const abcd=e.target.value;
 			if(abcd){
-				setTimeout(async()=>{await this.props.machineInfo.searchMachines(abcd);
-									this.props.machineInfo.getPages();},100);
+				 this.props.machineInfo.searchMachines(abcd);
+				 this.props.machineInfo.getPages();
 				}	
 			else{
 					this.props.machineInfo.getMachinesClearSearch();
@@ -123,7 +144,7 @@ class ListMachine extends Component{
 		    	this.forceUpdate();
 	}
 	sortModel=()=>{
-		{this.setState({
+		this.setState({
 					sortmodel:!this.state.sortmodel
 				})
 				if(this.state.sortmodel===true){
@@ -138,7 +159,7 @@ class ListMachine extends Component{
 			         	return ((x > y) ? -1 : ((x < y) ? 1 : 0));
 			    	});
 				}
-		    	this.forceUpdate();}
+		    	this.forceUpdate();
 	}
 	setCategory=(id)=>{
 		const obj=this.state.category;
@@ -285,6 +306,11 @@ class ListMachine extends Component{
 		const filterFields={category,code,snumber,regnum,engine_model,engine_snum};
 		this.props.machineInfo.filterMachines(filterFields);
 	}
+	showFilterDiv=(label)=>{
+		this.setState({
+			[label]:!this.state[label]
+		});
+	}
 	render(){
 		return (
 			<div style={{marginTop:'175px'}}>
@@ -303,8 +329,15 @@ class ListMachine extends Component{
 							<h3>Filters</h3>
 						</div>
 						<div className="filterCategories">
-							Category
-							{this.props.machineInfo.categories.map((category,i)=>(
+							<div onClick={()=>this.showFilterDiv('categoryShowFilter')}>
+								<div style={{display:'inline-block'}}>
+								Category
+								</div>
+								<div style={{display:'inline-block',float:'right'}}>	
+								{this.state.categoryShowFilter ? <i className="fa fa-angle-up"></i>:<i className="fa fa-angle-down"></i>}
+								</div>
+							</div>
+							{this.state.categoryShowFilter && this.props.machineInfo.categories.map((category,i)=>(
 								<div key={i}>
 									<input type="checkbox" checked={this.state.category[category.id]} style={{'display':'inline-block'}} onChange={()=>this.setCategory(category.id)}/>
 									<h6 style={{display:'inline-block'}}>{category.name}</h6>
@@ -312,8 +345,15 @@ class ListMachine extends Component{
 								))}
 						</div>
 						<div className="filterCategories">
-							Code
-							{this.state.codesFilter.map((code,i)=>(
+							<div onClick={()=>this.showFilterDiv('codeShowFilter')}>
+								<div style={{display:'inline-block'}}>
+								Code
+								</div>
+								<div style={{display:'inline-block',float:'right'}}>	
+								{this.state.codeShowFilter ? <i className="fa fa-angle-up"></i>:<i className="fa fa-angle-down"></i>}
+								</div>
+							</div>
+							{this.state.codeShowFilter && this.state.codesFilter.map((code,i)=>(
 								<div key={i}>
 									<input type="checkbox" checked={this.state.code[{code}]} style={{'display':'inline-block'}} onChange={()=>this.setCode(code)}/>
 									<h6 style={{display:'inline-block'}}>{code}</h6>
@@ -321,8 +361,15 @@ class ListMachine extends Component{
 								))}
 						</div>
 						<div className="filterCategories">
-							Serial No
-							{this.state.snumberFilter.map((snumber,i)=>(
+							<div onClick={()=>this.showFilterDiv('slnoShowFilter')}>
+								<div style={{display:'inline-block'}}>
+								Serial Number
+								</div>
+								<div style={{display:'inline-block',float:'right'}}>	
+								{this.state.slnoShowFilter ? <i className="fa fa-angle-up"></i>:<i className="fa fa-angle-down"></i>}
+								</div>
+							</div>
+							{this.state.slnoShowFilter && this.state.snumberFilter.map((snumber,i)=>(
 								<div key={i}>
 									<input type="checkbox" checked={this.state.snumber[{snumber}]} style={{'display':'inline-block'}} onChange={()=>this.setSnumber(snumber)}/>
 									<h6 style={{display:'inline-block'}}>{snumber}</h6>
@@ -330,8 +377,15 @@ class ListMachine extends Component{
 								))}
 						</div>
 						<div className="filterCategories">
-							Reg Num
-							{this.state.regnumFilter.map((regnum,i)=>(
+							<div onClick={()=>this.showFilterDiv('regnumShowFilter')}>
+								<div style={{display:'inline-block'}}>
+								Reg Number
+								</div>
+								<div style={{display:'inline-block',float:'right'}}>	
+								{this.state.regnumShowFilter ? <i className="fa fa-angle-up"></i>:<i className="fa fa-angle-down"></i>}
+								</div>
+							</div>
+							{this.state.regnumShowFilter && this.state.regnumFilter.map((regnum,i)=>(
 								<div key={i}>
 									<input type="checkbox" checked={this.state.regnum[{regnum}]} style={{'display':'inline-block'}} onChange={()=>this.setRegnum(regnum)}/>
 									<h6 style={{display:'inline-block'}}>{regnum}</h6>
@@ -339,8 +393,15 @@ class ListMachine extends Component{
 								))}
 						</div>
 						<div className="filterCategories">
-							Engine Model
-							{this.props.machineInfo.enginemodels.map((emodel,i)=>(
+							<div onClick={()=>this.showFilterDiv('emodelShowFilter')}>
+								<div style={{display:'inline-block'}}>
+								Engine Model
+								</div>
+								<div style={{display:'inline-block',float:'right'}}>	
+								{this.state.emodelShowFilter ? <i className="fa fa-angle-up"></i>:<i className="fa fa-angle-down"></i>}
+								</div>
+							</div>
+							{this.state.emodelShowFilter && this.props.machineInfo.enginemodels.map((emodel,i)=>(
 								<div key={i}>
 									<input type="checkbox" checked={this.state.engine_model[emodel.id]} style={{'display':'inline-block'}} onChange={()=>this.setEmodel(emodel.id)}/>
 									<h6 style={{display:'inline-block'}}>{emodel.name}</h6>
@@ -348,8 +409,15 @@ class ListMachine extends Component{
 								))}
 						</div>
 						<div className="filterCategories">
-							Engine Snum
-							{this.state.engine_snumFilter.map((esnum,i)=>(
+							<div onClick={()=>this.showFilterDiv('esnumShowFilter')}>
+								<div style={{display:'inline-block'}}>
+								Engine Snum
+								</div>
+								<div style={{display:'inline-block',float:'right'}}>	
+								{this.state.esnumShowFilter ? <i className="fa fa-angle-up"></i>:<i className="fa fa-angle-down"></i>}
+								</div>
+							</div>
+							{this.state.esnumShowFilter && this.state.engine_snumFilter.map((esnum,i)=>(
 								<div key={i}>
 									<input type="checkbox" checked={this.state.engine_snum[{esnum}]}style={{'display':'inline-block'}} onChange={()=>this.setEsnum(esnum)}/>
 									<h6 style={{display:'inline-block'}}>{esnum}</h6>
@@ -401,8 +469,11 @@ class ListMachine extends Component{
 							<td>{machine.model.brand.name}</td>
 							<td>{machine.model.name}</td>
 							<td>
-								<button className="btn btn-default btn-sm" onClick={()=>this.detailMachine(machine)}><i className="fa fa-pencil" aria-hidden="true"></i>Details</button>
-								<button className="btn btn-danger btn-sm" onClick={()=>this.deleteMachine(machine)}><i className="fa fa-trash" aria-hidden="true"></i>Delete</button>
+								<button className="btn btn-default btn-sm paddingActionButton" onClick={()=>this.detailMachine(machine)}><i className="fa fa-pencil" aria-hidden="true"></i>Details</button>
+								<button className="btn btn-primary btn-sm paddingActionButton" onClick={()=>this.deleteMachine(machine)}><i className="fa fa-trash" aria-hidden="true"></i>Delete</button>
+								{JSON.parse(localStorage['cart'])['machines'][machine.id]!==true
+								?<button className="btn btn-success btn-sm paddingActionButton" onClick={()=>this.GPR(machine.id)}>Buy</button>
+								:<button className="btn btn-danger btn-sm paddingActionButton" onClick={()=>this.RemoveGPR(machine.id)}>Remove</button>}
 							</td>
 						</tr>
 					))}

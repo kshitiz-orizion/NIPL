@@ -15,7 +15,8 @@ class ListVehicle extends Component{
 			ownership:[],
 			color:[],
 			body:[],
-			engine_model:[]
+			engine_model:[],
+			vehiclesInCart:JSON.parse(localStorage['cart'])['vehicles']
 		});
 		var vinFilter=[];
 		var codeFilter=[];
@@ -29,19 +30,21 @@ class ListVehicle extends Component{
 		var bodyFilter=[];
 		var engine_modelFilter=[];
 		var snumberFilter=[];
-		for(var i=0;i<this.props.vehicleInfo.vehicles.length;i++){
-			vinFilter.push(this.props.vehicleInfo.vehicles[i].vin);
-			codeFilter.push(this.props.vehicleInfo.vehicles[i].code);
-			siteFilter.push(this.props.vehicleInfo.vehicles[i].site);
-			vehicle_typeFilter.push(this.props.vehicleInfo.vehicles[i].vehicle_type);
-			modelFilter.push(this.props.vehicleInfo.vehicles[i].model);
-			registrationFilter.push(this.props.vehicleInfo.vehicles[i].registration);
-			statusFilter.push(this.props.vehicleInfo.vehicles[i].status);
-			ownershipFilter.push(this.props.vehicleInfo.vehicles[i].ownership);
-			colorFilter.push(this.props.vehicleInfo.vehicles[i].color);
-			bodyFilter.push(this.props.vehicleInfo.vehicles[i].body);
-			engine_modelFilter.push(this.props.vehicleInfo.vehicles[i].engine_model);
-			snumberFilter.push(this.props.vehicleInfo.vehicles[i].code);
+		if(this.props.vehicleInfo.vehicles!==undefined){
+			for(var i=0;i<this.props.vehicleInfo.vehicles.length;i++){
+				vinFilter.push(this.props.vehicleInfo.vehicles[i].vin);
+				codeFilter.push(this.props.vehicleInfo.vehicles[i].code);
+				siteFilter.push(this.props.vehicleInfo.vehicles[i].site);
+				vehicle_typeFilter.push(this.props.vehicleInfo.vehicles[i].vehicle_type);
+				modelFilter.push(this.props.vehicleInfo.vehicles[i].model);
+				registrationFilter.push(this.props.vehicleInfo.vehicles[i].registration);
+				statusFilter.push(this.props.vehicleInfo.vehicles[i].status);
+				ownershipFilter.push(this.props.vehicleInfo.vehicles[i].ownership);
+				colorFilter.push(this.props.vehicleInfo.vehicles[i].color);
+				bodyFilter.push(this.props.vehicleInfo.vehicles[i].body);
+				engine_modelFilter.push(this.props.vehicleInfo.vehicles[i].engine_model);
+				snumberFilter.push(this.props.vehicleInfo.vehicles[i].code);
+			}
 		}
 		this.setState({
 			vinFilter:vinFilter,
@@ -50,7 +53,6 @@ class ListVehicle extends Component{
 			vehicle_typeFilter:vehicle_typeFilter,
 			registrationFilter:registrationFilter,
 			modelFilter:modelFilter,
-			registrationFilter:registrationFilter,
 			statusFilter:statusFilter,
 			ownershipFilter:ownershipFilter,
 			colorFilter:colorFilter,
@@ -71,6 +73,25 @@ class ListVehicle extends Component{
 	}
 	detailVehicle=(vehicle)=>{
 		history.push('/vehicles/'+vehicle.id,{noEdit:true});
+	}
+	GPR=(vehicle)=>{
+		var a=JSON.parse(localStorage['cart']);
+		a['vehicles'][vehicle]=true;
+		localStorage['cart']=JSON.stringify(a);
+		this.setState({
+			vehiclesInCart:JSON.parse(localStorage['cart'])['vehicles']
+		});
+		this.props.vehicleInfo.purchaseCounter();
+	}
+
+	RemoveGPR=(vehicle)=>{
+		var a =JSON.parse(localStorage['cart']);
+		delete a['vehicles'][vehicle];
+		localStorage['cart']=JSON.stringify(a);
+		this.setState({
+			vehiclesInCart:JSON.parse(localStorage['cart'])['vehicles']
+		});
+		this.props.vehicleInfo.purchaseCounterDecrease();
 	}
 	Search=async (e)=>{
 			const abcd=e.target.value;
@@ -572,8 +593,11 @@ class ListVehicle extends Component{
 							<td>{vehicle.model.make.name}</td>
 							<td>{vehicle.model.name}</td>
 							<td>
-								<button className="btn btn-default btn-sm" onClick={()=>this.detailVehicle(vehicle)}><i className="fa fa-pencil" aria-hidden="true"></i>Details</button>
-								<button className="btn btn-danger btn-sm" onClick={()=>this.deleteVehicle(vehicle)}><i className="fa fa-trash" aria-hidden="true"></i>Delete</button>
+								<button className="btn btn-default btn-sm paddingActionButton" onClick={()=>this.detailVehicle(vehicle)}><i className="fa fa-pencil" aria-hidden="true"></i>Details</button>
+								<button className="btn btn-primary btn-sm paddingActionButton" onClick={()=>this.deleteVehicle(vehicle)}><i className="fa fa-trash" aria-hidden="true"></i>Delete</button>
+								{JSON.parse(localStorage['cart'])['vehicles'][vehicle.id]!==true
+								?<button className="btn btn-success btn-sm paddingActionButton" onClick={()=>this.GPR(vehicle.id)}>Buy</button>
+								:<button className="btn btn-danger btn-sm paddingActionButton" onClick={()=>this.RemoveGPR(vehicle.id)}>Remove</button>}
 							</td>
 						</tr>
 					))}

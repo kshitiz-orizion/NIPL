@@ -65,8 +65,10 @@ export const filterVehicles=(data)=>async dispatch=>{
 export const searchVehicles=(data)=>async dispatch=>{
   try{
     dispatch({type:'SEARCH_VEHICLES_START'});
+    setTimeout(async()=>{
     var vehicles= await axiosService.get('/assets/vehicle/vehicles?vin='+data);
     dispatch({type:'SEARCH_VEHICLES_SUCCESS',payload:vehicles});
+    },100);
   }
   catch(error){
     toast.error('SOMETHING WENT WRONG');

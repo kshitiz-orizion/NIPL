@@ -134,8 +134,6 @@ i.fa.fa-user-circle.userCircleProfile {
 }
 .plusIconHeader{
 	color:white;
-	margin-top:10px;
-	margin-left:13px;
 }
 .profileHeader{
 	float:right;
@@ -660,4 +658,33 @@ ul{
     flex-direction: column;
     padding: 0;
     width: 15vw;
+}
+
+.paddingActionButton{
+	margin:0 10px 0 10px;
+}
+
+.cartIcon{
+    color: #e95b4f;
+    font-size: 30px;
+    display: inline-block;
+}
+
+.cartIconContainer{
+	position: absolute;
+    right: 300px;
+    bottom: 10px;
+}
+
+.purchaseCounter{
+	display: inline-block;
+    width: 26px;
+    height: auto;
+    background-color: green;
+    text-align: center;
+    color: white;
+    border-radius: 50%;
+    padding-top: 6%;
+    position: relative;
+    bottom: 13px;	
 }

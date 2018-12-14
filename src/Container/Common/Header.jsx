@@ -3,9 +3,9 @@ import '../../Styles/header.css';
 import {removeUser,getCurrentUser} from '../../Store/Actions/auth/auth.action';
 import { connect } from 'react-redux';
 import history from '../../Inits/history';
+import {setPurchaseCounter} from '../../Store/Actions/machine/machine.action';
 export class Header extends Component{
-	componentWillMount(){
-		
+	componentWillMount(){	
 		this.setState({
 			menu1:false,
 			profile:false,
@@ -21,9 +21,16 @@ export class Header extends Component{
 			districtsite:false,
 			site:false,
 			vehicle:false,
-			spare:false
+			spare:false,
+			purchase:false,
+			count:0
 		})
+		if(localStorage['cart']===undefined){
+				localStorage['cart']=JSON.stringify({machines:{},vehicles:{}});
+		}
+		this.setPurchase();
 	}
+
 	componentDidMount(){
 		document.addEventListener('mousedown', this.handleClickOutside);
 	}
@@ -48,6 +55,12 @@ export class Header extends Component{
 				showcompany:false
 			})
 		}
+	}
+	setPurchase=async()=>{
+		var mach=JSON.parse(localStorage['cart'])['machines'];
+		var vehi=JSON.parse(localStorage['cart'])['vehicles'];
+		var size = Object.keys(mach).length+Object.keys(vehi).length;	
+		await this.props.setPurchaseCounter(size);
 	}
 	showMenu=()=>{
 		this.setState({
@@ -127,6 +140,11 @@ export class Header extends Component{
 			spare:!this.state.spare
 		})
 	}
+	showPurchase=()=>{
+		this.setState({
+			purchase:!this.state.purchase
+		})
+	}
 	logout=()=>{
 	    this.props.removeUser();
 	}
@@ -145,6 +163,7 @@ export class Header extends Component{
 		// const subcategoryClass=window.location.pathname.slice(0,12)==='/subcategory'?"menuActive":"";
 		const vehicleClass=window.location.pathname.slice(0,8)==='/vehicle'?"menuActive":"";
 		const spareClass=window.location.pathname.slice(0,5)==='/part'?"menuActive":"";
+		const purchaseClass=window.location.pathname.slice(0,9)==='/purchase'?"menuActive":"";
 		return(
 			<div>
 				<div className="header" >
@@ -154,9 +173,9 @@ export class Header extends Component{
 					<div className="divContainer col-xs-4 col-sm-4 ">
 						<input type="text" className="form-control inputHeader"  placeholder="Search..."  />
 					</div>
-					<div className="divContainer plusHeader">
+					<button className="divContainer plusHeader">
 						<i className="fa fa-plus plusIconHeader" aria-hidden="true"></i>
-					</div>	
+					</button>
 					<div className="divContainer profileHeader" >
 						<section onClick={this.showMenu}>
 						<i className="fa fa-angle-down angledownProfile" ></i>
@@ -204,6 +223,9 @@ export class Header extends Component{
 
 							</ul>
 						</div>	}
+					</div>
+					<div className="divContainer companyHeader cartIconContainer" onClick={()=>history.push('/purchase')}>
+						<i className="fa fa-shopping-cart cartIcon"></i>{this.props.PurchaseCount!==0 && <div className="purchaseCounter">{this.props.PurchaseCount}</div>}
 					</div>
 				</div>
 				<div className="sidenav">
@@ -267,6 +289,18 @@ export class Header extends Component{
 									</div>
 									<div className="submenu" onClick={()=>history.push('/part/create')}>
 										Create Spare Parts
+									</div>
+								</div>
+							}
+						</div>
+						<div className={`innersidenav ${purchaseClass}`}>
+							<div  className="menuName" onClick={()=>this.showPurchase()}>
+							Purchase{this.state.purchase?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
+							</div>
+							{this.state.purchase && 
+								<div>
+									<div className="submenu" onClick={()=>history.push('/purchase')}>
+										Purchase List
 									</div>
 								</div>
 							}
@@ -359,11 +393,13 @@ export class Header extends Component{
 
 const mapStateToProps = state => {
   return {
+  	PurchaseCount:state.machine.purchaseCount
   };
 };
 const mapDispatchToProps = {
   removeUser,
-  getCurrentUser
+  getCurrentUser,
+  setPurchaseCounter
 };
 export default connect(
   mapStateToProps,

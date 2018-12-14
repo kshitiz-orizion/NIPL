@@ -21,11 +21,22 @@ import {
   DELETE_MACHINE_REMARK_SUCCESS,
   DELETE_MACHINE_REMARK_ERROR
 } from './machine.actiontype';
+export const purchaseCounter=()=>async dispatch=>{
+  dispatch({type:'PURCHASE_COUNT'});
+}
+export const setPurchaseCounter=(count)=>async dispatch=>{
+  dispatch({type:'SET_PURCHASE_COUNT',payload:count});
+}
+export const purchaseCounterDecrease=()=>async dispatch=>{
+  dispatch({type:'PURCHASE_COUNT_DECREASE'});
+}
 export const searchMachines=(data)=>async dispatch=>{
   try{
     dispatch({type:'SEARCH_MACHINES_START'});
+    setTimeout(async()=>{
     var machines= await axiosService.get('/assets/machine/machines?regnum='+data);
     dispatch({type:'SEARCH_MACHINES_SUCCESS',payload:machines});
+    },100);
   }
   catch(error){
     toast.error('SOMETHING WENT WRONG');
@@ -46,10 +57,10 @@ export const filterMachines=(data)=>async dispatch=>{
   for(let i=0;i<data.regnum.length;i++){
     params.append("regnum",data.regnum[i])
   }
-  for(let i=0;i<data.engine_model;i++){
+  for(let i=0;i<data.engine_model.length;i++){
     params.append("engine_model",data.engine_model[i])
   }
-  for(let i=0;i<data.engine_snum;i++){
+  for(let i=0;i<data.engine_snum.length;i++){
     params.append("engine_snum",data.engine_snum[i])
   }
   try{

@@ -1,5 +1,4 @@
 import { toast } from 'react-toastify';
-import history from '../../../Inits/history';
 import axiosService from '../../../Inits/axios';
 import {
   GET_VEHICLE_TYPE_START, 
