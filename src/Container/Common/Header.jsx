@@ -38,12 +38,28 @@ export class Header extends Component{
 		var company='';
 		var profile='';
 		for(var i=0;i<event['path'].length;i++){
+			if(event['path'][i].className==='row innerCompanyHeader'){
+				company='HIDE PROFILE';
+			}
+			if(event['path'][i].className==='divContainer profileHeader'){
+				profile='HIDE COMPANY';
+			}
 			if(event['path'][i].className==='companyDrop'){
-				company='DONT SHOW'
+				company='DONT SHOW';
 			}
 			if(event['path'][i].className==='profileDrop'){
-				profile='DONT SHOW'
+				profile='DONT SHOW';
 			}
+		}
+		if(company==='HIDE PROFILE'){
+			this.setState({
+				showcompany:!this.state.showcompany
+			})
+		}
+		if(profile==='HIDE COMPANY'){
+			this.setState({
+				profile:!this.state.profile
+			})
 		}
 		if(profile===''){
 			this.setState({
@@ -61,19 +77,6 @@ export class Header extends Component{
 		var vehi=JSON.parse(localStorage['cart'])['vehicles'];
 		var size = Object.keys(mach).length+Object.keys(vehi).length;	
 		await this.props.setPurchaseCounter(size);
-	}
-	showMenu=()=>{
-		this.setState({
-			profile:!this.state.profile,
-			showcompany:false
-
-		})
-	}
-	showCompany=()=>{
-		this.setState({
-			profile:false,
-			showcompany:!this.state.showcompany
-		})
 	}
 	showMachine=()=>{
 		this.setState({
@@ -177,7 +180,7 @@ export class Header extends Component{
 						<i className="fa fa-plus plusIconHeader" aria-hidden="true"></i>
 					</button>
 					<div className="divContainer profileHeader" >
-						<section onClick={this.showMenu}>
+						<section >
 						<i className="fa fa-angle-down angledownProfile" ></i>
 						<i className="fa fa-user-circle userCircleProfile" ></i>
 						</section>
@@ -197,7 +200,7 @@ export class Header extends Component{
 						</div>}
 					</div>
 					<div className="divContainer companyHeader" >
-						<div className="row innerCompanyHeader" onClick={this.showCompany}>
+						<div className="row innerCompanyHeader">
 							<div className="nameCompanyHeader">Company Name</div>
 							<div className="angeldownCompany"><i className="fa fa-angle-down"></i></div>
 						</div>

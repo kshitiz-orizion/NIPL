@@ -10,7 +10,7 @@ import store from './Store';
 import asyncComponent from './AsyncComponent';
 // import { getCurrentUser } from './Store/Actions/auth/auth.action';
 // import { getLocalStorage } from './Utils/web-storage';
-import { PrivateRoute, PublicRoute } from './Utils/route';
+import { PrivateRoute, PublicRoute,AdminRoute } from './Utils/route';
 
 import './App.css';
 const LoginContainer = asyncComponent(() =>

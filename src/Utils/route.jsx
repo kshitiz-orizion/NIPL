@@ -24,6 +24,29 @@ export const PrivateRoute = props => {
   );
 };
 
+export const AdminRoute = props => {
+  const { component: Component, ...rest } = props;
+  const accessToken = getLocalStorage('accessToken');
+  const role=getLocalStorage('role');
+  const extraProps = {};
+
+  if (!Component) {
+    throw new Error(`Component can't be undefined`);
+  }
+  return (
+    <Route
+      {...rest}
+      render={rprops => {
+        return (accessToken && role==='admin') ? (
+          <Component {...rprops} {...extraProps} />
+        ) : (
+          <Redirect to={{ pathname: '/', state: { from: rprops.location } }} />
+        );
+      }}
+    />
+  );
+};
+
 export const PublicRoute = props => {
   const { component: Component, ...rest } = props;
   const accessToken = getLocalStorage('accessToken');
