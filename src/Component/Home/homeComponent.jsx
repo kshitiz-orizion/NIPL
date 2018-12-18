@@ -42,6 +42,66 @@ class HomeComponent extends Component{
 						<h3 className="headingDashboard">Dashboard</h3>
 					</div>
 			 		<div className="dashboardContainer">
+			 			<div className="innerdashboarddivNew countAssets" >
+			 				<h1 style={{fontSize:'15px'}} className="marginLeft">Machines</h1>
+			 					<div className="machineCount" >
+			 						<div className="innerContainer">0</div>
+			 						<div className="innerContainerHeading">Working</div>
+			 					</div>
+			 					<div className="machineCount" >
+			 						<div className="innerContainer">0</div>
+			 						<div className="innerContainerHeading">With Issues</div>
+			 					</div>
+			 					<div className="machineCount" >
+			 						<div className="innerContainer">0</div>
+			 						<div className="innerContainerHeading">Total</div>
+			 					</div>
+			 			</div> 
+			 			<div className="innerdashboarddivNew countAssets">
+			 				<h1 style={{fontSize:'15px'}} className="marginLeft">Vehicles</h1>
+			 					<div className="machineCount" >
+			 						<div className="innerContainer">0</div>
+			 						<div className="innerContainerHeading">Working</div>
+			 					</div>
+			 					<div className="machineCount" >
+			 						<div className="innerContainer">0</div>
+			 						<div className="innerContainerHeading">With Issues</div>
+			 					</div>
+			 					<div className="machineCount" >
+			 						<div className="innerContainer">0</div>
+			 						<div className="innerContainerHeading">Total</div>
+			 					</div>
+			 			</div>
+			 			<div className="innerdashboarddivNew countAssets" >
+			 				<h1 style={{fontSize:'15px'}} className="marginLeft">Spare Parts</h1>
+			 					<div className="machineCount" >
+			 						<div className="innerContainer">0</div>
+			 						<div className="innerContainerHeading">Working</div>
+			 					</div>
+			 					<div className="machineCount" >
+			 						<div className="innerContainer">0</div>
+			 						<div className="innerContainerHeading">With Issues</div>
+			 					</div>
+			 					<div className="machineCount" >
+			 						<div className="innerContainer">0</div>
+			 						<div className="innerContainerHeading">Total</div>
+			 					</div>
+			 			</div>
+			 			<div className="innerdashboarddivNew countAssets" >
+			 				<h1 style={{fontSize:'15px'}} className="marginLeft">Materials</h1>
+			 					<div className="machineCount" >
+			 						<div className="innerContainer">0</div>
+			 						<div className="innerContainerHeading">Working</div>
+			 					</div>
+			 					<div className="machineCount" >
+			 						<div className="innerContainer">0</div>
+			 						<div className="innerContainerHeading">With Issues</div>
+			 					</div>
+			 					<div className="machineCount" >
+			 						<div className="innerContainer">0</div>
+			 						<div className="innerContainerHeading">Total</div>
+			 					</div>
+			 			</div>
 			 			<div className="innerdashboarddiv dashboard1 innerdashboarddivflex">
 			 				<div className="subdashboarddiv">
 			 					<h1 style={{fontSize:'15px'}} className="marginLeft">Open Issues</h1>

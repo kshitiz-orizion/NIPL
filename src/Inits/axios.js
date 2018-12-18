@@ -12,9 +12,9 @@ export var axiosInterceptor = store => {
   instance.interceptors.request.use(
     async function(config) {
       var accessToken = getLocalStorage('accessToken');
-      if (accessToken) {
-        //config.headers['Authorization'] = `Bearer ${accessToken}`;
-      }
+      // if (accessToken) {
+      //   config.headers['Authorization'] = `Bearer ${accessToken}`;
+      // }
       return config;
     },
     function(error) {
@@ -51,20 +51,20 @@ const axiosService = {
     }
   },
   post: (endPoint, data, headers = {}) => {
-    var instance = axios.create({
-      baseURL: 'https://cors-anywhere.herokuapp.com/'+process.env.REACT_APP_NIPL_URL,
-    });
-  instance.interceptors.response.use(
-    response => {
-        return response.data;
-    },
-    errorResponse => {
-      // if (get(errorResponse, 'response.status') === 401) {
-      //   store.dispatch(removeUser());
-      // }
-      return Promise.reject(get(errorResponse, 'response.data') || { message: 'Something went wrong!' });
-    }
-  );
+  //   var instance = axios.create({
+  //     baseURL: 'https://cors-anywhere.herokuapp.com/'+process.env.REACT_APP_NIPL_URL,
+  //   });
+  // instance.interceptors.response.use(
+  //   response => {
+  //       return response.data;
+  //   },
+  //   errorResponse => {
+  //     // if (get(errorResponse, 'response.status') === 401) {
+  //     //   store.dispatch(removeUser());
+  //     // }
+  //     return Promise.reject(get(errorResponse, 'response.data') || { message: 'Something went wrong!' });
+  //   }
+  // );
     if (!(endPoint || !data)) {
       throw Error('endPoint and data are required params');
     }

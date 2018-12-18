@@ -8,7 +8,7 @@ import { LOGIN_START, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_SUCCESS } from './auth.
 export const login = ( {userCredential }) => async (dispatch, getState) => {
   try {
     dispatch({ type: LOGIN_START });
-     // var tokenInfo='';
+    // var tokenInfo='';
     if(userCredential.username==="kk1234" && userCredential.password==="kk1234"){
       setLocalStorage('accessToken',"abcd");
       toast.success('You have successfully logged in.');
@@ -18,10 +18,11 @@ export const login = ( {userCredential }) => async (dispatch, getState) => {
       setLocalStorage('role','admin');
       toast.success('You have successfully logged in.');
     }
-    // tokenInfo = await axiosService.post('/users/auth/login/', {mobile:Number(userCredential.username),password:userCredential.password});
+    //tokenInfo = await axiosService.post('/api/v1/rbac/auth/login/', userCredential);
     history.push('/home');
     
-    // dispatch({ type: LOGIN_SUCCESS, payload: tokenInfo.token });
+    //dispatch({ type: LOGIN_SUCCESS, payload: tokenInfo.token });
+    toast.success('You have successfully logged in.');
     dispatch({ type: LOGIN_SUCCESS, payload: "abcd" });
   } catch (error) {
     removeLocalStorage('accessToken');

@@ -22,6 +22,7 @@ class PurchaseContainer extends Component{
 		var vehicleList=[];
 		for(let key in machineIds){
 			await this.props.getMachineByID(key).then(function(res){
+				res.reason=machineIds[key];
 				machineList.push(res);
 			});
 		}

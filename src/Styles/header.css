@@ -1,5 +1,5 @@
-/*font-awesome*/
 
+/*font-awesome*/
 i.fa.fa-user-circle.userCircleProfile {
     font-size: 40px;
 }
@@ -25,30 +25,20 @@ i.fa.fa-user-circle.userCircleProfile {
 	margin:10px 10px 10px 10px;
 	text-align: center;
 }
-/*body {
-    font-family: "Lato", sans-serif;
-    width:100%;
-    height: 100%;
-    overflow-x: hidden;
-    background-color:#eee;
-}*/
 
 .sidenav{
-	height: calc(100vh - 60px);
-    width: auto;
+	width:0;
+	height: 100%;
     background-color: #00304C;
     position: fixed;
-    left: 0px;
-    top: 60px;
-    display: -ms-flexbox;
-    display: block;
-    -ms-flex-direction: column;
+    left:0;
+    top:0;
     flex-direction: column;
-    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
     z-index: 300;
     overflow-x: hidden;
     overflow-y: visible;
+  	transition: 0.5s;
 }
 .sideInnerScroll {
     height: auto;
@@ -192,6 +182,7 @@ i.fa.fa-user-circle.userCircleProfile {
 	justify-content: flex-start;
 	background-color: #eee;
 	margin-left: 5px;
+	transition: 0.5s;
 }
 
 
@@ -202,6 +193,13 @@ i.fa.fa-user-circle.userCircleProfile {
 	justify-content: space-around;
 	display: flex;
 	flex-direction: column;
+}
+
+.innerdashboarddivNew{
+	height: 300px;
+	margin:10px 10px 10px 10px;
+	justify-content: center;
+	justify-content: space-around;
 }
 
 
@@ -217,6 +215,17 @@ i.fa.fa-user-circle.userCircleProfile {
 	width:23%;
 	padding-left: 0;
 	padding-right: 0;
+}
+
+.countAssets{
+	width:23%;
+	padding-left: 0;
+	padding-right: 0;
+	border:1px solid #f1f1f1 ;
+	background-color: white;
+	border-radius: 5px;
+	box-shadow: 1px 1px 2px 2px #d1d1d1;
+	text-align: center;
 }
 .dashboard2{
 	width:47%;
@@ -246,6 +255,64 @@ i.fa.fa-user-circle.userCircleProfile {
 	box-sizing: border-box;
 	margin-top: 50px;
 	text-align: center;
+}
+.machineCount{
+	display: inline-block;
+	width:50%;
+	height: 100px;
+	text-align: center;
+	padding-bottom: 130px;
+	border-bottom: 1px solid #f1f1f1;
+}
+.myModal{
+	transition: 0.5s;
+	width:60vw;
+	height: 500px;
+	position: absolute;
+	top:-500px;
+	left:20vw;
+	z-index: 50000;
+	background-color: white;
+	border:1px solid black;
+	display: block;
+}
+
+.modalSurround{
+	width:100vw;
+	height:100vh;
+	background-color:grey;
+	z-index:500;
+	position:absolute;
+	top:-100vh;
+	opacity:0.5;
+	transition: 0.5s;
+}
+.modalButton{
+	position: relative;
+    top: 65px;
+    left: 42%;
+}
+.myModalHeadingContainer{
+	    font-size: 30px;
+    border-bottom: 1px solid #f1f1f1;
+    text-align: center;
+    padding-bottom: 50px;
+    padding-top: 30px;
+}
+.bottomDivider{
+	border-bottom: 1px solid #f1f1f1;
+	padding-bottom: 30px;
+}
+.form-group .row{
+	margin-left: 0px;
+	margin-right: 0px;
+}
+.closeModal{
+	float: right;
+    position: relative;
+    bottom: 24px;
+    right: 20px;
+    cursor: pointer;
 }
 .innerContainer{
 	position:relative;
@@ -406,6 +473,7 @@ ul{
 	border-bottom:1px solid #111;
 	background-color:white;
 	margin-top:-4px;
+	transition: 0.5s;
 }
 .headingCreateMachine{
 	position:relative;
@@ -500,7 +568,9 @@ ul{
 .rbt-input-multi .rbt-input-hint-container {
     display: inline-block;
 }
-
+.container-fluid{
+padding-left: 0px;
+}
 .rbt-input-multi {
     cursor: text;
     overflow: hidden;
@@ -687,4 +757,8 @@ ul{
     padding-top: 6%;
     position: relative;
     bottom: 13px;	
+}
+.menuIcon{
+	position: relative;
+    left: 25px;
 }

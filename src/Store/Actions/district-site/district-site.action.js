@@ -19,7 +19,7 @@ import {
 export const getDistrictsites = () => async dispatch => {
   try {
     dispatch({ type: GET_DISTRICTSITES_START });
-    const districts=await axiosService.get('/location/districts/');
+    const districts=await axiosService.get('/rbac/location/districts/');
     dispatch({ type: GET_DISTRICTSITES_SUCCESS, payload: districts });
   } catch (error) {
     toast.error(error.message || 'something went wrong.');
@@ -29,7 +29,7 @@ export const getDistrictsites = () => async dispatch => {
 
 export const getDistrictsiteByID = districtId => async dispatch => {
   try {
-    const district = await axiosService.get('/location/districts/'+districtId);
+    const district = await axiosService.get('/rbac/location/districts/'+districtId);
     return Promise.resolve(district);
   } catch (error) {
     toast.error(error.message || 'something went wrong.');
@@ -41,7 +41,7 @@ export const getDistrictsiteByID = districtId => async dispatch => {
 export const createDistrictsite = machines => async dispatch => {
   try{
     dispatch({type: CREATE_DISTRICTSITE_START});
-    const createdDistrictsite=await axiosService.post('/location/districts/',machines,{'Content-type':'multipart/form-data'});
+    const createdDistrictsite=await axiosService.post('/rbac/location/districts/',machines,{'Content-type':'multipart/form-data'});
     toast.success('Successfully created.');
     dispatch({ type: CREATE_DISTRICTSITE_SUCCESS, payload: createdDistrictsite });
     history.push('/machine');
@@ -55,7 +55,7 @@ export const createDistrictsite = machines => async dispatch => {
 export const editDistrictsite = machines => async dispatch => {
   try {
     dispatch({ type: EDIT_DISTRICTSITE_START });
-    const machineEdit=await axiosService.put('/location/districts/'+machines.id,machines,{'Content-type':'multipart/form-data'});
+    const machineEdit=await axiosService.put('/rbac/location/districts/'+machines.id,machines,{'Content-type':'multipart/form-data'});
     toast.success('Successfully saved.');
     dispatch({ type: EDIT_DISTRICTSITE_SUCCESS, payload: machineEdit });
     history.push('/machine');
@@ -68,7 +68,7 @@ export const editDistrictsite = machines => async dispatch => {
 export const deleteDistrictsite= machine =>async dispatch=>{
   try{
     dispatch({type:DELETE_DISTRICTSITE_START});
-    await axiosService.delete('/location/districts/'+machine.id);
+    await axiosService.delete('/rbac/location/districts/'+machine.id);
     dispatch({type:DELETE_DISTRICTSITE_SUCCESS,payload:machine});
     toast.success('Successfully Deleted');
   }

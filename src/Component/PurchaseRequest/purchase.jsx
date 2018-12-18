@@ -37,6 +37,8 @@ class ListPurchase extends Component{
 					        <th>#</th>
 					        <th>Machine Name</th>
 					        <th>Site</th>
+					        <th>Condition</th>
+					        <th>Reason</th>
 					      </tr>
 					    </thead>
 					    <tbody>
@@ -45,6 +47,8 @@ class ListPurchase extends Component{
 							<td>{i+1}</td>
 							<td>{machine.name}</td>
 							<td>{machine.site.name}</td>
+							<td>{machine.condition.name}</td>
+							<td>{machine.reason}</td>
 							<td>
 								<button className="btn btn-danger btn-sm" onClick={()=>this.removeFromList(machine.id,i,'machines')}><i className="fa fa-trash" aria-hidden="true"></i>Remove</button>
 							</td>

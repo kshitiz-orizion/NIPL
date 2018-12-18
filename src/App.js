@@ -111,7 +111,7 @@ class App extends Component {
         <Router history={history}>
           <div>            
             <ToastContainer autoClose={5000} />
-            <div className="bodyContainer">
+            <div id="bodyContainer" className="bodyContainer">
                 <PublicRoute exact={true} path="/" component={LoginContainer} />
                 <PrivateRoute exact={true} path="/machines" component={MachineContainer} />
                 <PrivateRoute exact={true} path="/machines/:id" component={CreateMachinesContainer} />

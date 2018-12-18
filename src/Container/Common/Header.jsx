@@ -151,34 +151,43 @@ export class Header extends Component{
 	logout=()=>{
 	    this.props.removeUser();
 	}
-
+	hideNav=()=>{
+		const navbar=document.getElementById('sidenav').style.width="0px";
+		const bodyContainer=document.getElementById('bodyContainer');
+		bodyContainer.setAttribute("style","margin-left:0px");
+		const topHeading=document.getElementsByClassName('topHeadingContainer')[0];
+		if(topHeading){
+		topHeading.setAttribute("style","width:100vw");
+		}
+	}
+	showNav=()=>{
+		document.getElementById('sidenav').style.width="15vw";
+		const bodyContainer=document.getElementById('bodyContainer');
+		bodyContainer.setAttribute("style","margin-left:15vw");
+		const topHeading=document.getElementsByClassName('topHeadingContainer')[0];
+		if(topHeading){
+		topHeading.setAttribute("style","width:88vw");
+		}	
+	}
 	render(){
 		const dashboardClass=window.location.pathname.slice(0,5)==='/home'? "menuActive" :"";
 		const machineClass=window.location.pathname.slice(0,8)==='/machine'? "menuActive" :"";
-		// const engineClass=window.location.pathname.slice(0,7)==='/engine'? "menuActive" :"";
-		// const locationClass=(
-		// 		(window.location.pathname.slice(0,10)==='/statesite')
-		// 		||(window.location.pathname.slice(0,13)==='/districtsite')
-		// 		||(window.location.pathname.slice(0,5)==='/site')
-		// 		)? "menuActive" :"";
-		// const conditionClass=window.location.pathname.slice(0,10)==='/condition'? "menuActive" :"";
-		// const categoryClass=window.location.pathname.slice(0,9)==='/category'?"menuActive":"";
-		// const subcategoryClass=window.location.pathname.slice(0,12)==='/subcategory'?"menuActive":"";
 		const vehicleClass=window.location.pathname.slice(0,8)==='/vehicle'?"menuActive":"";
 		const spareClass=window.location.pathname.slice(0,5)==='/part'?"menuActive":"";
 		const purchaseClass=window.location.pathname.slice(0,9)==='/purchase'?"menuActive":"";
 		return(
 			<div>
 				<div className="header" >
-					<div className="divContainer logoContainer" >
-						<img src={process.env.PUBLIC_URL + '/car.svg'} alt="/car"/>
+					<div className="divContainer logoContainer" onClick={this.showNav}>
+						{/*<img src={process.env.PUBLIC_URL + '/car.svg'} alt="/car"/>*/}
+						<div className="menuIcon" ><i className="fa fa-align-justify"></i></div>
 					</div>
-					<div className="divContainer col-xs-4 col-sm-4 ">
+					<div className="divContainer searchBarHeader col-xs-4 col-sm-4 ">
 						<input type="text" className="form-control inputHeader"  placeholder="Search..."  />
 					</div>
-					<button className="divContainer plusHeader">
+					{/*<button className="divContainer plusHeader">
 						<i className="fa fa-plus plusIconHeader" aria-hidden="true"></i>
-					</button>
+					</button>*/}
 					<div className="divContainer profileHeader" >
 						<section >
 						<i className="fa fa-angle-down angledownProfile" ></i>
@@ -199,7 +208,7 @@ export class Header extends Component{
 							</ul>
 						</div>}
 					</div>
-					<div className="divContainer companyHeader" >
+					{/*<div className="divContainer companyHeader" >
 						<div className="row innerCompanyHeader">
 							<div className="nameCompanyHeader">Company Name</div>
 							<div className="angeldownCompany"><i className="fa fa-angle-down"></i></div>
@@ -226,18 +235,22 @@ export class Header extends Component{
 
 							</ul>
 						</div>	}
-					</div>
+					</div>*/}
 					<div className="divContainer companyHeader cartIconContainer" onClick={()=>history.push('/purchase')}>
 						<i className="fa fa-shopping-cart cartIcon"></i>{this.props.PurchaseCount!==0 && <div className="purchaseCounter">{this.props.PurchaseCount}</div>}
 					</div>
 				</div>
-				<div className="sidenav">
+				<div id="sidenav" className="sidenav">
 					<div className="sideInnerScroll">
-
-						<div className={`innersidenav ${dashboardClass}`} onClick={()=>history.push('/home')}>
-						<div  className="menuName" >
-							Dashboard
+						<div className="innersidenav" onClick={this.hideNav}>
+							<div className="menuName" >
+								<div ><i className="fa fa-align-justify"></i></div>
+							</div>
 						</div>
+						<div className={`innersidenav ${dashboardClass}`} onClick={()=>history.push('/home')}>
+							<div  className="menuName" >
+								Dashboard
+							</div>
 						</div>
 						<div className={`innersidenav ${machineClass}`}>
 							<div  className="menuName" onClick={()=>this.showMachine()}>
@@ -308,85 +321,6 @@ export class Header extends Component{
 								</div>
 							}
 						</div>
-						{/*<div className={`innersidenav ${conditionClass}`}>
-							<div  className="menuName" onClick={()=>this.showCondition()}>
-							Condition{this.state.condition?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
-							</div>
-							{this.state.condition && <div><div className="submenu" onClick={()=>history.push('/conditions')}>
-							View Condition
-							</div>
-							<div className="submenu" onClick={()=>history.push('/condition/create')}>
-							Create Condition
-							</div></div>}
-						</div>
-						<div className={`innersidenav ${engineClass}`}>
-							<div  className="menuName" onClick={()=>this.showEnginebrand()}>
-							Engine {this.state.enginebrand?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
-							</div>
-							{this.state.enginebrand && 
-								<div>
-									<div className="submenu" onClick={()=>history.push('/enginebrands')}>
-										Engine Brands
-									</div>
-									<div className="submenu" onClick={()=>history.push('/enginebrand/create')}>
-										Create Engine Brand
-									</div>
-									<div className="submenu" onClick={()=>history.push('/enginemodels')}>
-										Engine Models
-									</div>
-									<div className="submenu" onClick={()=>history.push('/enginemodel/create')}>
-										Create Engine Model
-									</div>
-								</div>}
-						</div>
-						<div className={`innersidenav ${categoryClass}`}>
-							<div  className="menuName" onClick={()=>this.showCategory()}>
-							Category{this.state.category?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
-							</div>
-							{this.state.category && <div><div className="submenu" onClick={()=>history.push('/categorys')}>
-							View Category
-							</div>
-							<div className="submenu" onClick={()=>history.push('/category/create')}>
-							Create Category
-							</div></div>}
-						</div>
-						<div className={`innersidenav ${subcategoryClass}`}>
-							<div  className="menuName" onClick={()=>this.showSubcategory()}>
-							Sub Category{this.state.subcategory?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
-							</div>
-							{this.state.subcategory && <div><div className="submenu" onClick={()=>history.push('/subcategorys')}>
-							View Sub-Category
-							</div>
-							<div className="submenu" onClick={()=>history.push('/subcategory/create')}>
-							Create Sub-Category
-							</div></div>}
-						</div>
-						<div className={`innersidenav ${locationClass}`}>
-							<div  className="menuName" onClick={()=>this.showStatesite()}>
-							Location{this.state.statesite?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
-							</div>
-							{this.state.statesite && 
-								<div>
-									<div className="submenu" onClick={()=>history.push('/statesites')}>
-										View State
-									</div>
-									<div className="submenu" onClick={()=>history.push('/statesite/create')}>
-										Create State
-									</div>
-									<div className="submenu" onClick={()=>history.push('/districtsites')}>
-										View District
-									</div>
-									<div className="submenu" onClick={()=>history.push('/districtsite/create')}>
-										Create District
-									</div>
-									<div className="submenu" onClick={()=>history.push('/sites')}>
-										View Site
-									</div>
-									<div className="submenu" onClick={()=>history.push('/site/create')}>
-										Create Site
-									</div>
-								</div>}
-						</div>*/}
 					</div>
 				</div>
 			</div>

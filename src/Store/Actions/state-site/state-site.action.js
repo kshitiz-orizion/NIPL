@@ -19,7 +19,7 @@ import {
 export const getStatesites = () => async dispatch => {
   try {
     dispatch({ type: GET_STATESITES_START });
-    const states=await axiosService.get('/location/states/');
+    const states=await axiosService.get('/rbac/location/states/');
     dispatch({ type: GET_STATESITES_SUCCESS, payload: states });
   } catch (error) {
     toast.error(error.message || 'something went wrong.');
@@ -31,7 +31,7 @@ export const getStatesiteByID = stateId => async dispatch => {
   try {
     var state={name:'',id:''};
     if(stateId!==null){
-    state = await axiosService.get('/location/states/'+stateId);
+    state = await axiosService.get('/rbac/location/states/'+stateId);
     }
     return Promise.resolve(state);
   } catch (error) {
@@ -71,7 +71,7 @@ export const editStatesite = machines => async dispatch => {
 export const deleteStatesite= machine =>async dispatch=>{
   try{
     dispatch({type:DELETE_STATESITE_START});
-    await axiosService.delete('/location/states/'+machine.id);
+    await axiosService.delete('/rbac/location/states/'+machine.id);
     dispatch({type:DELETE_STATESITE_SUCCESS,payload:machine});
     toast.success('Successfully Deleted');
   }
