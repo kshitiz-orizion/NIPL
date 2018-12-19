@@ -269,12 +269,13 @@ i.fa.fa-user-circle.userCircleProfile {
 	width:60vw;
 	height: 500px;
 	position: absolute;
-	top:-500px;
+	top:-600px;
 	left:20vw;
 	z-index: 50000;
 	background-color: white;
-	border:1px solid black;
 	display: block;
+	border-radius: 5px;
+	box-shadow: 0 2px 5px 3px #000;
 }
 
 .modalSurround{
@@ -303,7 +304,7 @@ i.fa.fa-user-circle.userCircleProfile {
 	border-bottom: 1px solid #f1f1f1;
 	padding-bottom: 30px;
 }
-.form-group .row{
+.myModal form div{
 	margin-left: 0px;
 	margin-right: 0px;
 }
@@ -468,7 +469,7 @@ ul{
 	font-size: 13px;
 }
 .topHeadingContainer{
-	width:88vw;
+	width:100vw;
 	height:50px;
 	border-bottom:1px solid #111;
 	background-color:white;

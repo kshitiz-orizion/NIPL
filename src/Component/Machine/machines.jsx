@@ -2,13 +2,12 @@ import React,{Component} from 'react';
 import history from '../../Inits/history';
 const Modal=(props)=>{
 	const myFunction=()=>{
-		document.getElementById("myModal").style.top="-500px";
+		document.getElementById("myModal").style.top="-600px";
 		document.getElementById("modalSurround").style.top="-100vh";
 	}
 	const ShowData=()=>{
 		props.GPRfunction(props.id,props.reason);
-		document.getElementById("myModal").style.top="-500px";
-		document.getElementById("modalSurround").style.top="-100vh";
+		myFunction();
 	}
 	return (
 		<div>
@@ -36,6 +35,38 @@ const Modal=(props)=>{
 		</div>
 		)
 }
+
+export const RemoveModal=(props)=>{
+	const Cancel=()=>{
+		myFunction();
+	}
+	const Proceed=()=>{
+		props.removeGPRfunction(props.id,props.i,props.label);
+		myFunction();
+	}
+	const myFunction=()=>{
+		document.getElementById("removeModal").style.top="-600px";
+		document.getElementById("modalSurround").style.top="-100vh";
+	}
+	return (
+		<div>
+			<div id="removeModal" className="myModal">
+				<div className="myModalHeadingContainer">
+					Delete {props.name} from Purchase List
+					<div onClick={myFunction} className="closeModal">
+					&times;
+					</div>
+				</div>
+		  		<form style={{paddingTop:'60px'}}>
+				  <button type="button" className="btn btn-lg btn-danger modalButton" onClick={Cancel}>Cancel</button>
+				  <button type="button" className="btn btn-lg btn-primary modalButton" onClick={Proceed}>Proceed</button>
+				</form>
+		  	</div>
+		  	<div id="modalSurround" className="modalSurround">
+		  	</div>
+		</div>
+	)
+}
 class ListMachine extends Component{
 	componentWillMount(){
 		this.setState({
@@ -57,7 +88,10 @@ class ListMachine extends Component{
 			esnumShowFilter:false,
 			machinesInCart:JSON.parse(localStorage['cart'])['machines'],
 			status:'',
-			reason:''
+			reason:'',
+			machineToRepairID:'',
+			machineToRepairName:'',
+			machineToRepairCondition:''
 		});
 		var codesFilter=[];
 		var snumberFilter=[];
@@ -81,12 +115,20 @@ class ListMachine extends Component{
 	componentDidMount(){
 		this.mounted=true;
 		document.addEventListener('mousedown', this.handleClickOutside);
+		if(document.getElementById('sidenav').style.width==='15vw'){
+			document.getElementsByClassName('topHeadingContainer')[0].setAttribute("style","width:88vw");
+		}
 		
 	}
 	handleClickOutside=(e)=>{
 		for(var i=0;i<e['path'].length;i++){
 			if(e['path'][i].className ==='modalSurround'){
+				if(document.getElementById("myModal")!==undefined){
 				document.getElementById("myModal").style.top="-500px";
+				}
+				if(document.getElementById("removeModal")!==undefined){
+				document.getElementById("removeModal").style.top="-500px";
+				}
 				document.getElementById("modalSurround").style.top="-100vh";
 			}
 		}
@@ -115,7 +157,7 @@ class ListMachine extends Component{
 		});
 		this.props.machineInfo.purchaseCounter();
 	}
-	RemoveGPR=(machine)=>{
+	removeGPR=(machine)=>{
 		var a =JSON.parse(localStorage['cart']);
 		delete a['machines'][machine];
 		localStorage['cart']=JSON.stringify(a);
@@ -363,13 +405,20 @@ class ListMachine extends Component{
 			[label]:!this.state[label]
 		});
 	}
-	showModal=(machine)=>{
+	showModal=(machine,label)=>{
 		this.setState({
 			machineToRepairID:machine.id,
 			machineToRepairName:machine.name,
-			machineToRepairCondition:machine.condition.name
+			machineToRepairCondition:machine.condition.name,
+			reason:'',
+
 		});
+		if(label==='add'){
 		document.getElementById("myModal").style.top="50px";
+		}
+		else{
+			document.getElementById('removeModal').style.top="50px";
+		}
 		document.getElementById("modalSurround").style.top="0";
 	}
 	render(){
@@ -533,8 +582,8 @@ class ListMachine extends Component{
 								<button className="btn btn-default btn-sm paddingActionButton" onClick={()=>this.detailMachine(machine)}><i className="fa fa-pencil" aria-hidden="true"></i>Details</button>
 								<button className="btn btn-primary btn-sm paddingActionButton" onClick={()=>this.deleteMachine(machine)}><i className="fa fa-trash" aria-hidden="true"></i>Delete</button>
 								{JSON.parse(localStorage['cart'])['machines'][machine.id]===undefined
-								?<button className="btn btn-success btn-sm paddingActionButton" onClick={()=>this.showModal(machine)}>Buy</button>
-								:<button className="btn btn-danger btn-sm paddingActionButton" onClick={()=>this.RemoveGPR(machine.id)}>Remove</button>}
+								?<button className="btn btn-success btn-sm paddingActionButton" onClick={()=>this.showModal(machine,'add')}>Buy</button>
+								:<button className="btn btn-danger btn-sm paddingActionButton" onClick={()=>this.showModal(machine,'remove')}>Remove</button>}
 							</td>
 						</tr>
 					))}
@@ -549,6 +598,12 @@ class ListMachine extends Component{
 	  			GPRfunction={this.GPR}
 	  			condition={this.state.machineToRepairCondition}
 	  			reason={this.state.reason} />
+	  			<RemoveModal 
+	  			id={this.state.machineToRepairID} 
+	  			name={this.state.machineToRepairName}
+	  			removeGPRfunction={this.removeGPR}
+	  			condition={this.state.machineToRepairCondition}
+	  			/>
 			</div>
 		)
 	}

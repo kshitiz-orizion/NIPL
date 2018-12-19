@@ -9,6 +9,11 @@ class HomeComponent extends Component{
 	componentWillMount(){
 	}
 	render(){
+		const notWorking=Object.keys(JSON.parse(localStorage['cart'])['machines']).length;
+		var Working=0;
+		if(this.props.machineInfo.machines!==undefined){
+			Working=Number(this.props.machineInfo.machines.length)-Number(notWorking);
+		}
 		const data = [
 		  ["Year", "Sales"],
 		  ["JAN", 1000],
@@ -45,15 +50,15 @@ class HomeComponent extends Component{
 			 			<div className="innerdashboarddivNew countAssets" >
 			 				<h1 style={{fontSize:'15px'}} className="marginLeft">Machines</h1>
 			 					<div className="machineCount" >
-			 						<div className="innerContainer">0</div>
+			 						<div className="innerContainer">{Working}</div>
 			 						<div className="innerContainerHeading">Working</div>
 			 					</div>
 			 					<div className="machineCount" >
-			 						<div className="innerContainer">0</div>
-			 						<div className="innerContainerHeading">With Issues</div>
+			 						<div className="innerContainer">{notWorking}</div>
+			 						<div className="innerContainerHeading">with Issues</div>
 			 					</div>
 			 					<div className="machineCount" >
-			 						<div className="innerContainer">0</div>
+			 						<div className="innerContainer">{this.props.machineInfo.machines?this.props.machineInfo.machines.length:0}</div>
 			 						<div className="innerContainerHeading">Total</div>
 			 					</div>
 			 			</div> 

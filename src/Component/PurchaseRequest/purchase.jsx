@@ -1,5 +1,6 @@
-import React,{Component} from 'react';
+import React,{Component,Fragment} from 'react';
 import history from '../../Inits/history';
+import {RemoveModal} from '../Machine/machines.jsx';
 class ListPurchase extends Component{
 	componentWillMount(){
 	}
@@ -20,6 +21,17 @@ class ListPurchase extends Component{
 		this.props.purchaseInfo[list].splice(i,1);
 		this.props.purchaseInfo.purchaseCounterDecrease();
 		this.forceUpdate();
+	}
+	showModal=(machine,i,label)=>{
+		this.setState({
+			machineToRepairID:machine.id,
+			machineToRepairName:machine.name,
+			machineToRepairCondition:machine.condition.name,
+			i:i,
+			label:label,
+		});
+		document.getElementById('removeModal').style.top="50px";
+		document.getElementById("modalSurround").style.top="0";
 	}
 	render(){
 		return (
@@ -50,7 +62,7 @@ class ListPurchase extends Component{
 							<td>{machine.condition.name}</td>
 							<td>{machine.reason}</td>
 							<td>
-								<button className="btn btn-danger btn-sm" onClick={()=>this.removeFromList(machine.id,i,'machines')}><i className="fa fa-trash" aria-hidden="true"></i>Remove</button>
+								<button className="btn btn-danger btn-sm" onClick={()=>this.showModal(machine,i,'machines')}><i className="fa fa-trash" aria-hidden="true"></i>Remove</button>
 							</td>
 						</tr>
 					))}
@@ -72,13 +84,21 @@ class ListPurchase extends Component{
 							<td>{vehicle.model.make.name}{' '}{vehicle.model.name}</td>
 							<td>{vehicle.site.name}</td>
 							<td>
-								<button className="btn btn-danger btn-sm" onClick={()=>this.removeFromList(vehicle.id,i,'vehicles')}><i className="fa fa-trash" aria-hidden="true"></i>Remove</button>
+								<button className="btn btn-danger btn-sm" onClick={()=>this.showModal(vehicle,i,'vehicles')}><i className="fa fa-trash" aria-hidden="true"></i>Remove</button>
 							</td>
 						</tr>
 					))}
 					    </tbody>
 	  				</table>
 	  			</div>
+		  			<RemoveModal 
+		  			id={this.state?this.state.machineToRepairID:''} 
+		  			name={this.state?this.state.machineToRepairName:''}
+		  			condition={this.state?this.state.machineToRepairCondition:''}
+		  			label={this.state?this.state.label:''}
+		  			i={this.state?this.state.i:''}
+		  			removeGPRfunction={this.removeFromList}
+		  			/>
 			</div>
 		)
 	}

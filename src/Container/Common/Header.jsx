@@ -50,6 +50,9 @@ export class Header extends Component{
 			if(event['path'][i].className==='profileDrop'){
 				profile='DONT SHOW';
 			}
+			if(event['path'][i].className==='profileDropList logOut'){
+				this.logout();
+			}
 		}
 		if(company==='HIDE PROFILE'){
 			this.setState({
@@ -204,7 +207,7 @@ export class Header extends Component{
 								<li className="profileDropList"><i className="fa fa-gear marginLogo"></i>User Settings</li>
 								<li className="profileDropList"><i className="fa fa-bell marginLogo" aria-hidden="true"></i>Notification Setting</li>
 								<div className="dividerProfile"></div>
-								<li className="profileDropList" onClick={this.logout}><i className="fa fa-sign-out marginLogo" aria-hidden="true"></i>Logout</li>
+								<li className="profileDropList logOut" style={{cursor:'pointer'}} onClick={this.logout}><i className="fa fa-sign-out marginLogo" aria-hidden="true"></i>Logout</li>
 							</ul>
 						</div>}
 					</div>

@@ -61,6 +61,9 @@ class ListVehicle extends Component{
 		});
 	}
 	componentDidMount(){
+		if(document.getElementById('sidenav').style.width==='15vw'){
+			document.getElementsByClassName('topHeadingContainer')[0].setAttribute("style","width:88vw");
+		}
 	}
 	AddVehicle=()=>{
 		history.push('/vehicle/create');
