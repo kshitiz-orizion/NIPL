@@ -150,11 +150,10 @@ class Header extends Component{
 		return user?(
 			<div>
 				<div className="header" >
-					<div className="divContainer logoContainer" onClick={this.showNav}>
-						{/*<img src={process.env.PUBLIC_URL + '/car.svg'} alt="/car"/>*/}
-						<div className="menuIcon" ><i className="fa fa-align-justify"></i></div>
+					<div className="divContainer logoContainer" >
+						<div className="menuIcon"onClick={this.showNav} ><i className="fa fa-align-justify" style={{marginTop:'10px',fontSize:'30px'}}/></div>
 					</div>
-					<div className="divContainer searchBarHeader col-xs-4 col-sm-4 ">
+					<div className="divContainer searchBarContainer">
 						<input type="text" className="form-control inputHeader"  placeholder="Search..."  />
 					</div>
 					{/*<button className="divContainer plusHeader">
@@ -214,9 +213,11 @@ class Header extends Component{
 				</div>
 				<div id="sidenav" className="sidenav">
 					<div className="sideInnerScroll">
-						<div className="innersidenav" onClick={this.hideNav}>
-							<div className="menuName" >
-								<div ><i className="fa fa-align-justify"></i></div>
+						<div className="innersidenav" >
+							<div className="menuName" style={{position: 'relative',top:'4px'}}>
+								<div className="menuIconContainer" onClick={this.hideNav}>
+									<i style={{marginTop:'10px',fontSize:'30px'}} className="fa fa-align-justify"/>
+								</div>
 							</div>
 						</div>
 						<div className={`innersidenav ${dashboardClass}`} onClick={()=>history.push('/home')}>

@@ -777,5 +777,37 @@ padding-left: 0px;
 }
 .menuIcon{
 	position: relative;
-    left: 25px;
+	bottom: 5px;
+	left: 10px;
+	border-radius: 50%;
+	text-align: center;
+	width: 50px;
+	height: 50px;
+}
+.menuIcon:active{
+	background-color: #f1f1f1;
+}
+
+.innersidenav:first-child{
+	height:60px;
+}
+
+.menuIconContainer{
+	position: relative;
+	border-radius: 50%;
+	text-align: center;
+	width: 50px;
+	height: 50px;
+	right: 15px;
+	bottom: 13px;
+}
+
+.menuIconContainer:active{
+	background-color:#f1f1f1;
+}
+
+.searchBarContainer{
+	position: absolute;
+	margin-left: 30px;
+	width: 33%;
 }
