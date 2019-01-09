@@ -151,7 +151,7 @@ class Header extends Component{
 			<div>
 				<div className="header" >
 					<div className="divContainer logoContainer" >
-						<div className="menuIcon"onClick={this.showNav} ><i className="fa fa-align-justify" style={{marginTop:'10px',fontSize:'30px'}}/></div>
+						<div className="menuIcon"onClick={this.showNav} ><i className="fa fa-align-justify" style={{marginTop:'15px'}}/></div>
 					</div>
 					<div className="divContainer searchBarContainer">
 						<input type="text" className="form-control inputHeader"  placeholder="Search..."  />
@@ -216,7 +216,7 @@ class Header extends Component{
 						<div className="innersidenav" >
 							<div className="menuName" style={{position: 'relative',top:'4px'}}>
 								<div className="menuIconContainer" onClick={this.hideNav}>
-									<i style={{marginTop:'10px',fontSize:'30px'}} className="fa fa-align-justify"/>
+									<i style={{marginTop:'15px'}} className="fa fa-align-justify"/>
 								</div>
 							</div>
 						</div>
