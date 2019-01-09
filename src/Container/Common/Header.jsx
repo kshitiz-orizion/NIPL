@@ -149,8 +149,8 @@ class Header extends Component{
 		const spareClass=window.location.pathname.slice(0,5)==='/part'?"menuActive":"";
 		const purchaseClass=window.location.pathname.slice(0,9)==='/purchase'?"menuActive":"";
 		const { user } =this.props;
-		return(
-			<div>ya
+		return user?(
+			<div>
 				<div className="header" >
 					<div className="divContainer logoContainer" onClick={this.showNav}>
 						{/*<img src={process.env.PUBLIC_URL + '/car.svg'} alt="/car"/>*/}
@@ -298,7 +298,7 @@ class Header extends Component{
 					</div>
 				</div>
 			</div>
-		)
+		):null
 
 	}
 }

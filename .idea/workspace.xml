@@ -2,27 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dcb48423-8e5a-4b73-a906-9630acc6f1a8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Home/homeComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Home/homeComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Login/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Login/Login.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Machine/machines.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Machine/machines.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Machinebrand/machinebrands.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Machinebrand/machinebrands.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Machinemodel/machinemodels.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Machinemodel/machinemodels.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/PurchaseRequest/purchase.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/PurchaseRequest/purchase.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Sparepart/parts.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Sparepart/parts.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Vehicle/vehicles.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Vehicle/vehicles.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Container/Common/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Container/Common/Header.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Container/Condition/conditionContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Container/Condition/conditionContainer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Container/Home/homeContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Container/Home/homeContainer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Container/Machine/machineContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Container/Machine/machineContainer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Container/PurchaseRequest/purchaseContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Container/PurchaseRequest/purchaseContainer.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Store/Actions/auth/auth.action.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Store/Actions/auth/auth.action.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Store/Reducers/auth.reducer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Store/Reducers/auth.reducer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Styles/abcd.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Styles/header.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Styles/header.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Styles/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Styles/login.css" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -35,11 +15,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Container/Common/Header.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="152" column="19" selection-start-line="152" selection-start-column="19" selection-end-line="152" selection-end-column="19" />
+            <state relative-caret-position="445">
+              <caret line="300" column="14" selection-start-line="300" selection-start-column="14" selection-end-line="300" selection-end-column="14" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -77,11 +57,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Styles/header.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="292">
-              <caret line="485" column="22" lean-forward="true" selection-start-line="485" selection-start-column="22" selection-end-line="485" selection-end-column="22" />
+            <state relative-caret-position="402">
+              <caret line="490" column="22" lean-forward="true" selection-start-line="490" selection-start-column="22" selection-end-line="490" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -93,6 +73,7 @@
       <find>filter</find>
       <find>modal</find>
       <find>submenu</find>
+      <find>topHead</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -116,9 +97,9 @@
         <option value="$PROJECT_DIR$/src/Inits/axios.js" />
         <option value="$PROJECT_DIR$/src/Component/Home/homeComponent.jsx" />
         <option value="$PROJECT_DIR$/src/Container/Home/homeContainer.jsx" />
-        <option value="$PROJECT_DIR$/src/Container/Common/Header.jsx" />
         <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/src/Styles/header.css" />
+        <option value="$PROJECT_DIR$/src/Container/Common/Header.jsx" />
       </list>
     </option>
   </component>
@@ -203,12 +184,12 @@
       <workItem from="1546941353204" duration="6062000" />
       <workItem from="1547012559421" duration="4030000" />
       <workItem from="1547017448927" duration="2545000" />
-      <workItem from="1547021064616" duration="3065000" />
+      <workItem from="1547021064616" duration="3301000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55550000" />
+    <option name="totallyTimeSpent" value="55786000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1044" extended-state="6" />
@@ -216,9 +197,9 @@
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info id="npm" order="1" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.24828677" />
+      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.24828677" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="0" visible="true" weight="0.29517397" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="0" visible="true" weight="0.29517397" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="2" />
       <window_info anchor="bottom" id="Docker" order="3" show_stripe_button="false" />
@@ -390,16 +371,6 @@
     <entry file="file://$PROJECT_DIR$/src/logo.svg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Container/Common/Header.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="152" column="19" selection-start-line="152" selection-start-column="19" selection-end-line="152" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="418">
@@ -426,8 +397,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Styles/header.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="485" column="22" lean-forward="true" selection-start-line="485" selection-start-column="22" selection-end-line="485" selection-end-column="22" />
+        <state relative-caret-position="402">
+          <caret line="490" column="22" lean-forward="true" selection-start-line="490" selection-start-column="22" selection-end-line="490" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Container/Common/Header.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="445">
+          <caret line="300" column="14" selection-start-line="300" selection-start-column="14" selection-end-line="300" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
