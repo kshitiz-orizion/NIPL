@@ -1,11 +1,14 @@
 import React, {Component } from 'react';
+import {withRouter} from 'react-router-dom';
 import '../../Styles/header.css';
-import {removeUser,getCurrentUser} from '../../Store/Actions/auth/auth.action';
+import {removeUser,getCurrentUser,refreshToken } from '../../Store/Actions/auth/auth.action';
 import { connect } from 'react-redux';
 import history from '../../Inits/history';
 import {setPurchaseCounter} from '../../Store/Actions/machine/machine.action';
-export class Header extends Component{
-	componentWillMount(){	
+import jwt_decode from 'jwt-decode';
+import moment from 'moment';
+class Header extends Component{
+	componentWillMount(){
 		this.setState({
 			menu1:false,
 			profile:false,
@@ -23,41 +26,60 @@ export class Header extends Component{
 			vehicle:false,
 			spare:false,
 			purchase:false,
-			count:0
-		})
-		if(localStorage['cart']===undefined){
-				localStorage['cart']=JSON.stringify({machines:{},vehicles:{}});
+			count:0,
+            decoded:{},
+		},this.getTokenData);
+		if(localStorage['cart']===undefined) {
+			localStorage['cart'] = JSON.stringify({machines: {}, vehicles: {}});
 		}
 		this.setPurchase();
 	}
-
 	componentDidMount(){
+		if(this.state.IntervalForRefresh!==undefined){
+            setInterval(this.getRefreshToken,this.state.IntervalForRefresh);
+        }
 		document.addEventListener('mousedown', this.handleClickOutside);
 	}
-	handleClickOutside=(event)=>{
-		var company='';
-		var profile='';
-		for(var i=0;i<event['path'].length;i++){
-			if(event['path'][i].className==='row innerCompanyHeader'){
-				company='HIDE PROFILE';
-			}
-			if(event['path'][i].className==='divContainer profileHeader'){
-				profile='HIDE COMPANY';
-			}
-			if(event['path'][i].className==='companyDrop'){
-				company='DONT SHOW';
-			}
-			if(event['path'][i].className==='profileDrop'){
-				profile='DONT SHOW';
-			}
-			if(event['path'][i].className==='profileDropList logOut'){
-				this.logout();
-			}
+	componentWillUpdate(nextProps, nextState, nextContext) {
+		if(nextProps.location.pathname==='/'){
+                    this.getTokenData();
 		}
-		if(company==='HIDE PROFILE'){
-			this.setState({
-				showcompany:!this.state.showcompany
-			})
+	}
+	getTokenData=()=>{
+        if(localStorage['accessToken']){
+            const decoded=jwt_decode(localStorage['accessToken']);
+            if(decoded.exp !== this.state.decoded.exp){
+                this.setState({
+                    decoded,
+                },this.IntervalTime)
+            }
+        }
+    }
+
+	IntervalTime=()=>{
+                const TodayTime = new Date();
+                const ExpTime = moment.unix(this.state.decoded.exp);
+                const Diff = ExpTime._d.getTime() - TodayTime.getTime();
+                this.setState({
+                    IntervalForRefresh: Diff - 10000,
+                },this.componentDidMount)
+	}
+	getRefreshToken=()=>{
+		this.props.refreshToken(localStorage['accessToken']);
+	}
+	handleClickOutside=(event)=>{
+		var profile='';
+		const composedPath=event.composedPath();
+		for(var i=0;i<composedPath.length;i++){
+			if(composedPath[i].classList!==undefined) {
+				if(composedPath[i].classList.value==="divContainer profileHeader"){
+					profile='HIDE COMPANY';
+				}
+				if(composedPath[i].classList.value==="profileDropList logOut"){
+					this.logout();
+					return;
+				}
+			}
 		}
 		if(profile==='HIDE COMPANY'){
 			this.setState({
@@ -69,71 +91,17 @@ export class Header extends Component{
 				profile:false
 			})
 		}
-		if(company===''){
-			this.setState({
-				showcompany:false
-			})
-		}
+
 	}
 	setPurchase=async()=>{
-		var mach=JSON.parse(localStorage['cart'])['machines'];
-		var vehi=JSON.parse(localStorage['cart'])['vehicles'];
-		var size = Object.keys(mach).length+Object.keys(vehi).length;	
+		const mach=JSON.parse(localStorage['cart'])['machines'];
+		const vehi=JSON.parse(localStorage['cart'])['vehicles'];
+		const size = Object.keys(mach).length+Object.keys(vehi).length;
 		await this.props.setPurchaseCounter(size);
 	}
 	showMachine=()=>{
 		this.setState({
 			machine:!this.state.machine
-		})
-	}
-	showCondition=()=>{
-		this.setState({
-			condition:!this.state.condition
-		})
-	}
-	showEnginebrand=()=>{
-		this.setState({
-			enginebrand:!this.state.enginebrand
-		})
-	}
-	showEnginemodel=()=>{
-		this.setState({
-			enginemodel:!this.state.enginemodel
-		})
-	}
-	showMachinebrand=()=>{
-		this.setState({
-			machinebrand:!this.state.machinebrand
-		})
-	}
-	showMachinemodel=()=>{
-		this.setState({
-			machinemodel:!this.state.machinemodel
-		})
-	}
-	showCategory=()=>{
-		this.setState({
-			category:!this.state.category
-		})
-	}
-	showSubcategory=()=>{
-		this.setState({
-			subcategory:!this.state.subcategory
-		})
-	}
-	showStatesite=()=>{
-		this.setState({
-			statesite:!this.state.statesite
-		})
-	}
-	showDistrictsite=()=>{
-		this.setState({
-			districtsite:!this.state.districtsite
-		})
-	}
-	showSite=()=>{
-		this.setState({
-			site:!this.state.site
 		})
 	}
 	showVehicle=()=>{
@@ -153,9 +121,11 @@ export class Header extends Component{
 	}
 	logout=()=>{
 	    this.props.removeUser();
+		const bodyContainer=document.getElementById('bodyContainer');
+		bodyContainer.setAttribute("style","margin-left:0px");
 	}
 	hideNav=()=>{
-		const navbar=document.getElementById('sidenav').style.width="0px";
+		document.getElementById('sidenav').style.width="0px";
 		const bodyContainer=document.getElementById('bodyContainer');
 		bodyContainer.setAttribute("style","margin-left:0px");
 		const topHeading=document.getElementsByClassName('topHeadingContainer')[0];
@@ -170,7 +140,7 @@ export class Header extends Component{
 		const topHeading=document.getElementsByClassName('topHeadingContainer')[0];
 		if(topHeading){
 		topHeading.setAttribute("style","width:88vw");
-		}	
+		}
 	}
 	render(){
 		const dashboardClass=window.location.pathname.slice(0,5)==='/home'? "menuActive" :"";
@@ -178,8 +148,9 @@ export class Header extends Component{
 		const vehicleClass=window.location.pathname.slice(0,8)==='/vehicle'?"menuActive":"";
 		const spareClass=window.location.pathname.slice(0,5)==='/part'?"menuActive":"";
 		const purchaseClass=window.location.pathname.slice(0,9)==='/purchase'?"menuActive":"";
+		const { user } =this.props;
 		return(
-			<div>
+			<div>ya
 				<div className="header" >
 					<div className="divContainer logoContainer" onClick={this.showNav}>
 						{/*<img src={process.env.PUBLIC_URL + '/car.svg'} alt="/car"/>*/}
@@ -193,8 +164,8 @@ export class Header extends Component{
 					</button>*/}
 					<div className="divContainer profileHeader" >
 						<section >
-						<i className="fa fa-angle-down angledownProfile" ></i>
-						<i className="fa fa-user-circle userCircleProfile" ></i>
+							<i className="fa fa-angle-down angledownProfile" ></i>
+							<i className="fa fa-user-circle userCircleProfile" ></i>
 						</section>
 						{this.state.profile && <div className="profileDrop">
 							<ul>
@@ -257,93 +228,93 @@ export class Header extends Component{
 						</div>
 						<div className={`innersidenav ${machineClass}`}>
 							<div  className="menuName" onClick={()=>this.showMachine()}>
-							Machine{this.state.machine?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
+								Machine{this.state.machine?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
 							</div>
-							{this.state.machine && 
-								<div>
-									<div className="submenu" onClick={()=>history.push('/machines')}>
-										Machines
-									</div>
-									<div className="submenu" onClick={()=>history.push('/machine/create')}>
-										Create Machine
-									</div>
-									<div className="submenu" onClick={()=>history.push('/machinebrands')}>
-										Machine Brands
-									</div>
-									<div className="submenu" onClick={()=>history.push('/machinebrand/create')}>
-										Create Machine Brand
-									</div>
-									<div className="submenu" onClick={()=>history.push('/machinemodels')}>
-										Machine Models
-									</div>
-									<div className="submenu" onClick={()=>history.push('/machinemodel/create')}>
-										Create Machine Model
-									</div>
+							{this.state.machine &&
+							<div>
+								<div className="submenu" onClick={()=>history.push('/machines')}>
+									Machines
 								</div>
+								<div className="submenu" onClick={()=>history.push('/machine/create')}>
+									Create Machine
+								</div>
+								<div className="submenu" onClick={()=>history.push('/machinebrands')}>
+									Machine Brands
+								</div>
+								<div className="submenu" onClick={()=>history.push('/machinebrand/create')}>
+									Create Machine Brand
+								</div>
+								<div className="submenu" onClick={()=>history.push('/machinemodels')}>
+									Machine Models
+								</div>
+								<div className="submenu" onClick={()=>history.push('/machinemodel/create')}>
+									Create Machine Model
+								</div>
+							</div>
 							}
 						</div>
 						<div className={`innersidenav ${vehicleClass}`}>
 							<div  className="menuName" onClick={()=>this.showVehicle()}>
-							Vehicle{this.state.vehicle?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
+								Vehicle{this.state.vehicle?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
 							</div>
-							{this.state.vehicle && 
-								<div>
-									<div className="submenu" onClick={()=>history.push('/vehicles')}>
-										Vehicles
-									</div>
-									<div className="submenu" onClick={()=>history.push('/vehicle/create')}>
-										Create Vehicle
-									</div>
+							{this.state.vehicle &&
+							<div>
+								<div className="submenu" onClick={()=>history.push('/vehicles')}>
+									Vehicles
 								</div>
+								<div className="submenu" onClick={()=>history.push('/vehicle/create')}>
+									Create Vehicle
+								</div>
+							</div>
 							}
 						</div>
 						<div className={`innersidenav ${spareClass}`}>
 							<div  className="menuName" onClick={()=>this.showSpare()}>
-							Spare Parts{this.state.spare?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
+								Spare Parts{this.state.spare?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
 							</div>
-							{this.state.spare && 
-								<div>
-									<div className="submenu" onClick={()=>history.push('/parts')}>
-										Spare Parts
-									</div>
-									<div className="submenu" onClick={()=>history.push('/part/create')}>
-										Create Spare Parts
-									</div>
+							{this.state.spare &&
+							<div>
+								<div className="submenu" onClick={()=>history.push('/parts')}>
+									Spare Parts
 								</div>
+								<div className="submenu" onClick={()=>history.push('/part/create')}>
+									Create Spare Parts
+								</div>
+							</div>
 							}
 						</div>
 						<div className={`innersidenav ${purchaseClass}`}>
 							<div  className="menuName" onClick={()=>this.showPurchase()}>
-							Purchase{this.state.purchase?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
+								Purchase{this.state.purchase?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
 							</div>
-							{this.state.purchase && 
-								<div>
-									<div className="submenu" onClick={()=>history.push('/purchase')}>
-										Purchase List
-									</div>
+							{this.state.purchase &&
+							<div>
+								<div className="submenu" onClick={()=>history.push('/purchase')}>
+									Purchase List
 								</div>
+							</div>
 							}
 						</div>
 					</div>
 				</div>
 			</div>
-			) 
+		)
+
 	}
 }
 
 const mapStateToProps = state => {
   return {
-  	PurchaseCount:state.machine.purchaseCount
+  	PurchaseCount:state.machine.purchaseCount,
+	user:state.auth.user
   };
 };
 const mapDispatchToProps = {
   removeUser,
   getCurrentUser,
-  setPurchaseCounter
+  setPurchaseCounter,
+	refreshToken,
 };
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-  null,
-  {pure:false},
-)(Header);
+
+
+export default withRouter(connect(mapStateToProps,mapDispatchToProps,null,{pure:false})(Header));

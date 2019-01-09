@@ -288,6 +288,16 @@ i.fa.fa-user-circle.userCircleProfile {
 	opacity:0.5;
 	transition: 0.5s;
 }
+.modalSurroundRemove{
+	width:100vw;
+	height:100vh;
+	background-color:grey;
+	z-index:500;
+	position:absolute;
+	top:-100vh;
+	opacity:0.5;
+	transition: 0.5s;
+}
 .modalButton{
 	position: relative;
     top: 65px;
@@ -473,8 +483,10 @@ ul{
 	height:50px;
 	border-bottom:1px solid #111;
 	background-color:white;
-	margin-top:-4px;
+	margin-top: -23px;
 	transition: 0.5s;
+	position: fixed;
+	z-index:200;
 }
 .headingCreateMachine{
 	position:relative;
@@ -513,6 +525,7 @@ ul{
 	box-shadow:1px 1px 1px 1px #666;
 	color:black;
 	background-image: linear-gradient(to bottom right, #F0F0F3, #B5B7C3);
+	margin-top: 50px;
 }
 .machineForm{
 	padding-top:50px;
@@ -620,7 +633,7 @@ padding-left: 0px;
 }
 
 .navbarContainer{
-	margin-top: 10px;
+	margin-top: 60px;
 	width:20%;
 	background-color: white;
 	height: 300px;
@@ -654,7 +667,7 @@ padding-left: 0px;
 }
 .allFormContainer{
 	width:70%;
-	margin-top: 10px;
+	margin-top: 60px;
 	background-color: white;
 	border-radius: 5px 5px 5px 5px;
 	box-shadow: 1px 1px 1px 1px black;
@@ -690,23 +703,27 @@ padding-left: 0px;
     width: auto;
     position: fixed;
     right:20px;
+    top:107px;
     background-color: white;
     display: block;
     flex-direction: column;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    z-index: 300;
+    z-index: 50;
     overflow-x: hidden;
     overflow-y: visible;
    }
 .TableContainer{
 	width:79% !important;
+	margin-top: 50px;
+	margin-right: 20vw;
 }
 .mainContainer{
 	display: flex;
 	flex-wrap: wrap;
 	width:100%;
 	flex-direction: row;
+	margin-left:2vw;
 }
 .filterHeading{
 	padding-left: 10px;

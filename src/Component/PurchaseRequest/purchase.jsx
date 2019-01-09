@@ -22,14 +22,25 @@ class ListPurchase extends Component{
 		this.props.purchaseInfo.purchaseCounterDecrease();
 		this.forceUpdate();
 	}
-	showModal=(machine,i,label)=>{
-		this.setState({
-			machineToRepairID:machine.id,
-			machineToRepairName:machine.name,
-			machineToRepairCondition:machine.condition.name,
-			i:i,
-			label:label,
-		});
+	showModal=(type,i,label)=>{
+		if(label==='machines'){
+			this.setState({
+				machineToRepairID:type.id,
+				machineToRepairName:type.name,
+				machineToRepairCondition:type.condition.name,
+				i:i,
+				label:label,
+			});
+		}
+		if(label==='vehicles'){
+			this.setState({
+				machineToRepairID:type.id,
+				machineToRepairName:`${type.model.make.name} ${type.model.name}`,
+				machineToRepairCondition:type.status.name,
+				i:i,
+				label:label,
+			});
+		}
 		document.getElementById('removeModal').style.top="50px";
 		document.getElementById("modalSurround").style.top="0";
 	}
@@ -75,6 +86,8 @@ class ListPurchase extends Component{
 					        <th>#</th>
 					        <th>Vehicle Name</th>
 					        <th>Site</th>
+					        <th>Status</th>
+					        <th>Reason</th>
 					      </tr>
 					    </thead>
 					    <tbody>
@@ -83,6 +96,8 @@ class ListPurchase extends Component{
 							<td>{i+1}</td>
 							<td>{vehicle.model.make.name}{' '}{vehicle.model.name}</td>
 							<td>{vehicle.site.name}</td>
+							<td>{vehicle.status.name}</td>
+							<td>{vehicle.reason}</td>
 							<td>
 								<button className="btn btn-danger btn-sm" onClick={()=>this.showModal(vehicle,i,'vehicles')}><i className="fa fa-trash" aria-hidden="true"></i>Remove</button>
 							</td>

@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import history from '../../Inits/history';
+import {Modal,RemoveModal} from '../Machine/machines.jsx';
 class ListVehicle extends Component{
 	componentWillMount(){
 		this.setState({
@@ -77,9 +78,9 @@ class ListVehicle extends Component{
 	detailVehicle=(vehicle)=>{
 		history.push('/vehicles/'+vehicle.id,{noEdit:true});
 	}
-	GPR=(vehicle)=>{
+	GPR=(vehicle,reason)=>{
 		var a=JSON.parse(localStorage['cart']);
-		a['vehicles'][vehicle]=true;
+		a['vehicles'][vehicle]=reason;
 		localStorage['cart']=JSON.stringify(a);
 		this.setState({
 			vehiclesInCart:JSON.parse(localStorage['cart'])['vehicles']
@@ -99,13 +100,10 @@ class ListVehicle extends Component{
 	Search=async (e)=>{
 			const abcd=e.target.value;
 			if(abcd){
-				setTimeout(async()=>{await this.props.vehicleInfo.searchVehicles(abcd);
-									this.props.vehicleInfo.getPages();},100);
+				this.props.vehicleInfo.searchVehicles(abcd);
 				}	
 			else{
-				const {getVehicles,getPages}=this.props.vehicleInfo;
-				await Promise.all([getVehicles()]);
-				getPages();
+				this.props.vehicleInfo.getVehicles();
 				}
 	}
 	sortVin=()=>{
@@ -430,6 +428,30 @@ class ListVehicle extends Component{
 			},this.FilterResult);
 		}
 	}
+	showModal=(vehicle,label)=>{
+		this.setState({
+			vehicleToRepairID:vehicle.id,
+			vehicleToRepairName:`${vehicle.model.make.name} ${vehicle.model.name}`,
+			vehicleToRepairStatus:vehicle.status.name,
+			reason:'',
+
+		});
+		if(label==='add'){
+		document.getElementById("myModal").style.top="50px";
+		document.getElementById("modalSurround").style.top="0";
+		}
+		else{
+			document.getElementById('removeModal').style.top="50px";
+			document.getElementById("modalSurroundRemove").style.top="0";
+		}
+
+
+	}
+	onChangeSetToState = stateKey => e => {
+		this.setState({
+			[stateKey]:e.target.value
+		});
+	}
 	FilterResult=()=>{
 		const {vin, code, site, vehicle_type, model, registration, status, ownership, color,body, engine_model}=this.state;
 		const filterFields={vin, code, site, vehicle_type, model, registration, status, ownership, color,body, engine_model};
@@ -598,9 +620,9 @@ class ListVehicle extends Component{
 							<td>
 								<button className="btn btn-default btn-sm paddingActionButton" onClick={()=>this.detailVehicle(vehicle)}><i className="fa fa-pencil" aria-hidden="true"></i>Details</button>
 								<button className="btn btn-primary btn-sm paddingActionButton" onClick={()=>this.deleteVehicle(vehicle)}><i className="fa fa-trash" aria-hidden="true"></i>Delete</button>
-								{JSON.parse(localStorage['cart'])['vehicles'][vehicle.id]!==true
-								?<button className="btn btn-success btn-sm paddingActionButton" onClick={()=>this.GPR(vehicle.id)}>Buy</button>
-								:<button className="btn btn-danger btn-sm paddingActionButton" onClick={()=>this.RemoveGPR(vehicle.id)}>Remove</button>}
+								{JSON.parse(localStorage['cart'])['vehicles'][vehicle.id]===undefined
+								?<button className="btn btn-success btn-sm paddingActionButton" onClick={()=>this.showModal(vehicle,'add')}>Buy</button>
+								:<button className="btn btn-danger btn-sm paddingActionButton" onClick={()=>this.showModal(vehicle,'remove')}>Remove</button>}
 							</td>
 						</tr>
 					))}
@@ -608,6 +630,20 @@ class ListVehicle extends Component{
 	  				</table>
 	  			</div>
 	  			</div>
+				<Modal
+					id={this.state.vehicleToRepairID}
+					onChangeSetToState={this.onChangeSetToState}
+					name={this.state.vehicleToRepairName}
+					GPRfunction={this.GPR}
+					condition={this.state.vehicleToRepairStatus}
+					reason={this.state.reason}
+				/>
+	  			<RemoveModal 
+		  			id={this.state.vehicleToRepairID} 
+		  			name={this.state.vehicleToRepairName}
+		  			condition={this.state.vehicleToRepairStatus}
+		  			removeGPRfunction={this.RemoveGPR}
+		  		/>
 			</div>
 		)
 	}

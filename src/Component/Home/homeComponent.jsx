@@ -1,13 +1,6 @@
 import React,{Component} from 'react';
-// import history from '../../Inits/history';
-// import DatePicker from 'react-datepicker';
-// import 'react-datepicker/dist/react-datepicker.css';
-// import moment from 'moment';
-// import { toast } from 'react-toastify';
 import Chart from "react-google-charts";
 class HomeComponent extends Component{
-	componentWillMount(){
-	}
 	render(){
 		const notWorking=Object.keys(JSON.parse(localStorage['cart'])['machines']).length;
 		var Working=0;
@@ -61,7 +54,7 @@ class HomeComponent extends Component{
 			 						<div className="innerContainer">{this.props.machineInfo.machines?this.props.machineInfo.machines.length:0}</div>
 			 						<div className="innerContainerHeading">Total</div>
 			 					</div>
-			 			</div> 
+			 			</div>
 			 			<div className="innerdashboarddivNew countAssets">
 			 				<h1 style={{fontSize:'15px'}} className="marginLeft">Vehicles</h1>
 			 					<div className="machineCount" >

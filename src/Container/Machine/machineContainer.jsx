@@ -17,10 +17,6 @@ class MachineContainer extends Component{
 	getMachinesClearSearch=async()=>{
 		const {getMachines,getCategorys,getEnginemodels}=this.props;
 		await Promise.all([getMachines(),getCategorys(),getEnginemodels()]);
-		this.getPages();
-	}
-	getPages=()=>{
-			
 	}
 	activePage=async (i)=>{
 		await this.props.getMachines();

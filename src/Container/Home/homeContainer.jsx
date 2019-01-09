@@ -1,15 +1,15 @@
 import React,{Component} from 'react';
 import { connect } from 'react-redux';
-import HomeComponent from '../../Component/Home/homeComponent';
 import {getMachines} from '../../Store/Actions/machine/machine.action';
+import HomeComponent from '../../Component/Home/homeComponent';
 import PageLoader from '../Common/pageloader';
 class HomeContainer extends Component{
 	componentWillMount(){
-	    // window.bread=[{page:'Home',location:'/today'}]
-	    this.getMachines();
+		this.getMachines();
 	}
 	getMachines=async()=>{
-		await this.props.getMachines();
+		const {getMachines}=this.props;
+		await getMachines();
 	}
 	render(){
 	const {machines,isFetching}=this.props;
@@ -18,14 +18,13 @@ class HomeContainer extends Component{
 		return(
 			<PageLoader/>
 			)
-	}
-	return (
-		<div>
-			<section className="container-fluid" style={{marginTop:'-100px'}}>
-				<HomeComponent machineInfo={machineInfo} />
-			</section>
-		</div>
-		)
+	}else{
+		return (
+				<section className="container-fluid" style={{marginTop:'-100px'}}>
+					<HomeComponent machineInfo={machineInfo} />
+				</section>
+			)
+		}
 	}
 }
 

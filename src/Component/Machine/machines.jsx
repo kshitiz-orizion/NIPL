@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import history from '../../Inits/history';
-const Modal=(props)=>{
+export const Modal=(props)=>{
 	const myFunction=()=>{
 		document.getElementById("myModal").style.top="-600px";
 		document.getElementById("modalSurround").style.top="-100vh";
@@ -27,10 +27,10 @@ const Modal=(props)=>{
 				    <h3 className="col-md-3">Reason</h3>
 				    <input type="text" value={props.reason} onChange={props.onChangeSetToState('reason')} className="form-control col-md-8"/>
 				  </div>
-				  <button type="button" className="btn btn-lg btn-primary modalButton"onClick={ShowData}>ADD TO CART</button>
+				  <button type="button" className="btn btn-lg btn-primary modalButton" onClick={ShowData}>ADD TO CART</button>
 				</form>
 		  	</div>
-		  	<div id="modalSurround" className="modalSurround">
+		  	<div id="modalSurround" onClick={myFunction} className="modalSurround">
 		  	</div>
 		</div>
 		)
@@ -38,22 +38,22 @@ const Modal=(props)=>{
 
 export const RemoveModal=(props)=>{
 	const Cancel=()=>{
-		myFunction();
+		myRemoveFunction();
 	}
 	const Proceed=()=>{
 		props.removeGPRfunction(props.id,props.i,props.label);
-		myFunction();
+		myRemoveFunction();
 	}
-	const myFunction=()=>{
+	const myRemoveFunction=()=>{
 		document.getElementById("removeModal").style.top="-600px";
-		document.getElementById("modalSurround").style.top="-100vh";
+		document.getElementById("modalSurroundRemove").style.top="-100vh";
 	}
 	return (
 		<div>
 			<div id="removeModal" className="myModal">
 				<div className="myModalHeadingContainer">
 					Delete {props.name} from Purchase List
-					<div onClick={myFunction} className="closeModal">
+					<div onClick={myRemoveFunction} className="closeModal">
 					&times;
 					</div>
 				</div>
@@ -62,7 +62,7 @@ export const RemoveModal=(props)=>{
 				  <button type="button" className="btn btn-lg btn-primary modalButton" onClick={Proceed}>Proceed</button>
 				</form>
 		  	</div>
-		  	<div id="modalSurround" className="modalSurround">
+		  	<div id="modalSurroundRemove"  onClick={myRemoveFunction} className="modalSurroundRemove">
 		  	</div>
 		</div>
 	)
@@ -114,24 +114,10 @@ class ListMachine extends Component{
 	}
 	componentDidMount(){
 		this.mounted=true;
-		document.addEventListener('mousedown', this.handleClickOutside);
-		if(document.getElementById('sidenav').style.width==='15vw'){
+		if(document.getElementById('sidenav') && document.getElementById('sidenav').style.width==='15vw'){
 			document.getElementsByClassName('topHeadingContainer')[0].setAttribute("style","width:88vw");
 		}
-		
-	}
-	handleClickOutside=(e)=>{
-		for(var i=0;i<e['path'].length;i++){
-			if(e['path'][i].className ==='modalSurround'){
-				if(document.getElementById("myModal")!==undefined){
-				document.getElementById("myModal").style.top="-500px";
-				}
-				if(document.getElementById("removeModal")!==undefined){
-				document.getElementById("removeModal").style.top="-500px";
-				}
-				document.getElementById("modalSurround").style.top="-100vh";
-			}
-		}
+
 	}
 	componentWillUnmount(){
 		this.mounted=false;
@@ -170,11 +156,9 @@ class ListMachine extends Component{
 			const abcd=e.target.value;
 			if(abcd){
 				 this.props.machineInfo.searchMachines(abcd);
-				 this.props.machineInfo.getPages();
 				}	
 			else{
 					this.props.machineInfo.getMachinesClearSearch();
-					this.props.machineInfo.getPages();
 				}
 	}
 	onChangeSetToState = stateKey => e => {
@@ -415,12 +399,14 @@ class ListMachine extends Component{
 		});
 		if(label==='add'){
 		document.getElementById("myModal").style.top="50px";
+		document.getElementById("modalSurround").style.top="0";
 		}
 		else{
 			document.getElementById('removeModal').style.top="50px";
+			document.getElementById("modalSurroundRemove").style.top="0";
 		}
-		document.getElementById("modalSurround").style.top="0";
 	}
+
 	render(){
 		return (
 			<div style={{marginTop:'175px'}}>

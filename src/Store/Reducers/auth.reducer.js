@@ -10,8 +10,7 @@ export default function(state = {}, action) {
     case LOGIN_SUCCESS: {
       return {
         ...state,
-        user: action.payload.user,
-        accessToken: action.payload.accessToken,
+        user: action.payload,
         isProcessing: false,
       };
     }

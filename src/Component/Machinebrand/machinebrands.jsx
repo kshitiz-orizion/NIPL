@@ -23,29 +23,31 @@ class ListMachinebrand extends Component{
 						<button className="btn btn-sm btn-primary" style={{marginRight:'100px'}} onClick={this.AddMachinebrand}><i className="fa fa-plus" aria-hidden="true"></i>Add Machine Brand</button>
 					</div>
 				</div>
-				<div className="container-fluid TableContainer">
-					<table className="table table-hover table-bordered">
-					    <thead>
-					      <tr>
-					        <th>#</th>
-					        <th>Machinebrand Name</th>
-					        <th>Actions</th>
-					      </tr>
-					    </thead>
-					    <tbody>
-					    {this.props.machinebrandInfo.machinebrands.map((machinebrand,i)=>(
-						<tr key={i}>
-							<td>{i+1}</td>
-							<td>{machinebrand.name}</td>
-							<td>
-								<button className="btn btn-default btn-sm" onClick={()=>this.editMachinebrand(machinebrand)}><i className="fa fa-pencil" aria-hidden="true"></i>Edit</button>
-								<button className="btn btn-danger btn-sm" onClick={()=>this.deleteMachinebrand(machinebrand)}><i className="fa fa-trash" aria-hidden="true"></i>Delete</button>
-							</td>
-						</tr>
-					))}
-					    </tbody>
-	  				</table>
-	  			</div>
+				<div className="mainContainer">
+					<div className="TableContainer">
+						<table className="table table-hover table-bordered">
+						    <thead>
+						      <tr>
+						        <th>#</th>
+						        <th>Machinebrand Name</th>
+						        <th>Actions</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						    {this.props.machinebrandInfo.machinebrands.map((machinebrand,i)=>(
+							<tr key={i}>
+								<td>{i+1}</td>
+								<td>{machinebrand.name}</td>
+								<td>
+									<button className="btn btn-default btn-sm" onClick={()=>this.editMachinebrand(machinebrand)}><i className="fa fa-pencil" aria-hidden="true"></i>Edit</button>
+									<button className="btn btn-danger btn-sm" onClick={()=>this.deleteMachinebrand(machinebrand)}><i className="fa fa-trash" aria-hidden="true"></i>Delete</button>
+								</td>
+							</tr>
+						))}
+						    </tbody>
+		  				</table>
+		  			</div>
+		  		</div>
 			</div>
 		)
 	}

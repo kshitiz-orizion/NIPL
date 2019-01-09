@@ -8,22 +8,11 @@ import { LOGIN_START, LOGIN_SUCCESS, LOGIN_ERROR, LOGOUT_SUCCESS } from './auth.
 export const login = ( {userCredential }) => async (dispatch, getState) => {
   try {
     dispatch({ type: LOGIN_START });
-    // var tokenInfo='';
-    if(userCredential.username==="kk1234" && userCredential.password==="kk1234"){
-      setLocalStorage('accessToken',"abcd");
-      toast.success('You have successfully logged in.');
-    }
-    if(userCredential.username==="kk12345" && userCredential.password==="kk12345"){
-      setLocalStorage('accessToken',"abcd");
-      setLocalStorage('role','admin');
-      toast.success('You have successfully logged in.');
-    }
-    //tokenInfo = await axiosService.post('/api/v1/rbac/auth/login/', userCredential);
+    const tokenInfo=await axiosService.post('/rbac/auth/login/',userCredential);
+    setLocalStorage('accessToken',tokenInfo.token);
+    await dispatch(getCurrentUser("abcd"));
+    toast.success('SuccessFully Logged in');
     history.push('/home');
-    
-    //dispatch({ type: LOGIN_SUCCESS, payload: tokenInfo.token });
-    toast.success('You have successfully logged in.');
-    dispatch({ type: LOGIN_SUCCESS, payload: "abcd" });
   } catch (error) {
     removeLocalStorage('accessToken');
     dispatch({ type: LOGIN_ERROR, payload: error });
@@ -51,8 +40,9 @@ export const generateOtp=(user)=> async (dispatch,getState)=>{
 }
 export const getCurrentUser = userId => async (dispatch) => {
   try {
-     const userInfo = await axiosService.get('/users/users/'+userId+'/');
-    return Promise.resolve(userInfo);
+     // const userInfo = await axiosService.get('/users/users/'+userId+'/');
+    dispatch({type:LOGIN_SUCCESS,payload:userId});
+    // return Promise.resolve(userInfo);
   } catch (error) {
     dispatch({ type: LOGIN_ERROR, payload: error });
     return Promise.reject(error);
@@ -65,3 +55,11 @@ export const removeUser = () => async (dispatch, getState) => {
   dispatch({ type: LOGOUT_SUCCESS });
   history.push('/');
 };
+
+export const refreshToken = (token) => async(dispatch)=>{
+  if(token){
+    const data={"token":JSON.parse(token)};
+    const newToken=await axiosService.post('/rbac/auth/refresh-token/',data);
+    setLocalStorage('accessToken',newToken.token);
+  }
+}

@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import {Provider} from 'react-redux';
-import {Router,Route} from 'react-router-dom';
+import {Router,Route,Switch} from 'react-router-dom';
 import {ToastContainer} from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { axiosInterceptor } from './Inits/axios';
 import history from './Inits/history';
 import store from './Store';
 import asyncComponent from './AsyncComponent';
-// import { getCurrentUser } from './Store/Actions/auth/auth.action';
-// import { getLocalStorage } from './Utils/web-storage';
+import { getCurrentUser } from './Store/Actions/auth/auth.action';
+import { getLocalStorage } from './Utils/web-storage';
 import { PrivateRoute, PublicRoute,AdminRoute } from './Utils/route';
 
 import './App.css';
@@ -105,53 +106,74 @@ const PurchaseContainer = asyncComponent(() =>
 )
 axiosInterceptor(store);
 class App extends Component {
-  render() {
+  componentWillMount() {
+      this.authenticate();
+  }
+
+  authenticate = async () => {
+        const accessToken = getLocalStorage('accessToken');
+        if (accessToken) {
+            try {
+                await store.dispatch(getCurrentUser(accessToken));
+            } catch (error) {
+                toast.error('user not logged in');
+            }
+        } else {
+            console.log('user not logged in');
+        }
+    };
+
+
+    render() {
     return (
       <Provider store={store}>
         <Router history={history}>
-          <div>            
+          <div>
+            <Header/>
             <ToastContainer autoClose={5000} />
             <div id="bodyContainer" className="bodyContainer">
-                <PublicRoute exact={true} path="/" component={LoginContainer} />
-                <PrivateRoute exact={true} path="/machines" component={MachineContainer} />
-                <PrivateRoute exact={true} path="/machines/:id" component={CreateMachinesContainer} />
-                <PrivateRoute exact={true} path="/machine/create" component={CreateMachinesContainer} />
-                <PrivateRoute exact={true} path="/home" component={HomeContainer} />
-                <PrivateRoute exact={true} path="/condition/create" component={CreateConditionContainer} />
-                <PrivateRoute exact={true} path="/conditions/:id" component={CreateConditionContainer} />
-                <PrivateRoute exact={true} path="/conditions" component={ConditionContainer} />
-                <PrivateRoute exact={true} path="/enginebrand/create" component={CreateEnginebrandContainer} />
-                <PrivateRoute exact={true} path="/enginebrands/:id" component={CreateEnginebrandContainer} />
-                <PrivateRoute exact={true} path="/enginebrands" component={EnginebrandContainer} />
-                <PrivateRoute exact={true} path="/enginemodel/create" component={CreateEnginemodelContainer} />
-                <PrivateRoute exact={true} path="/enginemodels/:id" component={CreateEnginemodelContainer} />
-                <PrivateRoute exact={true} path="/enginemodels" component={EnginemodelContainer} />
-                <PrivateRoute exact={true} path="/machinebrand/create" component={CreateMachinebrandContainer} />
-                <PrivateRoute exact={true} path="/machinebrands/:id" component={CreateMachinebrandContainer} />
-                <PrivateRoute exact={true} path="/machinebrands" component={MachinebrandContainer} />
-                <PrivateRoute exact={true} path="/machinemodel/create" component={CreateMachinemodelContainer} />
-                <PrivateRoute exact={true} path="/machinemodels/:id" component={CreateMachinemodelContainer} />
-                <PrivateRoute exact={true} path="/machinemodels" component={MachinemodelContainer} />
-                <PrivateRoute exact={true} path="/category/create" component={CreateCategoryContainer} />
-                <PrivateRoute exact={true} path="/categorys/:id" component={CreateCategoryContainer} />
-                <PrivateRoute exact={true} path="/categorys" component={CategoryContainer} />
-                <PrivateRoute exact={true} path="/subcategory/create" component={CreateSubcategoryContainer} />
-                <PrivateRoute exact={true} path="/subcategorys/:id" component={CreateSubcategoryContainer} />
-                <PrivateRoute exact={true} path="/subcategorys" component={SubcategoryContainer} />
-                <PrivateRoute exact={true} path="/statesite/create" component={CreateStatesiteContainer} />
-                <PrivateRoute exact={true} path="/statesites" component={StatesiteContainer} />
-                <PrivateRoute exact={true} path="/districtsite/create" component={CreateDistrictsiteContainer} />
-                <PrivateRoute exact={true} path="/districtsites" component={DistrictsiteContainer} />
-                <PrivateRoute exact={true} path="/site/create" component={CreateSiteContainer} />
-                <PrivateRoute exact={true} path="/sites" component={SiteContainer} />
-                <PrivateRoute exact={true} path="/vehicle/create" component={CreateVehicleContainer} />
-                <PrivateRoute exact={true} path="/vehicles/:id" component={CreateVehicleContainer} />
-                <PrivateRoute exact={true} path="/vehicles" component={VehicleContainer} />
-                <PrivateRoute exact={true} path="/parts" component={PartContainer} />
-                <PrivateRoute exact={true} path="/part/create" component={CreatePartContainer} />
-                <PrivateRoute exact={true} path="/parts/:id" component={CreatePartContainer} />
-                <PrivateRoute exact={true} path="/purchase" component={PurchaseContainer} />
-                <Route path="/" render={ ( props ) => ( props.location.pathname !== "/") && <Header /> }/>
+                <Switch>
+                    <PublicRoute exact={true} path="/" component={LoginContainer} />
+                    <PrivateRoute exact={true} path="/machines" component={MachineContainer} />
+                    <PrivateRoute exact={true} path="/machines/:id" component={CreateMachinesContainer} />
+                    <PrivateRoute exact={true} path="/machine/create" component={CreateMachinesContainer} />
+                    <PrivateRoute exact={true} path="/home" component={HomeContainer} />
+                    <PrivateRoute exact={true} path="/condition/create" component={CreateConditionContainer} />
+                    <PrivateRoute exact={true} path="/conditions/:id" component={CreateConditionContainer} />
+                    <PrivateRoute exact={true} path="/conditions" component={ConditionContainer} />
+                    <PrivateRoute exact={true} path="/enginebrand/create" component={CreateEnginebrandContainer} />
+                    <PrivateRoute exact={true} path="/enginebrands/:id" component={CreateEnginebrandContainer} />
+                    <PrivateRoute exact={true} path="/enginebrands" component={EnginebrandContainer} />
+                    <PrivateRoute exact={true} path="/enginemodel/create" component={CreateEnginemodelContainer} />
+                    <PrivateRoute exact={true} path="/enginemodels/:id" component={CreateEnginemodelContainer} />
+                    <PrivateRoute exact={true} path="/enginemodels" component={EnginemodelContainer} />
+                    <PrivateRoute exact={true} path="/machinebrand/create" component={CreateMachinebrandContainer} />
+                    <PrivateRoute exact={true} path="/machinebrands/:id" component={CreateMachinebrandContainer} />
+                    <PrivateRoute exact={true} path="/machinebrands" component={MachinebrandContainer} />
+                    <PrivateRoute exact={true} path="/machinemodel/create" component={CreateMachinemodelContainer} />
+                    <PrivateRoute exact={true} path="/machinemodels/:id" component={CreateMachinemodelContainer} />
+                    <PrivateRoute exact={true} path="/machinemodels" component={MachinemodelContainer} />
+                    <PrivateRoute exact={true} path="/category/create" component={CreateCategoryContainer} />
+                    <PrivateRoute exact={true} path="/categorys/:id" component={CreateCategoryContainer} />
+                    <PrivateRoute exact={true} path="/categorys" component={CategoryContainer} />
+                    <PrivateRoute exact={true} path="/subcategory/create" component={CreateSubcategoryContainer} />
+                    <PrivateRoute exact={true} path="/subcategorys/:id" component={CreateSubcategoryContainer} />
+                    <PrivateRoute exact={true} path="/subcategorys" component={SubcategoryContainer} />
+                    <PrivateRoute exact={true} path="/statesite/create" component={CreateStatesiteContainer} />
+                    <PrivateRoute exact={true} path="/statesites" component={StatesiteContainer} />
+                    <PrivateRoute exact={true} path="/districtsite/create" component={CreateDistrictsiteContainer} />
+                    <PrivateRoute exact={true} path="/districtsites" component={DistrictsiteContainer} />
+                    <PrivateRoute exact={true} path="/site/create" component={CreateSiteContainer} />
+                    <PrivateRoute exact={true} path="/sites" component={SiteContainer} />
+                    <PrivateRoute exact={true} path="/vehicle/create" component={CreateVehicleContainer} />
+                    <PrivateRoute exact={true} path="/vehicles/:id" component={CreateVehicleContainer} />
+                    <PrivateRoute exact={true} path="/vehicles" component={VehicleContainer} />
+                    <PrivateRoute exact={true} path="/parts" component={PartContainer} />
+                    <PrivateRoute exact={true} path="/part/create" component={CreatePartContainer} />
+                    <PrivateRoute exact={true} path="/parts/:id" component={CreatePartContainer} />
+                    <PrivateRoute exact={true} path="/purchase" component={PurchaseContainer} />
+                    <Route render={() => <p>Not Found</p>} />
+                </Switch>
              </div>
            </div>
         </Router>

@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { getConditions,deleteCondition} from '../../Store/Actions/condition/condition.action';
 import ListCondition from '../../Component/Condition/conditions';
 import PageLoader from '../Common/pageloader';
-import {Header} from '../Common/Header';
 class ConditionContainer extends Component{
 	componentWillMount(){
 		this.props.getConditions();
@@ -16,7 +15,6 @@ class ConditionContainer extends Component{
 	}
 	return (
 		<div>
-		<Header/>
 			<section className="container-fluid" style={{marginTop:'-114px'}}>
 				<ListCondition conditionInfo={conditionInfo} />
 			</section>
