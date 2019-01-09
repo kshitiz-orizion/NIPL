@@ -69,28 +69,32 @@ class Header extends Component{
 	}
 	handleClickOutside=(event)=>{
 		var profile='';
-		const composedPath=event.composedPath();
-		for(var i=0;i<composedPath.length;i++){
-			if(composedPath[i].classList!==undefined) {
-				if(composedPath[i].classList.value==="divContainer profileHeader"){
-					profile='HIDE COMPANY';
-				}
-				if(composedPath[i].classList.value==="profileDropList logOut"){
-					this.logout();
-					return;
-				}
-			}
-		}
-		if(profile==='HIDE COMPANY'){
-			this.setState({
-				profile:!this.state.profile
-			})
-		}
-		if(profile===''){
-			this.setState({
-				profile:false
-			})
-		}
+		const composedPath=event.target.classList;
+            for(let i=0;i<composedPath.length;i++){
+                    if(composedPath[i]==="profileHeader"||composedPath[i]==="userCircleProfile"||composedPath[i]==="angledownProfile"){
+                        profile='HIDE COMPANY';
+                    }
+                    // if(composedPath[i]==="userCircleProfile") {
+                    //     profile = 'HIDE COMPANY';
+                    // }
+                    // if(composedPath[i]==='angledownProfile'){
+                    //     profile='HIDE COMPANY';
+                    // }
+                    if(composedPath[i]==="logOut"){
+                        this.logout();
+                        return;
+                    }
+            }
+            if(profile==='HIDE COMPANY'){
+                this.setState({
+                    profile:!this.state.profile
+                })
+            }
+            if(profile===''){
+                this.setState({
+                    profile:false
+                })
+            }
 
 	}
 	setPurchase=async()=>{
