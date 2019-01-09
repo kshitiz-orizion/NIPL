@@ -74,12 +74,6 @@ class Header extends Component{
                     if(composedPath[i]==="profileHeader"||composedPath[i]==="userCircleProfile"||composedPath[i]==="angledownProfile"){
                         profile='HIDE COMPANY';
                     }
-                    // if(composedPath[i]==="userCircleProfile") {
-                    //     profile = 'HIDE COMPANY';
-                    // }
-                    // if(composedPath[i]==='angledownProfile'){
-                    //     profile='HIDE COMPANY';
-                    // }
                     if(composedPath[i]==="logOut"){
                         this.logout();
                         return;

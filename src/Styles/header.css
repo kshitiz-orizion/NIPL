@@ -483,7 +483,6 @@ ul{
 	height:50px;
 	border-bottom:1px solid #111;
 	background-color:white;
-	margin-top: -23px;
 	transition: 0.5s;
 	position: fixed;
 	z-index:200;
