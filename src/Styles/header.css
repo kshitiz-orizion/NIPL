@@ -831,3 +831,8 @@ padding-left: 0px;
 .inputPaddingMachine >div > .col-md-9{
     padding:0;
 }
+
+.commentBox{
+	width: 50%;
+	height: auto;
+}

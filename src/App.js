@@ -104,6 +104,12 @@ const CreatePartContainer = asyncComponent(() =>
 const PurchaseContainer = asyncComponent(() =>
     import('./Container/PurchaseRequest/purchaseContainer').then(module => module.default)
 )
+const RequestContainer = asyncComponent(() =>
+    import('./Container/Request/requestContainer').then(module => module.default)
+)
+const RequestDetailsContainer = asyncComponent(() =>
+    import('./Container/Request/requestDetailsContainer').then(module => module.default)
+)
 axiosInterceptor(store);
 class App extends Component {
   componentWillMount() {
@@ -172,6 +178,8 @@ class App extends Component {
                     <PrivateRoute exact={true} path="/part/create" component={CreatePartContainer} />
                     <PrivateRoute exact={true} path="/parts/:id" component={CreatePartContainer} />
                     <PrivateRoute exact={true} path="/purchase" component={PurchaseContainer} />
+                    <PrivateRoute exact={true} path="/request" component={RequestContainer} />
+                    <PrivateRoute exact={true} path="/request/:id" component={RequestDetailsContainer} />
                     <Route render={() => <p>Not Found</p>} />
                 </Switch>
              </div>

@@ -117,6 +117,11 @@ class Header extends Component{
 			purchase:!this.state.purchase
 		})
 	}
+	showRequest=()=>{
+		this.setState({
+			request:!this.state.request
+		})
+	}
 	logout=()=>{
 	    this.props.removeUser();
 		const bodyContainer=document.getElementById('bodyContainer');
@@ -146,6 +151,7 @@ class Header extends Component{
 		const vehicleClass=window.location.pathname.slice(0,8)==='/vehicle'?"menuActive":"";
 		const spareClass=window.location.pathname.slice(0,5)==='/part'?"menuActive":"";
 		const purchaseClass=window.location.pathname.slice(0,9)==='/purchase'?"menuActive":"";
+		const requestClass=window.location.pathname.slice(0,8)==='/request'?"menuActive":"";
 		const { user } =this.props;
 		return user?(
 			<div>
@@ -290,6 +296,18 @@ class Header extends Component{
 							<div>
 								<div className="submenu" onClick={()=>history.push('/purchase')}>
 									Purchase List
+								</div>
+							</div>
+							}
+						</div>
+						<div className={`innersidenav ${requestClass}`}>
+							<div  className="menuName" onClick={()=>this.showRequest()}>
+								Request{this.state.purchase?<i className="fa fa-angle-up downicon" ></i>:<i className="fa fa-angle-down downicon" ></i>}
+							</div>
+							{this.state.request &&
+							<div>
+								<div className="submenu" onClick={()=>history.push('/request')}>
+									Request List
 								</div>
 							</div>
 							}

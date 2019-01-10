@@ -27,7 +27,7 @@ const mapStateToProps = state => {
   return {
     conditions:state.condition.list,
     isFetching:state.condition.isFetching
-  };
+  }
 };
 const mapDispatchToProps = {
    getConditions,
