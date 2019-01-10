@@ -35,8 +35,10 @@ class CreateMachinesContainer extends Component {
     }
   }
   getMachineAttributes=async()=>{
+    this.setState({gettingParam:true});
     const { getCategorys,getEnginebrands,getConditions,getEnginemodels,getMachinemodels,getMachinebrands,getStatesites,getDistrictsites,getSites} = this.props;
     await Promise.all([getCategorys(),getEnginebrands(),getConditions(),getEnginemodels(),getMachinemodels(),getMachinebrands(),getSites(),getDistrictsites(),getStatesites()]);
+    this.setState({gettingParam:false});
   }
   getMachine = async (machineID) => {
     try {
@@ -58,14 +60,17 @@ class CreateMachinesContainer extends Component {
     }
   };
   render() {
+    if(this.state.gettingParam){
+      return <PageLoader/>
+    }
     if (this.state.mode === 'EDIT' && !this.state.machineToBeEdit) {
       return <PageLoader/>
     }
     if(this.props.isCreating){
       return <PageLoader/>
     }
-    const {deleteRemark, createMachine, editMachine,category,enginebrand,enginemodel,condition,machinemodel,machinebrand,site,district,state} = this.props;
-    const paramvalue={category,enginebrand,enginemodel,condition,machinemodel,machinebrand,site,district,state};
+    const {deleteRemark, createMachine, editMachine,category,enginebrand,enginemodel,condition,machinemodel,machinebrand,site,district,state,getConditions} = this.props;
+    const paramvalue={categoryOption:category,engineBrandOption:enginebrand,engineModelOption:enginemodel,conditionOption:condition,machineModelOption:machinemodel,machineBrandOption:machinebrand,siteOption:site,districtOption:district,stateOption:state};
     return (
       <div style={{marginTop:'-40px',backgroundColor:'#eee',width:'100%',height:'auto'}}>
       <section>
@@ -77,6 +82,7 @@ class CreateMachinesContainer extends Component {
           paramvalue={paramvalue}
           editable={this.state.editable}
           deleteRemark={deleteRemark}
+          getConditions={getConditions}
         />
       </section>
       </div>
@@ -125,7 +131,7 @@ const mapDispatchToProps = {
   getSites,
   getSiteByID,
   getRemarks,
-  deleteRemark
+  deleteRemark,
 };
 
 export default connect(

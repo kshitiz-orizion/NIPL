@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {reduxForm } from 'redux-form';
 import {Typeahead} from 'react-bootstrap-typeahead';
 import history from '../../Inits/history';
+import axiosService from '../../Inits/axios';
 class CreateMachine extends Component{
 	componentWillMount(){
 		if(this.props.editable===false){
@@ -13,6 +14,9 @@ class CreateMachine extends Component{
 				editable:true
 			})
 		}
+		this.setState({
+			...this.props.paramvalue
+		});
 		if(this.props.mode==='EDIT'){
 			const {category,engine_model,model,condition,site,state,district,remark}=this.props.initialValues;
 			const enginebrand=engine_model.brand;
@@ -227,7 +231,7 @@ class CreateMachine extends Component{
   		});
   	}
 	render()
-	{		
+	{
 		return (
 			<div>
 				<div className="topHeadingContainer">
@@ -272,7 +276,7 @@ class CreateMachine extends Component{
 											    <label className="col-md-3">Category</label>
 											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
 											    <Typeahead
-											          options={this.props.paramvalue.category}
+											          options={this.state.categoryOption}
 											          labelKey="name"
 											          onChange={(selected) => {
 													    this.setState({categoryname:selected});
@@ -285,8 +289,12 @@ class CreateMachine extends Component{
 													  selected={this.state.categoryname}
 													  inputProps={{"id":"machineCategory"}}
 													  onFocus={()=>this.removehasError('machineCategory')}
-													  onInputChange={(name,value)=>{													  		
-													  	// 	var element=document.getElementsByClassName("rbt-menu");
+													  onInputChange={async (name,value)=>{
+														  let conditions=await axiosService.get('/assets/machine/conditions/');
+														  this.setState({
+															  categoryOption:conditions.results
+														  })
+														  // 	var element=document.getElementsByClassName("rbt-menu");
 													  	// 	if(element[0]){
 													  	// 		element[0].style.display="block";
 													  	// 		var p=element[0].getElementsByTagName("p");
@@ -350,7 +358,7 @@ class CreateMachine extends Component{
 													    	});
 													    }
 													  }}
-													  options={this.props.paramvalue.machinebrand}
+													  options={this.state.machineBrandOption}
 													  labelKey="name"
 													  selected={this.state.machinebrand}
 													  disabled={!this.state.editable}
@@ -386,7 +394,7 @@ class CreateMachine extends Component{
 													    	});
 													    }
 													  }}
-													  options={this.props.paramvalue.machinemodel}
+													  options={this.state.machineModelOption}
 													  labelKey="name"
 													  selected={this.state.machinemodel}
 													  inputProps={{"id":"machineModel"}}
@@ -431,7 +439,7 @@ class CreateMachine extends Component{
 													    	});
 													    }
 													  }}
-													  options={this.props.paramvalue.enginebrand}
+													  options={this.state.engineBrandOption}
 													  labelKey="name"
 													  selected={this.state.enginebrand}
 													  disabled={!this.state.editable}
@@ -452,7 +460,7 @@ class CreateMachine extends Component{
 													    	});
 													    }
 													  }}
-													  options={this.props.paramvalue.enginemodel}
+													  options={this.state.engineModelOption}
 													  labelKey="name"
 													  selected={this.state.enginemodel}
 													  inputProps={{"id":"machineEngineModel"}}
@@ -530,7 +538,7 @@ class CreateMachine extends Component{
 													    	});
 													    }
 													  }}
-													  options={this.props.paramvalue.condition}
+													  options={this.state.conditionOption}
 													  labelKey="name"
 													  selected={this.state.conditionname}
 													  inputProps={{"id":"machineCondition"}}
@@ -573,7 +581,7 @@ class CreateMachine extends Component{
 													    }
 													    //call api for district
 													  }}
-													  options={this.props.paramvalue.state}
+													  options={this.state.stateOption}
 													  labelKey="name"
 													  selected={this.state.statename}
 													  disabled={!this.state.editable}
@@ -595,7 +603,7 @@ class CreateMachine extends Component{
 													    }
 													    //call api for site
 													  }}
-													  options={this.props.paramvalue.district}
+													  options={this.state.districtOption}
 													  labelKey="name"
 													  selected={this.state.districtname}
 													  disabled={!this.state.editable}
@@ -616,7 +624,7 @@ class CreateMachine extends Component{
 													    	});
 													    }
 													  }}
-													  options={this.props.paramvalue.site}
+													  options={this.state.siteOption}
 													  labelKey="name"
 													  selected={this.state.sitename}
 													  inputProps={{"id":"machineSite"}}
