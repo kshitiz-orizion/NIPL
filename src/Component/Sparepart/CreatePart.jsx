@@ -104,7 +104,7 @@ class CreateEnginebrand extends Component{
 								<div className="container">
 								<h5>{this.props.mode==='EDIT'?'Edit Part':'Create Part'}</h5>
 								</div>
-								<div className="container formContainer" >
+								<div className="formContainer" >
 									<form className="form-inline machineForm" >
 										  <div className="form-group col-md-12 inputPaddingMachine">
 										    <label  className="col-md-3">Category</label>
@@ -128,7 +128,7 @@ class CreateEnginebrand extends Component{
 										  <div className=" col-md-12 inputPaddingMachine">
 										    <div className="row">
 											    <label className="col-md-3">Make</label>
-											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
+											    <div className="col-md-9">
 											    <Typeahead
 													  onChange={(selected) => {
 													    this.setState({modelname:selected});

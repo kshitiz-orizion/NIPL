@@ -64,12 +64,12 @@ class CreateMachinemodel extends Component{
 								<div className="container">
 								<h5>{this.props.mode==='EDIT'?'Edit Machine Model':'Create Machine Model'}</h5>
 								</div>
-								<div className="container formContainer" >
+								<div className="formContainer" >
 									<form className="form-inline machineForm" >
 										<div className=" col-md-12 inputPaddingMachine">
 										  	<div className="row">
 											    <label className="col-md-3">Machine Brand</label>
-											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
+											    <div className="col-md-9">
 											    <Typeahead
 													  onChange={(selected) => {
 													    this.setState({machinebrand:selected});

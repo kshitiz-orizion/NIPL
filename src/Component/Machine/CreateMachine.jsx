@@ -264,7 +264,7 @@ class CreateMachine extends Component{
 									editable:true
 								})}>Edit Machine</button>}
 								</div>
-								<div className="container formContainer" >
+								<div className="formContainer" >
 									<form className="form-inline machineForm" onSubmit={this.props.handleSubmit(this.submitUser)}>
 										<div className="form-group col-md-12 inputPaddingMachine">
 										    <label  className="col-md-3">Name</label>
@@ -286,7 +286,7 @@ class CreateMachine extends Component{
 										<div className=" col-md-12 inputPaddingMachine">
 										  	<div className="row">
 											    <label className="col-md-3">Category</label>
-											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
+											    <div className="col-md-9">
 											    <Typeahead
 													  renderMenuItemChildren={this._renderMenuItemChildren}
 											          options={this.state.categoryOption}
@@ -361,7 +361,7 @@ class CreateMachine extends Component{
 										  <div className=" col-md-12 inputPaddingMachine">
 										    <div className="row">
 											    <label className="col-md-3">Make</label>
-											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
+											    <div className="col-md-9">
 											    <Typeahead
 													  onChange={(selected) => {
 													    this.setState({machinebrand:selected});
@@ -397,7 +397,7 @@ class CreateMachine extends Component{
 										  <div className=" col-md-12 inputPaddingMachine">
 										    <div className="row">
 											    <label htmlFor="email" className="col-md-3">Model</label>
-											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
+											    <div className="col-md-9">
 											    <Typeahead
 													  onChange={(selected) => {
 													    this.setState({machinemodel:selected});
@@ -442,7 +442,7 @@ class CreateMachine extends Component{
 										  <div className=" col-md-12 inputPaddingMachine">
 										    <div className="row">
 											    <label htmlFor="email" className="col-md-3">Engine Make</label>
-											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
+											    <div className="col-md-9" >
 											    <Typeahead
 													  onChange={(selected) => {
 													    this.setState({enginebrand:selected});
@@ -463,7 +463,7 @@ class CreateMachine extends Component{
 										  <div className=" col-md-12 inputPaddingMachine">
 										    <div className="row">
 											    <label htmlFor="email" className="col-md-3">Engine  Model</label>
-											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
+											    <div className="col-md-9">
 											    <Typeahead
 													  onChange={(selected) => {
 													    this.setState({enginemodel:selected});
@@ -541,7 +541,7 @@ class CreateMachine extends Component{
 										  <div className=" col-md-12 inputPaddingMachine">
 										    <div className="row">
 											    <label className="col-md-3">Condition</label>
-											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
+											    <div className="col-md-9">
 											    <Typeahead
 													  onChange={(selected) => {
 													    this.setState({conditionname:selected});
@@ -583,7 +583,7 @@ class CreateMachine extends Component{
 										  <div className=" col-md-12 inputPaddingMachine">
 										    <div className="row">
 											    <label htmlFor="email" className="col-md-3">State</label>
-											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
+											    <div className="col-md-9">
 											    <Typeahead
 													  onChange={(selected) => {
 													    this.setState({statename:selected});
@@ -605,7 +605,7 @@ class CreateMachine extends Component{
 										  <div className=" col-md-12 inputPaddingMachine">
 										    <div className="row">
 											    <label htmlFor="email" className="col-md-3">District</label>
-											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
+											    <div className="col-md-9">
 											    <Typeahead
 													  onChange={(selected) => {
 													    this.setState({districtname:selected});
@@ -627,7 +627,7 @@ class CreateMachine extends Component{
 										  <div className=" col-md-12 inputPaddingMachine">
 										    <div className="row">
 											    <label htmlFor="email" className="col-md-3">Site</label>
-											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
+											    <div className="col-md-9">
 											    <Typeahead
 													  onChange={(selected) => {
 													    this.setState({sitename:selected});

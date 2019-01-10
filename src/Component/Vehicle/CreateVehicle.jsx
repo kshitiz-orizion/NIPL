@@ -483,7 +483,7 @@ class CreateVehicles extends Component{
 								<div className="col-md-12 inputPaddingMachine">
 									<div className="row">
 										<label  className="col-md-3">Type</label>
-										<div className="col-md-9" style={{marginLeft:'-7px'}}>
+										<div className="col-md-9">
 											<Typeahead
 												          options={this.props.componentValue.type}
 												          labelKey="name"
@@ -510,7 +510,7 @@ class CreateVehicles extends Component{
 								<div className="col-md-12 inputPaddingMachine">
 									<div className="row">
 										<label  className="col-md-3">Make</label>
-										<div className="col-md-9" style={{marginLeft:'-7px'}}>
+										<div className="col-md-9" >
 											<Typeahead
 												          options={this.props.componentValue.make}
 												          labelKey="name"
@@ -530,7 +530,7 @@ class CreateVehicles extends Component{
 								<div className="col-md-12 inputPaddingMachine">
 									<div className="row">
 										<label  className="col-md-3">Model</label>
-										<div className="col-md-9" style={{marginLeft:'-7px'}}>
+										<div className="col-md-9">
 											<Typeahead
 												          options={this.props.componentValue.model}
 												          labelKey="name"
@@ -589,7 +589,7 @@ class CreateVehicles extends Component{
 								<div className="col-md-12 inputPaddingMachine">
 									<div className="row">
 										<label  className="col-md-3">Status</label>
-										<div className="col-md-9" style={{marginLeft:'-7px'}}>
+										<div className="col-md-9">
 											<Typeahead
 												          options={this.props.componentValue.status}
 												          labelKey="name"
@@ -616,7 +616,7 @@ class CreateVehicles extends Component{
 								<div className="col-md-12 inputPaddingMachine">
 									<div className="row">
 										<label  className="col-md-3">Ownership</label>
-										<div className="col-md-9" style={{marginLeft:'-7px'}}>
+										<div className="col-md-9">
 											<Typeahead
 												          options={this.props.componentValue.ownership}
 												          labelKey="name"
@@ -643,7 +643,7 @@ class CreateVehicles extends Component{
 								<div className="col-md-12 inputPaddingMachine">
 									<div className="row">
 										<label  className="col-md-3">Color</label>
-										<div className="col-md-9" style={{marginLeft:'-7px'}}>
+										<div className="col-md-9">
 											<Typeahead
 												          options={this.props.componentValue.color}
 												          labelKey="name"
@@ -670,7 +670,7 @@ class CreateVehicles extends Component{
 								<div className="col-md-12 inputPaddingMachine">
 									<div className="row">
 										<label  className="col-md-3">Body Type</label>
-										<div className="col-md-9" style={{marginLeft:'-7px'}}>
+										<div className="col-md-9">
 											<Typeahead
 												          options={this.props.componentValue.body}
 												          labelKey="name"
@@ -901,7 +901,7 @@ class CreateVehicles extends Component{
 								<div className="col-md-12 inputPaddingMachine">
 									<div className="row">
 										<label  className="col-md-3">Engine Make</label>
-										<div className="col-md-9" style={{marginLeft:'-7px'}}>
+										<div className="col-md-9">
 											<Typeahead
 												          options={this.props.componentValue.enginebrand}
 												          labelKey="name"
@@ -921,7 +921,7 @@ class CreateVehicles extends Component{
 								<div className="col-md-12 inputPaddingMachine">
 									<div className="row">
 										<label  className="col-md-3">Engine Model</label>
-										<div className="col-md-9" style={{marginLeft:'-7px'}}>
+										<div className="col-md-9">
 											<Typeahead
 												          options={this.props.componentValue.enginemodel}
 												          labelKey="name"
@@ -1016,7 +1016,7 @@ class CreateVehicles extends Component{
 								<div className="col-md-12 inputPaddingMachine">
 									<div className="row">
 										<label  className="col-md-3">Drive Type</label>
-										<div className="col-md-9" style={{marginLeft:'-7px'}}>
+										<div className="col-md-9">
 											<Typeahead
 												          options={this.props.componentValue.drive}
 												          labelKey="name"
@@ -1043,7 +1043,7 @@ class CreateVehicles extends Component{
 								<div className="col-md-12 inputPaddingMachine">
 									<div className="row">
 										<label  className="col-md-3">Brake System</label>
-										<div className="col-md-9" style={{marginLeft:'-7px'}}>
+										<div className="col-md-9">
 											<Typeahead
 												          options={this.props.componentValue.brake}
 												          labelKey="name"
@@ -1090,7 +1090,7 @@ class CreateVehicles extends Component{
 								<div className="col-md-12 inputPaddingMachine">
 									<div className="row">
 										<label  className="col-md-3">Fuel Type</label>
-										<div className="col-md-9" style={{marginLeft:'-7px'}}>
+										<div className="col-md-9">
 											<Typeahead
 												          options={this.props.componentValue.fuel}
 												          labelKey="name"
@@ -1185,7 +1185,7 @@ class CreateVehicles extends Component{
 								<div className="col-md-12 inputPaddingMachine">
 									<div className="row">
 										<label  className="col-md-3">Available at Site</label>
-										<div className="col-md-9" style={{marginLeft:'-7px'}}>
+										<div className="col-md-9" >
 											<Typeahead
 												          options={this.props.componentValue.site}
 												          labelKey="name"

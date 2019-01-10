@@ -42,7 +42,7 @@ class CreateMachinebrand extends Component{
 								<div className="container">
 								<h5>{this.props.mode==='EDIT'?'Edit Machine Brand':'Create Machine Brand'}</h5>
 								</div>
-								<div className="container formContainer" >
+								<div className="formContainer" >
 									<form className="form-inline machineForm" >
 										  <div className="form-group col-md-12 inputPaddingMachine">
 										    <label  className="col-md-3">Name</label>
