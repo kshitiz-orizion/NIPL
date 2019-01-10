@@ -9,9 +9,9 @@ class CreateMachine extends Component{
 			this.setState({
 				editable:false
 			})
-		}else{
+		}else {
 			this.setState({
-				editable:true
+				editable: true
 			})
 		}
 		this.setState({
@@ -230,6 +230,18 @@ class CreateMachine extends Component{
   			remarks:newRemark
   		});
   	}
+	_renderMenuItemChildren(option, props, index) {
+		return [
+			<div key="name" search={props.text}>
+				{option.name}
+			</div>,
+			<div key="population">
+				<small>
+					{option.id}
+				</small>
+			</div>,
+		];
+	}
 	render()
 	{
 		return (
@@ -276,6 +288,7 @@ class CreateMachine extends Component{
 											    <label className="col-md-3">Category</label>
 											    <div className="col-md-9" style={{marginLeft:'-7px'}}>
 											    <Typeahead
+													  renderMenuItemChildren={this._renderMenuItemChildren}
 											          options={this.state.categoryOption}
 											          labelKey="name"
 											          onChange={(selected) => {

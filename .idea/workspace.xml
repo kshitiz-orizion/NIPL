@@ -4,7 +4,6 @@
     <list default="true" id="dcb48423-8e5a-4b73-a906-9630acc6f1a8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Component/Machine/CreateMachine.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Machine/CreateMachine.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Container/Machine/CreateMachineContainer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Container/Machine/CreateMachineContainer.jsx" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -41,8 +40,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Component/Machine/CreateMachine.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="291" column="90" lean-forward="true" selection-start-line="291" selection-start-column="90" selection-end-line="291" selection-end-column="90" />
+            <state relative-caret-position="176">
+              <caret line="290" column="107" lean-forward="true" selection-start-line="290" selection-start-column="107" selection-end-line="290" selection-end-column="107" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -53,7 +52,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Container/Machine/CreateMachineContainer.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1073">
+            <state relative-caret-position="1298">
               <caret line="72" column="255" selection-start-line="72" selection-start-column="255" selection-end-line="72" selection-end-column="255" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
@@ -66,7 +65,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Store/Actions/condition/condition.action.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
+            <state relative-caret-position="110">
               <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="75" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
@@ -155,7 +154,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="272" />
     <option name="y" value="22" />
     <option name="width" value="1370" />
@@ -166,7 +165,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -174,49 +172,11 @@
               <item name="nipl_integrated" type="b2602c69:ProjectViewProjectNode" />
               <item name="nipl_integrated" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="nipl_integrated" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nipl_integrated" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nipl_integrated" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nipl_integrated" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Container" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nipl_integrated" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nipl_integrated" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Container" type="462c0819:PsiDirectoryNode" />
-              <item name="Machine" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nipl_integrated" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nipl_integrated" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Store" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nipl_integrated" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nipl_integrated" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Store" type="462c0819:PsiDirectoryNode" />
-              <item name="Actions" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="nipl_integrated" type="b2602c69:ProjectViewProjectNode" />
-              <item name="nipl_integrated" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="Store" type="462c0819:PsiDirectoryNode" />
-              <item name="Actions" type="462c0819:PsiDirectoryNode" />
-              <item name="condition" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -273,11 +233,12 @@
       <workItem from="1547021064616" duration="3301000" />
       <workItem from="1547027105278" duration="9399000" />
       <workItem from="1547098166828" duration="3877000" />
+      <workItem from="1547103925269" duration="1172000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="69062000" />
+    <option name="totallyTimeSpent" value="70234000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1044" extended-state="6" />
@@ -287,9 +248,9 @@
       <window_info id="npm" order="1" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.24828677" />
       <window_info id="Structure" order="3" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="0" visible="true" weight="0.29517397" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="0" visible="true" weight="0.29405162" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="2" />
+      <window_info anchor="bottom" id="Version Control" order="2" weight="0.32996634" />
       <window_info anchor="bottom" id="Docker" order="3" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" />
@@ -469,6 +430,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Container/Machine/CreateMachineContainer.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1298">
+          <caret line="72" column="255" selection-start-line="72" selection-start-column="255" selection-end-line="72" selection-end-column="255" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#451#555#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Store/Actions/condition/condition.action.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="75" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Container/Home/homeContainer.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="286">
@@ -500,38 +489,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Store/Actions/condition/condition.action.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="75" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Container/Machine/CreateMachineContainer.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1073">
-          <caret line="72" column="255" selection-start-line="72" selection-start-column="255" selection-end-line="72" selection-end-column="255" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-            <element signature="e#451#555#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Component/Machine/CreateMachine.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="291" column="90" lean-forward="true" selection-start-line="291" selection-start-column="90" selection-end-line="291" selection-end-column="90" />
+        <state relative-caret-position="176">
+          <caret line="290" column="107" lean-forward="true" selection-start-line="290" selection-start-column="107" selection-end-line="290" selection-end-column="107" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
           </folding>
