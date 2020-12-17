@@ -5,7 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^4.1.3",
-    "datatables.net": "^1.10.19",
+    "datatables.net": "^1.10.22",
     "fullcalendar-reactwrapper": "^1.0.7",
     "jquery": "^3.3.1",
     "jwt-decode": "^2.2.0",
